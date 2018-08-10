@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'seleccionEquipo', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'seleccionEquipo', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },
+  { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },
 ];
 
 @NgModule({

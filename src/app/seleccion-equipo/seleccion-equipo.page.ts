@@ -14,6 +14,7 @@ import { Equipo } from '../../Model/equipo';
 })
 export class SeleccionEquipoPage implements OnInit {
 
+
   equipoItem: Observable<any[]>;
   equipo: any;
   marcaItem: Observable<any[]>;
@@ -50,13 +51,12 @@ export class SeleccionEquipoPage implements OnInit {
   }
 
   updateEquipo(descripcion: string) {
-    const equipoModificar = { id: this.idEquipoSeleccionado, descripcion: descripcion};
-    this.api.updateItem(equipoModificar, 'EQUIPO');
+    const valoresModificar = {descripcion: descripcion};
+    this.api.updateItemValues(this.idEquipoSeleccionado, valoresModificar, 'EQUIPO');
   }
 
   deleteEquipo() {
-    const equipoBorrar = {id: this.idEquipoSeleccionado};
-    this.api.deleteItem(equipoBorrar, 'EQUIPO');
+    this.api.deleteItem(this.idEquipoSeleccionado, 'EQUIPO');
   }
 
 }

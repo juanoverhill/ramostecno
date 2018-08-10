@@ -47,26 +47,27 @@ export class ApiService {
   }
 
   addItem(ItemToAdd: any, nameCollection: string) {
-    this.itemDoc = this.afs.doc(nameCollection + '/' + ItemToAdd);
     // ItemToAdd will be like {id: value, property: value}
-    const itemsCollection = this.afs.collection('nameCollection');
+    const itemsCollection = this.afs.collection(nameCollection);
     itemsCollection.add(ItemToAdd);
   }
 
-  updateItem(ItemMod: any, nameCollection: string) {
-    this.itemDoc = this.afs.doc(nameCollection + '/' + ItemMod);
-    // ItemMod will be like {id: value, property: value}
-    this.itemDoc.set(ItemMod);
+  // This function reset the document with all the values specified in itemValues
+  updateItem(itemID: any, itemValues: any, nameCollection: string) {
+    this.itemDoc = this.afs.doc(nameCollection + '/' + itemID);
+    // itemValues will be like {id: value, property: value}
+    this.itemDoc.set(itemValues);
   }
 
-  updateItemValues(ItemMod: any, nameCollection: string) {
-    this.itemDoc = this.afs.doc(nameCollection + '/'  + ItemMod);
-    // ItemMod will be like {id: value, property: value}
-    this.itemDoc.update(ItemMod);
+  // This function updates a specific property of the document
+  updateItemValues(idItem: any, valuesToModify: any, nameCollection: string) {
+    this.itemDoc = this.afs.doc(nameCollection + '/'  + idItem);
+    // valuesToModify will be like {property1: value, property2: value}
+    this.itemDoc.update(valuesToModify);
   }
 
-  deleteItem(ItemDel: any, nameCollection: string) {
-    this.itemDoc = this.afs.doc(nameCollection + '/' + ItemDel);
+  deleteItem(idItem: any, nameCollection: string) {
+    this.itemDoc = this.afs.doc(nameCollection + '/' + idItem);
     this.itemDoc.delete();
   }
 

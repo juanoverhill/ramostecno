@@ -32,6 +32,12 @@
 
 <ion-button shape="round" color="primary" (click)="updateEquipo(valorActu.value)">Actualizar Equipo</ion-button>
 
-<ion-button shape="round" color="danger" (click)="deleteEquipo()">ELIMINA Equipo</ion-button>
+<ion-button shape="round" color="danger" (click)="picker.open()">ELIMINA Equipo</ion-button>
+
+<mat-form-field hidden>
+<input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha">
+  <mat-datepicker-toggle id="picker" matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker touchUi #picker></mat-datepicker>
+</mat-form-field>
 
 </ion-content>
