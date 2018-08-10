@@ -1,12 +1,71 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content center text-center>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+    </ion-col>
+    <ion-col col-12 col-md-6 col-lg-4 col-xl-3>
+      <img src="assets/img/logo.png" class="imagenLogin">
+    </ion-col>
+    <ion-col>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <p></p>
+  </ion-row>
+    
+  <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-col size="12" size-lg="3">
+<ion-item color="light">
+<ion-label position="stacked">e-mail</ion-label>
+<ion-input clearInput id="email" type="text"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-col size="12" size-lg="3">
+<ion-item color="light">
+<ion-label position="stacked">password</ion-label>
+<ion-input id="pass" type="password" clearInput></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-col>
+            <ion-button color="danger" large full>
+    <ion-icon slot="end" name="mail"></ion-icon>
+              Ingresar con e-mail
+            </ion-button>      
+    </ion-col>  
+  </ion-row>
+<ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-button icon-right block clear >
+<ion-icon slot="end" name="logo-google"></ion-icon>
+      Ingresar con Google
+    </ion-button>
+  </ion-row>
+
+<ion-row justify-content-center align-items-center style="height: 100%">
+  <ion-button icon-right block clear >
+    <ion-icon slot="end" name="logo-facebook"></ion-icon>
+    Ingresar con Facebook
+  </ion-button>
+</ion-row>
+
+<ion-row justify-content-center align-items-center style="height: 100%">
+  <ion-button icon-right block clear >
+    <ion-icon slot="end" name="logo-twitter"></ion-icon>
+    Ingresar con Twitter
+  </ion-button>
+</ion-row>
+
+<div *ngFor="let item of equipos">
+  <h1 (click)="verItem(item)">{{item.descripcion}}</h1>  
+</div>
+</ion-grid> 
+
 </ion-content>

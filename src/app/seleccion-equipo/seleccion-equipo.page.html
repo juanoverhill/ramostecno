@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Seleccione un equipo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+<ion-item color="light">
+  <ion-label>Seleccione la marca:</ion-label>
+  <ion-select [(ngModel)]="marca" (ionChange)="marcaSeleccionado(marca)">
+<ion-select-option *ngFor="let marca of marcaItem | async" value="{{marca.id}}">{{marca.descripcion}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item color="light" [disabled]="marca.id == ''">
+  <ion-label>Seleccione su equipo:</ion-label>
+<ion-select [(ngModel)]="equipo" (ionChange)="equipoSeleccionado(equipo)">
+<ion-select-option *ngFor="let equipo of equipoItem | async" value="{{equipo.id}}">{{equipo.descripcion}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+<ion-input [(ngModel)]="equipo.descripcion" required type="text" placeholder="Descripcion Equipo"></ion-input>
+</ion-item>
+
+<ion-button shape="round" color="primary" (click)="addEquipo(equipo)">Nuevo Equipo</ion-button>
+
+<ion-item>
+<ion-input #valorActu value="{{(equipoSeleccionada | async)?.descripcion}}" required type="text" placeholder="Descripcion Equipo"></ion-input>
+</ion-item>
+
+<ion-button shape="round" color="primary" (click)="updateEquipo(valorActu.value)">Actualizar Equipo</ion-button>
+
+<ion-button shape="round" color="danger" (click)="deleteEquipo()">ELIMINA Equipo</ion-button>
+
+</ion-content>

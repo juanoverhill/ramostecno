@@ -81,4 +81,15 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-firebase-config" spec="^1.0.0" />
+    <universal-links>
+        <!-- this is dynamic link created in firebase -->
+        <host name="calidad-csc.app.goo.gl" scheme="https" />
+        <!-- this is your firebase app link -->
+        <host name="calidad-csc.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback" />
+        </host>
+    </universal-links>
+    <!-- for android -->
+    <preference name="AndroidLaunchMode" value="singleTask" />
 </widget>
