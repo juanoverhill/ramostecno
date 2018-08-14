@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Seleccione un equipo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item color="light">
+    <ion-label>Seleccione la marca:</ion-label>
+    <ion-select [(ngModel)]="marcaSeleccionada" (ionChange)="onMarcaChange(marcaSeleccionada)">
+      <ion-select-option name="marca_id" *ngFor="let marca of _marcas | async" value={{marca.id}}>{{marca.descripcion}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item color="light" [disabled]="marcaSeleccionada == undefined">
+    <ion-label>Seleccione su equipo:</ion-label>
+    <ion-select [(ngModel)]="equipoSeleccionado" (ionChange)="onEquipoChange(equipoSeleccionado)">
+      <ion-select-option *ngFor="let equipo of _equipos | async" value="{{equipo.id}}">{{equipo.descripcion}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item color="light" [disabled]="equipoSeleccionado == undefined">
+    <ion-label>Seleccione el tipo de reparacion:</ion-label>
+    <ion-select [(ngModel)]="reparacionSeleccionada" (ionChange)="onReparacionChange(reparacionSeleccionada)">
+      <ion-select-option *ngFor="let reparacion of _reparaciones | async" value="{{reparacion.id}}">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-card color="light" [hidden]="reparacionSeleccionada == undefined"> 
+    <ion-card-content>
+      <ion-card-title>Importe: ${{(rep | async)?.valor}}</ion-card-title>
+      <p></p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button [hidden]="reparacionSeleccionada == undefined" (click)="picker.open()" shape="round" color="primary">Solicitar turno</ion-button>
+
+  <mat-form-field hidden>
+    <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha">
+    <mat-datepicker-toggle id="picker" matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+
+</ion-content>

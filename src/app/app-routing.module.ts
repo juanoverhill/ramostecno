@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'seleccionEquipo', pathMatch: 'full' },
+  { path: '', redirectTo: 'startUp', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'seleccionEquipo', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },
-  { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },
+  { path: 'startUp', loadChildren: './start-up/start-up.module#StartUpPageModule' },
 ];
 
 @NgModule({
