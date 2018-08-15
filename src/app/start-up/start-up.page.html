@@ -1,40 +1,54 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Seleccione un equipo</ion-title>
+    <ion-title>Reparacion de equipos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
-  <ion-item color="light">
-    <ion-label>Seleccione la marca:</ion-label>
-    <ion-select [(ngModel)]="marcaSeleccionada" (ionChange)="onMarcaChange(marcaSeleccionada)">
-      <ion-select-option name="marca_id" *ngFor="let marca of _marcas | async" value={{marca.id}}>{{marca.descripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item color="light" [disabled]="marcaSeleccionada == undefined">
-    <ion-label>Seleccione su equipo:</ion-label>
-    <ion-select [(ngModel)]="equipoSeleccionado" (ionChange)="onEquipoChange(equipoSeleccionado)">
-      <ion-select-option *ngFor="let equipo of _equipos | async" value="{{equipo.id}}">{{equipo.descripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item color="light" [disabled]="equipoSeleccionado == undefined">
-    <ion-label>Seleccione el tipo de reparacion:</ion-label>
-    <ion-select [(ngModel)]="reparacionSeleccionada" (ionChange)="onReparacionChange(reparacionSeleccionada)">
-      <ion-select-option *ngFor="let reparacion of _reparaciones | async" value="{{reparacion.id}}">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-card color="light" [hidden]="reparacionSeleccionada == undefined"> 
-    <ion-card-content>
-      <ion-card-title>Importe: ${{(rep | async)?.valor}}</ion-card-title>
-      <p></p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-button [hidden]="reparacionSeleccionada == undefined" (click)="picker.open()" shape="round" color="primary">Solicitar turno</ion-button>
+  <ion-grid>
+<ion-card color="medium" class="animated fadeIn">
+    <ion-row>
+      <ion-item-divider color="primary">
+        <ion-label>Por favor seleccione el equipo que desea reparar</ion-label>
+      </ion-item-divider>
+    <ion-col size-lg="6" size-xs="12">       
+    <ion-item color="light">
+        <ion-label>Seleccione la marca:</ion-label>
+        <ion-select [(ngModel)]="marcaSeleccionada" (ionChange)="onMarcaChange(marcaSeleccionada)">
+          <ion-select-option name="marca_id" *ngFor="let marca of _marcas | async" value={{marca.id}}>{{marca.descripcion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size-lg="6" size-xs="12">
+      <ion-item color="light" [disabled]="marcaSeleccionada == undefined">
+        <ion-label>Seleccione su equipo:</ion-label>
+        <ion-select [(ngModel)]="equipoSeleccionado" (ionChange)="onEquipoChange(equipoSeleccionado)">
+          <ion-select-option *ngFor="let equipo of _equipos | async" value="{{equipo.id}}">{{equipo.descripcion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size-lg="12" size-xs="12">
+      <ion-item-divider color="primary">
+        <ion-label>Por favor seleccione alguna reparacion disponible</ion-label>
+      </ion-item-divider>
+      <ion-item color="light" [disabled]="equipoSeleccionado == undefined">
+        <ion-label>Seleccione el tipo de reparacion:</ion-label>
+        <ion-select [(ngModel)]="reparacionSeleccionada" (ionChange)="onReparacionChange(reparacionSeleccionada)">
+          <ion-select-option *ngFor="let reparacion of _reparaciones | async" value="{{reparacion.id}}">{{(reparacion.reparacionRef
+            | doc | async)?.descripcion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size-lg="12" size-xs="12">
+<ion-item [hidden]="reparacionSeleccionada == undefined" color="light" lines="inset" class="animated bounceInLeft">
+        <h4>Importe estimado de reparacion: ${{(rep | async)?.valor}}</h4>
+        <ion-button slot="end" (click)="picker.open()" shape="round" color="primary">Solicitar
+          turno </ion-button>
+      </ion-item> 
+    </ion-col>    
+    </ion-row>
+    </ion-card>
+  </ion-grid> 
 
   <mat-form-field hidden>
     <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha">

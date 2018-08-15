@@ -1,3 +1,4 @@
+import { SendMailService } from './../../services/send-mail.service';
 import { FirestoreService } from './../../services/f-base.service';
 import { Equipo, Marca, PrecioReparacion } from './../../Model/models';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,7 @@ import { Compiler } from '@angular/core';
 })
 export class StartUpPage implements OnInit {
 
-  constructor(private afs: AngularFirestore, private _compiler: Compiler, private fb: FirestoreService) { }
+  constructor(private afs: AngularFirestore, private _compiler: Compiler, private fb: FirestoreService, private sMail: SendMailService) { }
 
   _equipos: Observable<Equipo[]>;
   _marcas: Observable<Marca[]>;
@@ -41,5 +42,9 @@ export class StartUpPage implements OnInit {
 
   onReparacionChange(reparacionID) {
      this.rep = this.fb.doc$('PRECIO_REPARACION/' + reparacionID);
+  }
+
+  enviaMail() {
+    this.sMail.sendEmail('Juan');
   }
 }

@@ -10,18 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-admin.initializeApp(functions.config().firebase);
+const sgMail = require("@sendgrid/mail");
+admin.initializeApp();
 const db = admin.firestore();
 const Equipos = db.collection('EQUIPO');
+// const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+const SENDGRID_API_KEY = functions.config().sendgrid.key;
+const cors = require('cors')({ origin: true });
+sgMail.setApiKey(SENDGRID_API_KEY);
+sgMail.setSubstitutionWrappers('{{', '}}'); // Configure the substitution tag wrappers globally
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-exports.AddEquipo = functions.https.onRequest((request, response) => {
-    const descripcion = 'TEST2';
-    return db.collection('EQUIPO').add({ descripcion: descripcion }).then((result) => {
-        return response.json({ result: 'EQUIPO with ID: ' + result.id + ' added.' });
-    });
-});
 exports.getEquipos = functions.https.onRequest((req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         const snapshot = yield Equipos.get();
@@ -37,4 +37,31 @@ exports.getEquipos = functions.https.onRequest((req, res) => __awaiter(this, voi
         res.status(500).send(err);
     }
 }));
+exports.httpEmail = functions.https.onRequest((req, res) => {
+    cors(req, res, () => {
+        const toName = req.body.toName;
+        const toEmail = req.body.toEmail;
+        const msg = {
+            to: toEmail,
+            from: 'juan.arias@csantacatalina.com.ar',
+            subject: 'Bienvenido',
+            // text: `Hey ${toName}. You have a new follower!!! `,
+            // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
+            // custom templates
+            templateId: 'd-47b68a6dc0a1409eba235610e806d017',
+            personalizations: [
+                {
+                    to: [{ email: toEmail }],
+                    dynamic_template_data: {
+                        name: toName
+                        // and other custom properties here
+                    }
+                }
+            ]
+        };
+        return sgMail.send(msg)
+            .then(() => res.status(200).send('email sent!'))
+            .catch(err => res.status(400).send(err));
+    });
+});
 //# sourceMappingURL=index.js.map
