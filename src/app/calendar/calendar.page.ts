@@ -1,6 +1,9 @@
 import { FirestoreService } from './../../services/f-base.service';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponentOptions, DayConfig } from 'ion4-calendar';
+import { map} from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -11,6 +14,8 @@ export class CalendarPage implements OnInit {
 
   daysConfig: DayConfig[] = [];
   nDias: any;
+  diasAnulados: any;
+  promiseResult: any;
 
   date: string;
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
@@ -20,19 +25,32 @@ export class CalendarPage implements OnInit {
     daysConfig: this.daysConfig
   };
 
-  constructor(private fBase: FirestoreService) {
+  constructor(private fBase: FirestoreService, private route: ActivatedRoute) {
+
    }
 
   ngOnInit() {
-    this.getDiasAnulados();
-    this.anular_n_dias(this.nDias);
+    console.log(this.route.data);
   }
 
-  getDiasAnulados() {
-    
+   async getDiasAnulados() {
+    const data = await this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').toPromise().then(d => {
+      this.promiseResult = d;
+    });
+     console.log(this.promiseResult);
   }
 
-  anular_n_dias(n) {
+  testPromise() {
+    try {
+      let dias = 0;
+      this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').subscribe(d => {
+        dias = d.dias_anulados;
+      });
+    } catch (error) {console.log(error); }
+  }
+
+   anular_n_dias(n) {
+    // const n = await this.getDiasAnulados();
     for (let i = 0; i <= n; i++) {
       this.daysConfig.push({
         date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + i),
