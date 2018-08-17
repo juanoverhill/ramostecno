@@ -13,51 +13,61 @@ import { ActivatedRoute } from '@angular/router';
 export class CalendarPage implements OnInit {
 
   daysConfig: DayConfig[] = [];
-  nDias: any;
   diasAnulados: any;
-  promiseResult: any;
+  cargoOK = false;
 
   date: string;
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   options: CalendarComponentOptions = {
     weekdays: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+    monthPickerFormat: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'],
     pickMode: 'single',
     daysConfig: this.daysConfig
   };
 
   constructor(private fBase: FirestoreService, private route: ActivatedRoute) {
-
    }
 
   ngOnInit() {
-    console.log(this.route.data);
+    this.getNDiasAnulados();
   }
 
-   async getDiasAnulados() {
-    const data = await this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').toPromise().then(d => {
-      this.promiseResult = d;
+   getNDiasAnulados() {
+    this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').subscribe(d => {
+      this.cargoOK = true;
+      this.anularFechas(d.dias_anulados);
     });
-     console.log(this.promiseResult);
-  }
-
-  testPromise() {
-    try {
-      let dias = 0;
-      this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').subscribe(d => {
-        dias = d.dias_anulados;
-      });
-    } catch (error) {console.log(error); }
   }
 
    anular_n_dias(n) {
-    // const n = await this.getDiasAnulados();
     for (let i = 0; i <= n; i++) {
       this.daysConfig.push({
         date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + i),
-        subTitle: '--',
+        subTitle: '',
         disable: true
       });
     }
   }
 
+  anularFechas(n) {
+    const fechaDesde = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + n);
+    const actualYear = new Date().getFullYear();
+    const dateInicial = new Date('2018-01-01');
+    // tslint:disable-next-line:max-line-length
+    for (let fechaActual = dateInicial; fechaActual.getFullYear() <= (actualYear + 2); fechaActual = new Date(fechaActual.getTime() + (1000 * 60 * 60 * 24))) {
+      if (fechaActual.getDay() === 6 || fechaActual.getDay() === 0) {
+        this.daysConfig.push({
+          date: fechaActual,
+          subTitle: '',
+          disable: true
+        });
+      } else if (fechaActual > fechaDesde) {
+        this.daysConfig.push({
+          date: fechaActual,
+          subTitle: 'disp.',
+          disable: false
+        });
+      }
+    }
+  }
 }

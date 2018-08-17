@@ -5,5 +5,14 @@
 </ion-header>
 
 <ion-content padding>
-<ion-calendar [(ngModel)]="date" [options]="options" [type]="type" [format]="'DD-MM-YYYY'"></ion-calendar>
+  <ion-grid>
+    <ion-row>
+  <ion-col class="animated bounceInDown centered-Top" size-lg="6" size-xs="12">
+<ion-item-divider color="primary">
+      <ion-label>Por favor selecciona una fecha disponible</ion-label>
+    </ion-item-divider>
+        <ion-calendar *ngIf="cargoOK" [(ngModel)]="date" [options]="options" [type]="type" [format]="'DD-MM-YYYY'"></ion-calendar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
