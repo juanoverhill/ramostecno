@@ -36,6 +36,7 @@ export class CalendarPage implements OnInit {
     this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').subscribe(d => {
       this.cargoOK = true;
       this.anularFechas(d.dias_anulados);
+      this.anular_n_dias(d.dias_anulados);
     });
   }
 
