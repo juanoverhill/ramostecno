@@ -1,11 +1,10 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Reparacion de equipos</ion-title>
-  </ion-toolbar>
+
 </ion-header>
 
 <ion-content padding>
   <ion-grid>
+      <img class="imageLogo animated bounceInTop" src="../../assets/img/banner.jpg">
 <ion-card color="medium" class="animated fadeIn">
     <ion-row>
       <ion-item-divider color="primary">
@@ -13,8 +12,8 @@
       </ion-item-divider>
     <ion-col size-lg="6" size-xs="12">       
     <ion-item color="light">
-        <ion-label>Seleccione la marca:</ion-label>
-        <ion-select [(ngModel)]="marcaSeleccionada" (ionChange)="onMarcaChange(marcaSeleccionada)">
+        <ion-label>Seleccione la marca: </ion-label>
+        <ion-select placeholder="pulse aqui para seleccionar" [(ngModel)]="marcaSeleccionada" (ionChange)="onMarcaChange(marcaSeleccionada)">
           <ion-select-option name="marca_id" *ngFor="let marca of _marcas | async" value={{marca.id}}>{{marca.descripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -22,7 +21,7 @@
     <ion-col size-lg="6" size-xs="12">
       <ion-item color="light" [disabled]="marcaSeleccionada == undefined">
         <ion-label>Seleccione su equipo:</ion-label>
-        <ion-select [(ngModel)]="equipoSeleccionado" (ionChange)="onEquipoChange(equipoSeleccionado)">
+        <ion-select placeholder="pulse aqui para seleccionar" [(ngModel)]="equipoSeleccionado" (ionChange)="onEquipoChange(equipoSeleccionado)">
           <ion-select-option *ngFor="let equipo of _equipos | async" value="{{equipo.id}}">{{equipo.descripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -33,7 +32,7 @@
       </ion-item-divider>
       <ion-item color="light" [disabled]="equipoSeleccionado == undefined">
         <ion-label>Seleccione el tipo de reparacion:</ion-label>
-        <ion-select [(ngModel)]="reparacionSeleccionada" (ionChange)="onReparacionChange(reparacionSeleccionada)">
+        <ion-select placeholder="pulse aqui para seleccionar" [(ngModel)]="reparacionSeleccionada" (ionChange)="onReparacionChange(reparacionSeleccionada)">
           <ion-select-option *ngFor="let reparacion of _reparaciones | async" value="{{reparacion.id}}">{{(reparacion.reparacionRef
             | doc | async)?.descripcion}}</ion-select-option>
         </ion-select>

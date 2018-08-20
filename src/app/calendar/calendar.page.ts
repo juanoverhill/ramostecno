@@ -5,12 +5,18 @@ import { map} from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
+interface diasAnuladosIternface {
+    dias_anulados: string;
+}
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.page.html',
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+
+ 
 
   daysConfig: DayConfig[] = [];
   diasAnulados: any;
@@ -34,8 +40,9 @@ export class CalendarPage implements OnInit {
 
    getNDiasAnulados() {
     this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').subscribe(d => {
+      const data = d as diasAnuladosIternface;
       this.cargoOK = true;
-      this.anularFechas(d.dias_anulados);
+      this.anularFechas(data.dias_anulados);
     });
   }
 
