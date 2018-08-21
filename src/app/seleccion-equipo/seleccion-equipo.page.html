@@ -1,0 +1,42 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+<ion-item color="primary">
+  <h5 class="titulo animated fadeIn">Ahora selecciona tu equipo</h5>
+</ion-item>
+<ion-row class="contenedor">
+  <ion-col  size-lg="11" size-sm="12">
+    <ion-slides *ngIf="isLoad" scrollbar="true" [options]="slideOpts">
+      <ion-slide *ngFor="let equipo of _equipos">
+        <ion-card color="light">
+          <ion-card-header class="texto">
+            <p class="text">
+              <b>{{equipo.descripcion}}</b>
+            </p>
+          </ion-card-header>
+          <div class="line-separator"></div>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+              <mat-form-field>
+                <mat-select placeholder="Color">
+                  <mat-option *ngFor="let color of _colores" [hidden]="color.equipo_id != equipo.id" [value]="color.id">
+                    {{color.color}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </ion-col>
+              <ion-col>
+                <img class="image" src="{{equipo.imagen}}">
+              </ion-col>
+            </ion-row>
+            <ion-button expand="full">Seleccionar equipo</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </ion-col>
+</ion-row>
+</ion-content>

@@ -1,0 +1,38 @@
+.texto {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    display: table;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.image {
+    width: 50%;
+    height: 100%;
+    display: table;
+    margin: 0 auto;
+}
+
+.titulo {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    display: table;
+    margin: 0 auto;
+    color: white;
+}
+
+.contenedor {
+    margin-left: 5%;
+}
+
+.example-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.example-radio-button {
+    margin: 5px;    
+}
+
+.example-selected-value {
+    margin: 15px 0;
+    color: darkblue;
+}
