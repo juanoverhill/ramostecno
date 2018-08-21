@@ -4,9 +4,9 @@
 
 <ion-content>
 <ion-item color="primary">
-  <h5 class="titulo animated fadeIn">Ahora selecciona tu equipo</h5>
+<h5 class="titulo animated fadeIn">Ahora selecciona tu equipo</h5>
 </ion-item>
-<ion-row class="contenedor">
+<ion-row class="contenedor animated fadeIn">
   <ion-col  size-lg="11" size-sm="12">
     <ion-slides *ngIf="isLoad" scrollbar="true" [options]="slideOpts">
       <ion-slide *ngFor="let equipo of _equipos">
@@ -29,7 +29,7 @@
               </mat-form-field>
               </ion-col>
               <ion-col>
-                <img class="image" src="{{equipo.imagen}}">
+                <img class="image animated fadeIn" src="{{equipo.imagen}}">
               </ion-col>
             </ion-row>
             <ion-button expand="full">Seleccionar equipo</ion-button>
@@ -39,4 +39,5 @@
     </ion-slides>
   </ion-col>
 </ion-row>
+<p *ngIf="isLoad" class="texto" style="font-size:14px">✋ Desliza con el mouse para ver mas equipos</p>
 </ion-content>
