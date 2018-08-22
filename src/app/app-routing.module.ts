@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule'},
   { path: 'seleccionMarca', loadChildren: './seleccion-marca/seleccion-marca.module#SeleccionMarcaPageModule' },
   { path: 'seleccionEquipo/:id', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },
+
 ];
 
 @NgModule({

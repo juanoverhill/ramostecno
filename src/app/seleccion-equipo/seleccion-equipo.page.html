@@ -19,20 +19,21 @@
           <div class="line-separator"></div>
           <ion-card-content>
             <ion-row>
-              <ion-col>
-              <mat-form-field>
-                <mat-select placeholder="Color">
+              <ion-col size="4">
+                <mat-form-field [style.width]="'100%'">
+              <mat-select [formControl]="colorControl" placeholder="Color" required (selectionChange)="cambioColor($event)">
                   <mat-option *ngFor="let color of _colores" [hidden]="color.equipo_id != equipo.id" [value]="color.id">
                     {{color.color}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="colorControl.hasError('required')">Selecciona un color</mat-error>
               </mat-form-field>
               </ion-col>
-              <ion-col>
+              <ion-col size="8">
                 <img class="image animated fadeIn" src="{{equipo.imagen}}">
               </ion-col>
             </ion-row>
-            <ion-button expand="full">Seleccionar equipo</ion-button>
+            <ion-button (click)="seleccionarReparacion(equipo.id)" expand="full">Seleccionar equipo</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-slide>

@@ -1,0 +1,25 @@
+<ion-content>
+<ion-grid>
+<ion-item color="primary">
+<p class="titulo animated fadeIn">Selecciona el tipo de reparacion</p>
+</ion-item>
+<ion-card color="light">
+    <ion-card-header>
+        <p class="texto animated pulse">Estas estan disponibles para tu equipo 💪</p>
+    </ion-card-header>
+    <ion-card-content>
+            <ion-spinner name="lines" [hidden]="_cargoOK"></ion-spinner>
+            <ion-list inset="true" class="animated bounceInLeft">
+            <ion-item *ngFor="let reparacion of _reparaciones | async" lines="inset">
+            <ion-label class="texto">
+                <p style="font-size: medium">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</p>
+                <p style="font-size: smaller; color:gray">Efectivo: ${{reparacion.valor_efectivo}}</p>
+                <p style="font-size: smaller;  color:gray">Otros medios de pago: ${{reparacion.valor}}</p>
+            </ion-label>
+            <ion-icon name="arrow-round-forward" slot="end"></ion-icon> 
+                </ion-item>
+            </ion-list>
+    </ion-card-content>
+</ion-card>
+</ion-grid>
+</ion-content>
