@@ -1,23 +1,29 @@
 <ion-content>
 <ion-grid>
 <ion-item-divider color="primary">
-<p class="titulo animated fadeIn">Selecciona el tipo de reparacion</p>
+<p class="titulo animated fadeIn">Necesitamos saber que pasa 😏</p>
 </ion-item-divider>
 <ion-card color="light">
     <ion-card-header>
-        <p class="texto animated pulse">Estas estan disponibles para tu equipo 💪</p>
+        <p class="texto animated pulse">Decinos... que anda pasando con el telefono 🙏</p>
     </ion-card-header>
 <div class="line-separator"></div>
     <ion-card-content>
             <ion-spinner name="lines" [hidden]="_cargoOK"></ion-spinner>
-            <ion-list class="animated bounceInLeft">
-            <ion-item *ngFor="let reparacion of _reparaciones | async" lines="inset" (click)="nextPage(reparacion.id)" >
-            <ion-label class="texto">
-                <p style="font-size: medium">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</p>
-                <p style="font-size: smaller; color:gray">Efectivo: ${{reparacion.valor_efectivo}}</p>
-                <p style="font-size: smaller;  color:gray">Otros medios de pago: ${{reparacion.valor}}</p>
-            </ion-label>
-            <ion-icon name="arrow-round-forward" slot="end"></ion-icon> 
+            <ion-list class="animated bounceInLeft" [hidden]="_categoriaSeleccionada">
+                <ion-item *ngFor="let categoria of _categorias | async" lines="inset" (click)="cargarOpciones(categoria.id)" >
+                    <ion-label class="texto">
+                        <p style="font-size: medium">{{categoria.descripcion}}</p>   
+                    </ion-label>
+                <ion-icon name="arrow-round-forward" slot="end"></ion-icon> 
+                </ion-item>
+            </ion-list> 
+            <ion-list class="animated bounceInLeft" [hidden]="_categoriaSeleccionada == false">
+                <ion-item *ngFor="let reparacion of _reparaciones | async" lines="inset" (click)="nextPage(reparacion.id)">
+                    <ion-label class="texto">
+                        <p style="font-size: medium">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</p>
+                    </ion-label>
+                    <ion-icon name="arrow-round-forward" slot="end"></ion-icon>
                 </ion-item>
             </ion-list>
     </ion-card-content>

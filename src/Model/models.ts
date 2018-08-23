@@ -13,6 +13,8 @@ export class Marca {
 export class Reparacion {
     id?: string;
     descripcion?: string;
+    categoria_id?: string;
+    categoriaRef?: firebase.firestore.DocumentReference;
 }
 
 export class PrecioReparacion {
@@ -22,4 +24,5 @@ export class PrecioReparacion {
     reparacion_id?: string;
     reparacionRef?: firebase.firestore.DocumentReference;
     valor?: number;
+    valor_efectivo?: number;
 }
