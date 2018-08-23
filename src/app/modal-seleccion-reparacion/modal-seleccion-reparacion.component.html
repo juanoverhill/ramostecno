@@ -11,7 +11,7 @@
     <ion-card-content>
             <ion-spinner name="lines" [hidden]="_cargoOK"></ion-spinner>
             <ion-list class="animated bounceInLeft">
-            <ion-item *ngFor="let reparacion of _reparaciones | async" lines="inset">
+            <ion-item *ngFor="let reparacion of _reparaciones | async" lines="inset" (click)="nextPage(reparacion.id)" >
             <ion-label class="texto">
                 <p style="font-size: medium">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</p>
                 <p style="font-size: smaller; color:gray">Efectivo: ${{reparacion.valor_efectivo}}</p>

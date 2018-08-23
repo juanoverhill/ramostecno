@@ -19,7 +19,15 @@ export class SeleccionEquipoPage implements OnInit {
 
   slideOpts = {
     effect: 'slide',
-    slidesPerView: this.checkScreen()
+    slidesPerView: this.checkScreen(),
+    simulateTouch: true,
+    preloadImages: true,
+    mousewheel: {
+      invert: false,
+      sensitivity: 0.5
+    },
+    keyboard: true
+
   };
 
   colorControl = new FormControl('', [Validators.required]);
@@ -48,7 +56,7 @@ export class SeleccionEquipoPage implements OnInit {
   }
 
   checkScreen() {
-    if (window.innerWidth >= 960) {
+    if (window.innerWidth >= 860) {
       return 2.125;
     } else {
       return 1.125;
@@ -66,7 +74,7 @@ export class SeleccionEquipoPage implements OnInit {
   async presentModal(value) {
     const modal = await this.modalController.create({
       component: ModalSeleccionReparacionComponent,
-      componentProps: { idEquipo: value }
+      componentProps: { idEquipo: value, idColor: this.colorSeleccionado }
     });
     return await modal.present();
   }
