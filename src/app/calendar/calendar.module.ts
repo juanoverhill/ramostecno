@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 import { CalendarPage } from './calendar.page';
 
 import { CalendarModule } from 'ion4-calendar';
+import { ModalHorariosComponent } from '../components/modal-horarios/modal-horarios.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,7 @@ const routes: Routes = [
     CalendarModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CalendarPage]
+  declarations: [CalendarPage, ModalHorariosComponent],
+  entryComponents: [ModalHorariosComponent]
 })
 export class CalendarPageModule {}

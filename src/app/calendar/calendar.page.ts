@@ -1,3 +1,4 @@
+
 import { FeriadosService } from './../../services/feriados.service';
 import { FirestoreService } from './../../services/f-base.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,8 @@ import { CalendarComponentOptions, DayConfig } from 'ion4-calendar';
 import { map} from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { ModalHorariosComponent } from '../components/modal-horarios/modal-horarios.component';
 
 interface DiasAnuladosInterface {
     dias_anulados: string;
@@ -34,7 +37,10 @@ export class CalendarPage implements OnInit {
     daysConfig: this.daysConfig
   };
 
-  constructor(private fBase: FirestoreService, private route: ActivatedRoute, private feriados: FeriadosService) {
+  constructor(private fBase: FirestoreService,
+    private route: ActivatedRoute,
+    private feriados: FeriadosService,
+     private modalController: ModalController) {
    }
 
   ngOnInit() {
@@ -104,6 +110,14 @@ export class CalendarPage implements OnInit {
     } else {
       this.anularFechas(n, dias_laborables);
     }
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalHorariosComponent,
+      componentProps: { idEquipo: '', idColor: '', idReparacion: '', fecha: ''}
+    });
+    return await modal.present();
   }
 
 }
