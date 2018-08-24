@@ -6,11 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatSelectModule} from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalSeleccionReparacionComponent } from './../modal-seleccion-reparacion/modal-seleccion-reparacion.component';
+
 
 import { IonicModule } from '@ionic/angular';
 
 import { SeleccionEquipoPage } from './seleccion-equipo.page';
+import { ModalSeleccionReparacionComponent } from '../components/modal-seleccion-reparacion/modal-seleccion-reparacion.component';
 
 
 

@@ -1,4 +1,4 @@
-import { ModalSeleccionReparacionComponent } from './../modal-seleccion-reparacion/modal-seleccion-reparacion.component';
+
 import { Marca } from './../../Model/models';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router,  } from '@angular/router';
@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Equipo } from '../../Model/models';
 import { FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { ModalSeleccionReparacionComponent } from '../components/modal-seleccion-reparacion/modal-seleccion-reparacion.component';
 
 
 @Component({

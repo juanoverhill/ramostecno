@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FirestoreService } from '../../services/f-base.service';
+import { FirestoreService } from '../../../services/f-base.service';
 import { Observable } from 'rxjs';
-import {PrecioReparacion, Reparacion } from './../../Model/models';
 import { NavParams, ModalController } from '@ionic/angular';
-import { DocPipe } from '../doc.pipe';
+import { DocPipe } from '../../doc.pipe';
 import { Router } from '@angular/router';
-
-
+import { PrecioReparacion } from '../../../Model/models';
 
 @Component({
   selector: 'app-modal-seleccion-reparacion',
