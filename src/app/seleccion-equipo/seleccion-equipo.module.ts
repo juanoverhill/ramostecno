@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +12,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SeleccionEquipoPage } from './seleccion-equipo.page';
 
-import { DocPipe } from '../doc.pipe';
+
 
 const routes: Routes = [
   {
@@ -28,9 +29,10 @@ const routes: Routes = [
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SeleccionEquipoPage, ModalSeleccionReparacionComponent, DocPipe],
+  declarations: [SeleccionEquipoPage, ModalSeleccionReparacionComponent],
   entryComponents: [ModalSeleccionReparacionComponent]
 })
 export class SeleccionEquipoPageModule {}

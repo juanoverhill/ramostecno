@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 
 
+
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -25,16 +26,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 
 
-
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
+  exports: [],
   imports: [
     FormsModule,
     MbscModule,
+    HttpClientModule,
     BrowserModule,
-     HttpClientModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatInputModule,

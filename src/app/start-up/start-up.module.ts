@@ -11,7 +11,8 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { IonicModule } from '@ionic/angular';
 
 import { StartUpPage } from './start-up.page';
-import { DocPipe } from '../doc.pipe';
+import { SharedModule } from '../shared.module';
+
 
 const routes: Routes = [
   {
@@ -28,8 +29,9 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [StartUpPage, DocPipe]
+  declarations: [StartUpPage]
 })
 export class StartUpPageModule {}
