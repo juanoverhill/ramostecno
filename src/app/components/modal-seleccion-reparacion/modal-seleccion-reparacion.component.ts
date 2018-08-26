@@ -14,11 +14,14 @@ import { PrecioReparacion } from '../../../Model/models';
 export class ModalSeleccionReparacionComponent implements OnInit {
 
   _categoriaSeleccionada = false;
+  _reparacionSeleccionada = false;
   _cargoOK = false;
   _categorias: Observable<any[]>;
   _reparaciones: Observable<PrecioReparacion[]>;
   equipoID: any;
   colorID: any;
+  _reparacionCotizada: any;
+  _reparacionID: any;
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController) { }
 
@@ -31,8 +34,12 @@ export class ModalSeleccionReparacionComponent implements OnInit {
     });
   }
 
-  nextPage(reparacionID) {
-    this.router.navigateByUrl('/calendar/' + reparacionID + '/' + this.colorID);
+  nextPage() {
+    this.router.navigateByUrl('/calendar/' + this._reparacionID + '/' + this.colorID);
+    this.modalCtrl.dismiss();
+  }
+
+  close() {
     this.modalCtrl.dismiss();
   }
 
@@ -42,7 +49,15 @@ export class ModalSeleccionReparacionComponent implements OnInit {
     this._reparaciones.subscribe(() => {
       this._categoriaSeleccionada = true;
     });
+  }
 
+  cargarDatosReparacion(reparacionID) {
+    this._reparacionCotizada = this.fb.doc$('PRECIO_REPARACION/'+reparacionID);
+    this._reparacionCotizada.subscribe(data => {
+      document.getElementById('textoTitulo').innerHTML = '<p class="texto animated pulse">Tenemos una buena noticia! Podemos ayudarte 💪</p>';
+      this._reparacionSeleccionada = true;
+      this._reparacionID = data.id;
+    })
   }
 
 }

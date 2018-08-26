@@ -112,7 +112,8 @@ export class CalendarPage implements OnInit {
     }
   }
 
-  async presentModal() {
+  async presentModal(fecha) {
+    console.log(fecha._d);
     const modal = await this.modalController.create({
       component: ModalHorariosComponent,
       componentProps: { idEquipo: '', idColor: '', idReparacion: '', fecha: ''}

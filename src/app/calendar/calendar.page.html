@@ -1,21 +1,25 @@
 <ion-header>
 <ion-item-divider color="primary">
+  <br>
   <ion-label class="texto">Buenisimo! Ahora coordinemos un dia para vernos</ion-label>
 </ion-item-divider>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
   <ion-grid>
     <ion-row>
-      <ion-card color="light" class="animated bounceInDown">
+      <ion-col class="centered-Top" size-lg="8" size-xs="12">
+        <ion-card color="light" class="animated bounceInDown">
         <ion-card-content>
           <p class="texto">Podes seleccionar el dia que prefieras, siempre y cuando este disponible... 👇 </p>
         </ion-card-content>
       </ion-card>
+    </ion-col>
+      
     </ion-row>
     <ion-row>
-      <ion-col class="animated bounceInDown centered-Top" size-lg="6" size-xs="12">
-        <ion-calendar *ngIf="cargoOK" [(ngModel)]="date" [options]="options" [type]="type" [format]="'DD-MM-YYYY'"></ion-calendar>
+      <ion-col class="animated bounceInDown centered-Top" size-lg="8" size-xs="12">
+        <ion-calendar *ngIf="cargoOK" [(ngModel)]="date" [options]="options" [type]="type" [format]="'DD-MM-YYYY'" (onChange)="presentModal($event)"></ion-calendar>
       </ion-col>
     </ion-row>
   </ion-grid>
