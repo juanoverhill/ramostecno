@@ -22,6 +22,8 @@ interface DiasAnuladosInterface {
 })
 export class CalendarPage implements OnInit {
 
+  reparacionID: string;
+  colorID: string;
 
   daysConfig: DayConfig[] = [];
   diasAnulados: any;
@@ -44,6 +46,8 @@ export class CalendarPage implements OnInit {
    }
 
   ngOnInit() {
+    this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
+    this.colorID = this.route.snapshot.paramMap.get('idColor');
     this.getNDiasAnulados();
   }
 
@@ -113,10 +117,9 @@ export class CalendarPage implements OnInit {
   }
 
   async presentModal(fecha) {
-    console.log(fecha._d);
     const modal = await this.modalController.create({
       component: ModalHorariosComponent,
-      componentProps: { idEquipo: '', idColor: '', idReparacion: '', fecha: ''}
+      componentProps: {idColor: this.colorID, idReparacion: this.reparacionID, fecha: fecha._d}
     });
     return await modal.present();
   }

@@ -1,3 +1,29 @@
-<p>
-  modal-horarios works!
-</p>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1">
+        <ion-button size="small" color="danger" (click)="close()">X</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-item-divider color="primary">
+          <p class="titulo animated fadeIn">Coordinemos un horario...👌</p>
+        </ion-item-divider>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-card color="light">
+        <ion-card-header>
+          <p class="texto">Estos son los horarios disponibles</p>
+          <div class="line-separator"></div>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list *ngIf="cargoOK">
+            <ion-item *ngFor="let hora of _horarios">
+              <ion-label>{{hora}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</ion-content>
