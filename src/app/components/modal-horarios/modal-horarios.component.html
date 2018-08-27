@@ -18,8 +18,8 @@
         </ion-card-header>
         <ion-card-content>
           <ion-list *ngIf="cargoOK">
-            <ion-item *ngFor="let hora of _horarios">
-              <ion-label>{{hora}}</ion-label>
+            <ion-item *ngFor="let hora of _horarios" lines="inset">
+              <ion-label class="texto">{{hora}}hs.</ion-label>
             </ion-item>
           </ion-list>
         </ion-card-content>

@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { PrecioReparacion } from '../../../Model/models';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-interface horaDisponible {
+// tslint:disable-next-line:class-name
+interface hora_disponible {
   empresa: any;
   horas_trabajo: any;
 }
@@ -33,12 +34,16 @@ export class ModalHorariosComponent implements OnInit {
       this.reparacionID = this.navParams.get('idReparacion');
       this.colorID = this.navParams.get('idColor');
       this.fecha = this.navParams.get('fecha');
-      this.fb.col$('HORA_DISPONIBLE',ref => ref.where('empresa','==','ramosTecno')).subscribe(data => {
-      const datos = data[0] as horaDisponible;
+      this.fb.col$('HORA_DISPONIBLE', ref => ref.where('empresa','==','ramosTecno')).subscribe(data => {
+      const datos = data[0] as hora_disponible;
       const array = datos.horas_trabajo.split(',').map(Number);
       this._horarios = array;
       this.cargoOK = true;
     });
+  }
+
+  close() {
+    console.log('close');
   }
 
 }
