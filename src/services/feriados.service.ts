@@ -10,6 +10,6 @@ export class FeriadosService {
   constructor(private httpClient: HttpClient) { }
 
   getFeriados(anio): Observable<any> {
-    return this.httpClient.get('http://nolaborables.com.ar/api/v2/feriados/' + anio);
+    return this.httpClient.get('https://nolaborables.com.ar/api/v2/feriados/' + anio);
   }
 }

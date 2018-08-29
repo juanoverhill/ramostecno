@@ -13,6 +13,8 @@ interface DiasAnuladosInterface {
     dias_anulados: string;
     dias_laborables: string;
     trabaja_feriados: boolean;
+    suma_n_viernes: boolean;
+    empresa: string;
 }
 
 @Component({
@@ -52,10 +54,15 @@ export class CalendarPage implements OnInit {
   }
 
    getNDiasAnulados() {
-    this.fBase.doc$('PARAMETRO_ANULACION/I0kSGOSbYP4QWOlXPT51').subscribe(d => {
-      const data = d as DiasAnuladosInterface;
-      this.anular_n_dias(data.dias_anulados);
-      this.getFeriadosHTTP(data.dias_anulados, data.dias_laborables, data.trabaja_feriados);
+    const parametros = this.fBase.colWithIds$('PARAMETRO_ANULACION', ref => ref.where('empresa', '==', 'ramosTecno'));
+    parametros.subscribe(par => {
+      this.fBase.doc$('PARAMETRO_ANULACION/' + par[0].id).subscribe(d => {
+        console.log(d);
+        const data = d as DiasAnuladosInterface;
+        console.log(data);
+        this.anular_n_dias(data.dias_anulados);
+        this.getFeriadosHTTP(data.dias_anulados, data.dias_laborables, data.trabaja_feriados);
+      });
     });
   }
 
@@ -70,6 +77,9 @@ export class CalendarPage implements OnInit {
   }
 
   anularFechas(n, dias_laborables: any) {
+    console.log(dias_laborables);
+    const arrayLaborables = dias_laborables.split(',').map(Number);
+    console.log(arrayLaborables);
     const fechaDesde = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + n, 0, 0, 0, 0);
     const actualYear = new Date().getFullYear();
     const dateInicial = new Date('2018-01-01');
@@ -83,7 +93,7 @@ export class CalendarPage implements OnInit {
             subTitle: '..',
             disable: true
           });
-      } else if (dias_laborables.includes(dia_actual) === false) {
+      } else if (arrayLaborables.includes(dia_actual) === false) {
           this.daysConfig.push({
             date: fechaActual,
             subTitle: '',

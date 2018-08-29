@@ -52,12 +52,11 @@ export class ModalSeleccionReparacionComponent implements OnInit {
   }
 
   cargarDatosReparacion(reparacionID) {
-    this._reparacionCotizada = this.fb.doc$('PRECIO_REPARACION/'+reparacionID);
+    this._reparacionCotizada = this.fb.doc$('PRECIO_REPARACION/' + reparacionID);
     this._reparacionCotizada.subscribe(data => {
-      document.getElementById('textoTitulo').innerHTML = '<p class="texto animated pulse">Tenemos una buena noticia! Podemos ayudarte 💪</p>';
       this._reparacionSeleccionada = true;
       this._reparacionID = data.id;
-    })
+    });
   }
 
 }
