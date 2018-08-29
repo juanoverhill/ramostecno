@@ -1,0 +1,46 @@
+.speech-bubble {
+    position: relative;
+    background: #0977ff;
+    border-radius: .4em;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 0.594em solid transparent;
+    border-right-color: #0977ff;
+    border-left: 0;
+    margin-top: -0.594em;
+    margin-left: -0.594em;
+}
+
+.burbuja {
+    width:90%;
+    margin-left: 5px;
+}
+
+.texto-burbuja {
+    color:white;
+    font-size: medium;
+    margin-left: 5px;
+    padding: 10px;
+}
+
+.circle-text {
+display: table-cell;
+height: 200px; /*change this and the width
+for the size of your initial circle*/
+width: 200px;
+text-align: center;
+vertical-align: middle;
+border-radius: 50%;
+/*make it pretty*/
+background: rgb(15, 0, 231);
+color: #fff;
+font: 18px "josefin sans", arial; /*change this
+for font-size and font-family*/
+}
