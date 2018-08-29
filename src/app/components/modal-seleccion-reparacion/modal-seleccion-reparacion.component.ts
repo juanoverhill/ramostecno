@@ -36,11 +36,12 @@ export class ModalSeleccionReparacionComponent implements OnInit {
 
   nextPage() {
     this.router.navigateByUrl('/calendar/' + this._reparacionID + '/' + this.colorID);
-    this.modalCtrl.dismiss();
+    this.close();
   }
 
-  close() {
-    this.modalCtrl.dismiss();
+  public async close() {
+    const modal = await this.modalCtrl.getTop();
+    modal.dismiss();
   }
 
   cargarOpciones(categoriaID) {
@@ -52,8 +53,8 @@ export class ModalSeleccionReparacionComponent implements OnInit {
   }
 
   cargarDatosReparacion(reparacionID) {
-    this._reparacionCotizada = this.fb.doc$('PRECIO_REPARACION/' + reparacionID);
-    this._reparacionCotizada.subscribe(data => {
+      this._reparacionCotizada = this.fb.doc$('PRECIO_REPARACION/' + reparacionID);
+      this._reparacionCotizada.subscribe(data => {
       this._reparacionSeleccionada = true;
       this._reparacionID = data.id;
     });

@@ -43,8 +43,9 @@ export class ModalHorariosComponent implements OnInit {
   }
 
 
-  close() {
-    console.log('close');
+  public async close() {
+    const modal = await this.modalCtrl.getTop();
+    modal.dismiss();
   }
 
 }
