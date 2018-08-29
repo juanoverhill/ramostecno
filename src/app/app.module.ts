@@ -1,5 +1,4 @@
 import { FormsModule } from '@angular/forms';
-import { MbscModule } from '@mobiscroll/angular';
 import { EquipoService } from '../services/equipo.service';
 import { AuthService } from '../services/auth.service';
 import { HomePage } from './home/home.page';
@@ -32,7 +31,6 @@ import { environment } from '../environments/environment';
   exports: [],
   imports: [
     FormsModule,
-    MbscModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
