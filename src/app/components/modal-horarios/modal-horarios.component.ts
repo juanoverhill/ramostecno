@@ -42,10 +42,14 @@ export class ModalHorariosComponent implements OnInit {
     });
   }
 
-
   public async close() {
     const modal = await this.modalCtrl.getTop();
     modal.dismiss();
+  }
+
+  confirmaTurno() {
+    this.router.navigateByUrl('/confirmacion-turno/');
+    this.close();
   }
 
 }

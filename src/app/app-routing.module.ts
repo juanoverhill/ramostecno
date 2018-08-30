@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: 'startUp', loadChildren: './start-up/start-up.module#StartUpPageModule' },
   { path: 'calendar/:idReparacion/:idColor', loadChildren: './calendar/calendar.module#CalendarPageModule'},
   { path: 'seleccionMarca', loadChildren: './seleccion-marca/seleccion-marca.module#SeleccionMarcaPageModule' },
-  { path: 'seleccionEquipo/:id', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' }
+  { path: 'seleccionEquipo/:id', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },  { path: 'confirmacion-turno', loadChildren: './confirmacion-turno/confirmacion-turno.module#ConfirmacionTurnoPageModule' }
+
 
 ];
 
