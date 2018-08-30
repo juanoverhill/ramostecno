@@ -30,7 +30,7 @@
 <ion-list inset="true" class="animated bounceInDown" style="animation-delay: 1.8s;">
 <ion-item *ngFor="let marca of _marcas | async" lines="inset" [href]="'/seleccionEquipo/' + marca.id" routerDirection="forward">
     <ion-label class="texto">{{marca.descripcion}}</ion-label>  
-    <ion-icon name="arrow-round-forward" slot="end"></ion-icon>
+    <ion-icon md="md-arrow-round-forward" slot="end"></ion-icon>
   </ion-item>
 </ion-list>
   </ion-col>
