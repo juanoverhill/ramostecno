@@ -3,15 +3,19 @@
     <ion-row>
       <ion-col>
         <ion-item color="primary">
-          <p>Ingresa tu e-mail y clave</p>
+          <p>Ingresa tu e-mail, celu y clave</p>
         </ion-item>
         <ion-item color="light">
-            <ion-input clear-input='true' required type="text" placeholder="e-mail"></ion-input>
+            <ion-input #email clear-input='true' required type="text" placeholder="e-mail"></ion-input>
           </ion-item>
           <ion-item color="light">
-              <ion-input clear-input='true' required type="password" placeholder="clave"></ion-input>
+              <ion-input #tel clear-input='true' required type="text" placeholder="Nro. celular"></ion-input>
           </ion-item>
-          <ion-button expand="full">Ingresar</ion-button>
+          <ion-item color="light">
+              <ion-input #pass clear-input='true' required type="password" placeholder="clave"></ion-input>
+          </ion-item>
+       
+          <ion-button expand="full" (click)="login(email.value,pass.value)">Ingresar</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
