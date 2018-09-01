@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { ConfirmacionTurnoPage } from './confirmacion-turno.page';
 
+import { SharedModule } from './../shared.module';
+import { LoginComponent } from '../components/login/login.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -16,11 +19,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ConfirmacionTurnoPage]
+  declarations: [ConfirmacionTurnoPage, LoginComponent],
+  entryComponents: [LoginComponent]
 })
 export class ConfirmacionTurnoPageModule {}

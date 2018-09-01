@@ -26,3 +26,9 @@ export class PrecioReparacion {
     valor?: number;
     valor_efectivo?: number;
 }
+
+export class usuario {
+    id?: string;
+    email?: string;
+    token?:string;
+}

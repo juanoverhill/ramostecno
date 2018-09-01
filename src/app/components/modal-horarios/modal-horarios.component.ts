@@ -47,8 +47,13 @@ export class ModalHorariosComponent implements OnInit {
     modal.dismiss();
   }
 
-  confirmaTurno() {
-    this.router.navigateByUrl('/confirmacion-turno/');
+  confirmaTurno(hora) {
+    const url = '/confirmacion-turno/' + 
+    this.reparacionID + '/' +
+    this.colorID + '/' + 
+    this.fecha.toISOString().slice(0, 10) + '/' + hora;
+    console.log(url);
+    this.router.navigateByUrl(url);
     this.close();
   }
 

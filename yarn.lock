@@ -527,11 +527,11 @@
   dependencies:
     "@types/cordova" latest
 
-"@ionic/angular@4.0.0-beta.6":
-  version "4.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-beta.6.tgz#be56ca85203084cf636764bacd53620682e44f80"
+"@ionic/angular@^4.0.0-beta.7":
+  version "4.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-beta.7.tgz#ec916edeceebd2dd07a70d9aceac4436205929bb"
   dependencies:
-    "@ionic/core" "4.0.0-beta.6"
+    "@ionic/core" "4.0.0-beta.7"
 
 "@ionic/cli-framework@1.0.0":
   version "1.0.0"
@@ -611,9 +611,9 @@
     uuid "^3.0.1"
     wrap-ansi "^3.0.1"
 
-"@ionic/core@4.0.0-beta.6":
-  version "4.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.0.0-beta.6.tgz#b6d4092faab22b772f88e40fd8b1b84efe616df3"
+"@ionic/core@4.0.0-beta.7":
+  version "4.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.0.0-beta.7.tgz#abdc47d4a738796c1576bc33e065beb07d2644dd"
   dependencies:
     ionicons "4.4.3"
 
@@ -5563,6 +5563,10 @@ negotiator@0.6.1:
 neo-async@^2.5.0:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.2.tgz#489105ce7bc54e709d736b195f82135048c50fcc"
+
+ng@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/ng/-/ng-0.0.0.tgz#1ab91a42699d5fcc8d3b674006027fd3006ec551"
 
 nice-try@^1.0.4:
   version "1.0.5"
