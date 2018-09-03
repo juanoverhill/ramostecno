@@ -18,7 +18,7 @@
         </ion-card-header>
         <ion-card-content>
           <ion-list *ngIf="cargoOK">
-            <ion-item *ngFor="let hora of _horarios" lines="inset" [href]="" (click)="confirmaTurno(hora)">
+            <ion-item *ngFor="let hora of _horarios" lines="inset" [href]="" (click)="confirmaTurno(hora)" [disabled]="_horariosTomados.includes(hora)">
               <ion-label class="texto">{{hora}}hs.</ion-label>
             </ion-item>
           </ion-list>

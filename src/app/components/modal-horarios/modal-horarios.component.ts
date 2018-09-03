@@ -1,3 +1,4 @@
+import { Turno } from './../../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
 import { Observable } from 'rxjs';
@@ -26,6 +27,7 @@ export class ModalHorariosComponent implements OnInit {
   fecha: any;
   _horarios: any[] = [];
   cargoOK = false;
+  _horariosTomados: any [] = [];
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController) { }
@@ -38,7 +40,7 @@ export class ModalHorariosComponent implements OnInit {
       const datos = data[0] as hora_disponible;
       const array = datos.horas_trabajo.split(',').map(Number);
       this._horarios = array;
-      this.cargoOK = true;
+      this.getHorariosTomados();
     });
   }
 
@@ -47,12 +49,22 @@ export class ModalHorariosComponent implements OnInit {
     modal.dismiss();
   }
 
+  getHorariosTomados() {
+    this.fecha = this.fecha.toISOString().slice(0, 10);
+    this.fb.colWithIds$('TURNO', ref => ref.where('fecha_reparacion', '==', this.fecha)).subscribe(data => {
+        data.forEach(element => {
+        const datos = element as Turno;
+        this._horariosTomados.push(datos.hora_reparacion);
+      });
+      this.cargoOK = true;
+    });
+  }
+
   confirmaTurno(hora) {
     const url = '/confirmacion-turno/' +
     this.reparacionID + '/' +
     this.colorID + '/' +
-    this.fecha.toISOString().slice(0, 10) + '/' + hora;
-    console.log(url);
+    this.fecha + '/' + hora;
     this.router.navigateByUrl(url);
     this.close();
   }
