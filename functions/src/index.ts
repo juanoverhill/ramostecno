@@ -38,6 +38,8 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
     cors(req, res, () => { 
  
         const toName = req.body.toName;
+        const toDia = req.body.dia;
+        const toFecha = req.body.fecha;
         const toEmail = req.body.toEmail;
         
         const msg = {
@@ -53,7 +55,9 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
             {
                 to: [{ email: toEmail}],
                 dynamic_template_data: {
-                    name: toName
+                    name: toName,
+                    dia: toDia,
+                    fecha: toFecha
                     // and other custom properties here
                 }
             }

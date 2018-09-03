@@ -27,8 +27,25 @@ export class PrecioReparacion {
     valor_efectivo?: number;
 }
 
-export class usuario {
+export class Usuario {
     id?: string;
     email?: string;
-    token?:string;
+    token?: string;
+}
+
+export class Turno {
+    id?: string;
+    usuario_id?: string;
+    nombre_usuario?: string;
+    equipoRef?: firebase.firestore.DocumentReference;
+    equipo_id?: string;
+    color?: string;
+    estado_reparacion_id?: string;
+    fecha_reparacion?: string;
+    hora_reparacion?: string;
+    observacion?: string;
+    reparacion_id?: string;
+    reparacionRef?: firebase.firestore.DocumentReference;
+    valor_efectivo?: string;
+    valor?: string;
 }

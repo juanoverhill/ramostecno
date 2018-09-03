@@ -1,40 +1,38 @@
 <ion-header>
-  
+
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
-      
+
         <ion-item color="primary" class="titulo">
-        <p class="titulo" style="text-align: center;" >Buenisimo! 🤗<br><br> Ingresa para confirmar tu turno para el dia
-          <b>{{fecha | date: 'dd/MM/yyyy'}} a las {{hora}} hs</b> para reparar tu {{(reparacion.equipoRef | doc | async)?.descripcion}} <br><br>
-        </p>
-        <div class="line-separator"></div>
-      </ion-item>
-   
-    </ion-col>
+          <p class="titulo" style="text-align: center;">Buenisimo! 🤗<br><br>
+            Ingresa para confirmar tu turno para el dia
+            <b>{{fecha | date: 'dd/MM/yyyy'}} a las {{hora}} hs</b> para reparar tu {{ (reparacion.equipoRef | doc |
+            async)?.descripcion }} <br><br>
+          </p>
+          <div class="line-separator"></div>
+        </ion-item>
+      </ion-col>
     </ion-row>
     <ion-row justify-content-center align-items-center style="height: 100%">
-    
-            <ion-button icon-right block clear color="danger" (click)="login(email)">
-        <ion-icon slot="end" name="mail"></ion-icon>
-                  Ingresar con e-mail
-                </ion-button>      
-     
-      </ion-row>
+      <ion-button icon-right block clear (click)="signInGoogle()">
+        <ion-icon slot="end" name="logo-google"></ion-icon>
+        Ingresar con Google
+      </ion-button>
+    </ion-row>
     <ion-row justify-content-center align-items-center style="height: 100%">
-        <ion-button icon-right block clear (click)="signInGoogle()">
-    <ion-icon slot="end" name="logo-google"></ion-icon>
-          Ingresar con Google
-        </ion-button>
-      </ion-row>
-    
-    <ion-row justify-content-center align-items-center style="height: 100%">
-      <ion-button icon-right block clear >
+      <ion-button icon-right block clear (click)="signInFacebook()" color="darkBlue">
         <ion-icon slot="end" name="logo-facebook"></ion-icon>
         Ingresar con Facebook
+      </ion-button>
+    </ion-row>
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-button icon-right block clear color="danger" size="small" (click)="login('email')">
+        <ion-icon slot="end" name="mail"></ion-icon>
+        Ingresar con e-mail
       </ion-button>
     </ion-row>
   </ion-grid>

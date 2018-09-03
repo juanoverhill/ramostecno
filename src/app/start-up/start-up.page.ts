@@ -45,6 +45,6 @@ export class StartUpPage implements OnInit {
   }
 
   enviaMail() {
-    this.sMail.sendEmail('Juan');
+    // this.sMail.sendEmail('Juan');
   }
 }

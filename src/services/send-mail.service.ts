@@ -9,10 +9,12 @@ export class SendMailService {
   endpoint = 'https://us-central1-calidad-csc.cloudfunctions.net/httpEmail';
   constructor(private http: HttpClient) { }
 
-  sendEmail(name: string) {
+  sendEmail(mail: string, name: string, dia: string, fecha: string) {
     const data = {
-      toEmail: 'juan.arias@csantacatalina.com.ar',
-      toName: name
+      toEmail: mail,
+      toName: name,
+      dia: dia,
+      fecha: fecha
     };
     this.http.post(this.endpoint, data).subscribe();
   }

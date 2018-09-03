@@ -48,9 +48,9 @@ export class ModalHorariosComponent implements OnInit {
   }
 
   confirmaTurno(hora) {
-    const url = '/confirmacion-turno/' + 
+    const url = '/confirmacion-turno/' +
     this.reparacionID + '/' +
-    this.colorID + '/' + 
+    this.colorID + '/' +
     this.fecha.toISOString().slice(0, 10) + '/' + hora;
     console.log(url);
     this.router.navigateByUrl(url);

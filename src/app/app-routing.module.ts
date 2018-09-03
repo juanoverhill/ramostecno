@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'calendar/:idReparacion/:idColor', loadChildren: './calendar/calendar.module#CalendarPageModule'},
   { path: 'seleccionMarca', loadChildren: './seleccion-marca/seleccion-marca.module#SeleccionMarcaPageModule' },
   { path: 'seleccionEquipo/:id', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },
+  // tslint:disable-next-line:max-line-length
   { path: 'confirmacion-turno/:idReparacion/:idColor/:fecha/:hora', loadChildren: './confirmacion-turno/confirmacion-turno.module#ConfirmacionTurnoPageModule' }
 
 
