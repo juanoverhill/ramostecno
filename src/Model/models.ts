@@ -49,3 +49,10 @@ export class Turno {
     valor_efectivo?: string;
     valor?: string;
 }
+
+export class Color {
+    id?: string;
+    color?: string;
+    equipoRef?: firebase.firestore.DocumentReference;
+    equipo_id?: string;
+}

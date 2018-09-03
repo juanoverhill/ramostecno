@@ -1,9 +1,9 @@
-import { PrecioReparacion, Turno } from './../../Model/models';
+import { PrecioReparacion, Turno, Color } from './../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirestoreService } from '../../services/f-base.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { LoginComponent } from '../components/login/login.component';
 import { AuthService } from '../../services/auth.service';
 import { SendMailService } from '../../services/send-mail.service';
@@ -16,10 +16,12 @@ import { SendMailService } from '../../services/send-mail.service';
 export class ConfirmacionTurnoPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private fb: FirestoreService,
-    private modalController: ModalController, private auth: AuthService, private sMail: SendMailService) { }
+    private modalController: ModalController, private auth: AuthService, private sMail: SendMailService,
+    public toastController: ToastController) { }
 
   reparacionID: string;
   colorID: string;
+  color: any;
   fecha: any;
   hora: any;
   reparacion: any;
@@ -29,6 +31,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   nombreUsuario: any;
   valorEfectivo: any;
   valor: any;
+  email: any;
 
   ngOnInit() {
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
@@ -46,6 +49,12 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.valor = datos.valor;
       this.valorEfectivo = datos.valor_efectivo;
     });
+
+    // Obtengo el color especifico
+    this.fb.doc$('COLOR/' + this.colorID).subscribe(data => {
+          const datos = data as Color;
+          this.color = datos.color;
+    });
   }
 
   async login(tipo) {
@@ -57,42 +66,66 @@ export class ConfirmacionTurnoPage implements OnInit {
   }
 
   signInGoogle() {
+    this.auth.signOut();
     this.auth.signInWithGoogle();
-    const email = this.auth.getEmail();
-    const nombre = this.auth.getUserNombre();
-    const fecha = this.fecha.toISOString().slice(0, 10);
-    this.sMail.sendEmail(email, nombre, this.hora, fecha);
+    this.email = this.auth.getEmail();
+    this.fecha = this.fecha.toISOString().slice(0, 10);
     this.usuario_id = this.auth.getUserID();
     this.nombreUsuario = this.auth.getUserNombre();
     this.grabaTurno();
   }
 
   signInFacebook() {
+    this.auth.signOut();
     this.auth.signInWithFacebook();
-    const email = this.auth.getEmail();
-    const nombre = this.auth.getUserNombre();
-    const fecha = this.fecha.toISOString().slice(0, 10);
-    this.sMail.sendEmail(email, nombre, this.hora, fecha);
+    this.email = this.auth.getEmail();
+    this.fecha = this.fecha.toISOString().slice(0, 10);
     this.usuario_id = this.auth.getUserID();
     this.nombreUsuario = this.auth.getUserNombre();
     this.grabaTurno();
   }
 
   grabaTurno() {
-    const turnoNuevo = new Turno();
-    turnoNuevo.usuario_id = this.usuario_id;
-    turnoNuevo.nombre_usuario = this.nombreUsuario;
-    turnoNuevo.equipo_id = this.equipo_id;
-    turnoNuevo.equipoRef = this.equipoRef;
-    turnoNuevo.fecha_reparacion = this.fecha.toISOString().slice(0, 10);
-    turnoNuevo.hora_reparacion = this.hora;
-    turnoNuevo.color = this.colorID;
-    turnoNuevo.estado_reparacion_id = 'Pendiente';
-    turnoNuevo.reparacion_id = this.reparacionID;
-    turnoNuevo.valor = this.valor;
-    turnoNuevo.valor_efectivo = this.valorEfectivo;
-    turnoNuevo.observacion = '';
-    this.fb.add('TURNO', turnoNuevo);
+    if (this.tieneTurnosPreviosPendientes(this.usuario_id, this.equipo_id)) {
+      this.presentToast('Ya existe un turno pendiente para este equipo!');
+    } else {
+      const turnoNuevo = new Turno();
+      turnoNuevo.usuario_id = this.usuario_id;
+      turnoNuevo.nombre_usuario = this.nombreUsuario;
+      turnoNuevo.equipo_id = this.equipo_id;
+      turnoNuevo.equipoRef = this.equipoRef;
+      turnoNuevo.fecha_reparacion = this.fecha.toISOString().slice(0, 10);
+      turnoNuevo.hora_reparacion = this.hora;
+      turnoNuevo.color = this.color;
+      turnoNuevo.estado_reparacion_id = 'Pendiente';
+      turnoNuevo.reparacion_id = this.reparacionID;
+      turnoNuevo.valor = this.valor;
+      turnoNuevo.valor_efectivo = this.valorEfectivo;
+      turnoNuevo.observacion = '';
+      this.fb.add('TURNO', turnoNuevo);
+      this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, this.fecha);
+    }
+  }
+
+    tieneTurnosPreviosPendientes(usuario, equipo): boolean {
+    let turnosPendientes: any[];
+    this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', usuario).
+    where('equipo_id', '==', equipo).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
+      turnosPendientes = data;
+    });
+    if (turnosPendientes.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
