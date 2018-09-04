@@ -3,22 +3,22 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="cargoOK">
     <ion-row>
       <ion-col>
 
         <ion-item color="primary" class="titulo">
           <p class="titulo" style="text-align: center;">Buenisimo! 🤗<br><br>
             Ingresa para confirmar tu turno para el dia
-            <b>{{fecha | date: 'dd/MM/yyyy'}} a las {{hora}} hs</b> para reparar tu {{ (reparacion.equipoRef | doc |
-            async)?.descripcion }} <br><br>
+            <b>{{fecha | date: 'dd/MM/yyyy'}} a las {{hora}} hs</b> 
+            para reparar tu {{ (equipoReference | doc | async)?.descripcion }} <br><br>
           </p>
           <div class="line-separator"></div>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row justify-content-center align-items-center style="height: 100%">
-      <ion-button icon-right block clear (click)="signInGoogle()">
+      <ion-button icon-right block clear (click)="signInGoogle()" color="danger">
         <ion-icon slot="end" name="logo-google"></ion-icon>
         Ingresar con Google
       </ion-button>
@@ -29,7 +29,7 @@
         Ingresar con Facebook
       </ion-button>
     </ion-row>
-    <ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-row hidden justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear color="danger" size="small" (click)="login('email')">
         <ion-icon slot="end" name="mail"></ion-icon>
         Ingresar con e-mail

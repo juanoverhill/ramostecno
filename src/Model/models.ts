@@ -42,7 +42,7 @@ export class Turno {
     color?: string;
     estado_reparacion_id?: string;
     fecha_reparacion?: string;
-    hora_reparacion?: string;
+    hora_reparacion?: number;
     observacion?: string;
     reparacion_id?: string;
     reparacionRef?: firebase.firestore.DocumentReference;

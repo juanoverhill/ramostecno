@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'seleccionMarca', loadChildren: './seleccion-marca/seleccion-marca.module#SeleccionMarcaPageModule' },
   { path: 'seleccionEquipo/:id', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },
   // tslint:disable-next-line:max-line-length
-  { path: 'confirmacion-turno/:idReparacion/:idColor/:fecha/:hora', loadChildren: './confirmacion-turno/confirmacion-turno.module#ConfirmacionTurnoPageModule' },  { path: 'turno-confirmado', loadChildren: './turno-confirmado/turno-confirmado.module#TurnoConfirmadoPageModule' }
+  { path: 'confirmacion-turno/:idReparacion/:idColor/:fecha/:hora', loadChildren: './confirmacion-turno/confirmacion-turno.module#ConfirmacionTurnoPageModule' },
+  { path: 'turno-confirmado', loadChildren: './turno-confirmado/turno-confirmado.module#TurnoConfirmadoPageModule' }
 
 
 

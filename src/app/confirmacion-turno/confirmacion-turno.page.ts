@@ -24,14 +24,15 @@ export class ConfirmacionTurnoPage implements OnInit {
   color: any;
   fecha: any;
   hora: any;
-  reparacion: any;
+  reparacion: Observable<PrecioReparacion>;
   equipo_id: any;
-  equipoRef: any;
   usuario_id: any;
   nombreUsuario: any;
   valorEfectivo: any;
   valor: any;
+  equipoReference: any;
   email: any;
+  cargoOK = false;
 
   ngOnInit() {
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
@@ -45,9 +46,10 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID).subscribe(data => {
       const datos = data as PrecioReparacion;
       this.equipo_id = datos.equipo_id;
-      this.equipoRef = datos.equipoRef;
       this.valor = datos.valor;
+      this.equipoReference = datos.equipoRef;
       this.valorEfectivo = datos.valor_efectivo;
+      this.cargoOK = true;
     });
 
     // Obtengo el color especifico
@@ -93,7 +95,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.usuario_id = this.usuario_id;
       turnoNuevo.nombre_usuario = this.nombreUsuario;
       turnoNuevo.equipo_id = this.equipo_id;
-      turnoNuevo.equipoRef = this.equipoRef;
+      turnoNuevo.equipoRef = this.equipoReference;
       turnoNuevo.fecha_reparacion = this.fecha.toISOString().slice(0, 10);
       turnoNuevo.hora_reparacion = this.hora;
       turnoNuevo.color = this.color;
