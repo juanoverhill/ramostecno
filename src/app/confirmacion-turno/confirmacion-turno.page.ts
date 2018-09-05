@@ -82,7 +82,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   signInGoogle() {
       
      
-      this.auth.signInWithGoogle().then(() => {
+        this.auth.signInWithGoogle().then(() => {
         this.email = this.auth.getEmail();
         this.fecha = this.fecha.toISOString().slice(0, 10);
         this.usuario_id = this.auth.getUserID();
