@@ -39,7 +39,10 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.reparacion = this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID);
     this.colorID = this.route.snapshot.paramMap.get('idColor');
     this.fecha = this.route.snapshot.paramMap.get('fecha');
-    this.fecha = new Date(this.fecha);
+    const year = this.fecha.slice(0,4);
+    const month =  this.fecha.slice(5,7);
+    const day = this.fecha.slice(8,10);
+    this.fecha = new Date(year,month,day);
     this.hora = this.route.snapshot.paramMap.get('hora');
 
     // Obtengo los datos de reparacion
@@ -74,7 +77,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.fecha = this.fecha.toISOString().slice(0, 10);
     this.usuario_id = this.auth.getUserID();
     this.nombreUsuario = this.auth.getUserNombre();
-    this.grabaTurno();
+    this.grabar();
   }
 
   signInFacebook() {
@@ -84,13 +87,11 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.fecha = this.fecha.toISOString().slice(0, 10);
     this.usuario_id = this.auth.getUserID();
     this.nombreUsuario = this.auth.getUserNombre();
-    this.grabaTurno();
+    this.grabar();
   }
 
   grabaTurno() {
-    if (this.tieneTurnosPreviosPendientes(this.usuario_id, this.equipo_id)) {
-      this.presentToast('Ya existe un turno pendiente para este equipo!');
-    } else {
+    
       const turnoNuevo = new Turno();
       turnoNuevo.usuario_id = this.usuario_id;
       turnoNuevo.nombre_usuario = this.nombreUsuario;
@@ -107,20 +108,19 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.fb.add('TURNO', turnoNuevo);
       this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, this.fecha);
       this.router.navigateByUrl('turno-confirmado');
-    }
+    
   }
 
-    tieneTurnosPreviosPendientes(usuario, equipo): boolean {
+    grabar() {
     let turnosPendientes: any[];
-    this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', usuario).
-    where('equipo_id', '==', equipo).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
+    this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', this.usuario_id).
+    where('equipo_id', '==', this.equipo_id).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
       turnosPendientes = data;
-      console.log(turnosPendientes);
     });
     if (turnosPendientes.length > 0) {
-      return true;
+      this.presentToast('Ya existen turnos pendientes');
     } else {
-      return false;
+      this.grabaTurno();
     }
   }
 
