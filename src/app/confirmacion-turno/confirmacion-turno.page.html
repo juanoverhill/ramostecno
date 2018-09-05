@@ -17,22 +17,23 @@
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-row *ngIf="autenticado == false" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear (click)="signInGoogle()" color="danger">
         <ion-icon slot="end" name="logo-google"></ion-icon>
         Ingresar con Google
       </ion-button>
     </ion-row>
-    <ion-row justify-content-center align-items-center style="height: 100%">
+    <ion-row *ngIf="autenticado == false" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear (click)="signInFacebook()" color="darkBlue">
         <ion-icon slot="end" name="logo-facebook"></ion-icon>
         Ingresar con Facebook
       </ion-button>
     </ion-row>
-    <ion-row hidden justify-content-center align-items-center style="height: 100%">
-      <ion-button icon-right block clear color="danger" size="small" (click)="login('email')">
+   <p class="texto" *ngIf="autenticado">{{nombreUsuario}} hace click para confirmar el turno</p>
+    <ion-row *ngIf="autenticado" justify-content-center align-items-center style="height: 100%">
+      <ion-button icon-right block clear color="danger" size="small" (click)="grabar()">
         <ion-icon slot="end" name="mail"></ion-icon>
-        Ingresar con e-mail
+        Confirmar turno
       </ion-button>
     </ion-row>
   </ion-grid>

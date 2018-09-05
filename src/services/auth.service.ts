@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     get authenticated(): boolean {
-        return this.user !== null;
+        return this.user !== (null || undefined);
       }
 
       getEmail() {
@@ -47,11 +47,11 @@ export class AuthService {
         return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
     }
 
-    signInWithGoogle() {
+    signInWithGoogle(): Promise<any> {
         return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
     }
 
-    signInWithFacebook() {
+    signInWithFacebook(): Promise<any> {
         return this.oauthSignIn(new firebase.auth.FacebookAuthProvider());
     }
 

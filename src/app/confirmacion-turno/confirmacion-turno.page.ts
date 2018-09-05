@@ -33,8 +33,19 @@ export class ConfirmacionTurnoPage implements OnInit {
   equipoReference: any;
   email: any;
   cargoOK = false;
+  autenticado = false;
 
   ngOnInit() {
+
+    if(this.auth.authenticated) {
+      this.autenticado = true;
+      console.log('AUTENTICADO');
+      console.log(this.auth.getUserID());
+      this.email = this.auth.getEmail();
+        this.usuario_id = this.auth.getUserID();
+        this.nombreUsuario = this.auth.getUserNombre();
+     }
+
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
     this.reparacion = this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID);
     this.colorID = this.route.snapshot.paramMap.get('idColor');
@@ -71,24 +82,31 @@ export class ConfirmacionTurnoPage implements OnInit {
   }
 
   signInGoogle() {
-    this.auth.signOut();
-    this.auth.signInWithGoogle();
-    this.email = this.auth.getEmail();
-    this.fecha = this.fecha.toISOString().slice(0, 10);
-    this.usuario_id = this.auth.getUserID();
-    this.nombreUsuario = this.auth.getUserNombre();
-    this.grabar();
+      
+     
+      this.auth.signInWithGoogle().then(() => {
+        this.email = this.auth.getEmail();
+        this.fecha = this.fecha.toISOString().slice(0, 10);
+        this.usuario_id = this.auth.getUserID();
+        this.nombreUsuario = this.auth.getUserNombre();
+        console.log(this.usuario_id);
+        this.autenticado = true;
+        console.log(this.autenticado);
+        });
+    
   }
 
   signInFacebook() {
-    this.auth.signOut();
-    this.auth.signInWithFacebook();
-    this.email = this.auth.getEmail();
-    this.fecha = this.fecha.toISOString().slice(0, 10);
-    this.usuario_id = this.auth.getUserID();
-    this.nombreUsuario = this.auth.getUserNombre();
-    this.grabar();
-  }
+    
+      this.auth.signInWithFacebook().then(() => {
+      this.email = this.auth.getEmail();
+      this.fecha = this.fecha.toISOString().slice(0, 10);
+      this.usuario_id = this.auth.getUserID();
+      this.nombreUsuario = this.auth.getUserNombre();
+      this.autenticado = true;
+      });
+ 
+   }
 
   grabaTurno() {
     
@@ -112,10 +130,13 @@ export class ConfirmacionTurnoPage implements OnInit {
   }
 
     grabar() {
+    console.log(this.usuario_id);
     let turnosPendientes: any[];
     this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', this.usuario_id).
     where('equipo_id', '==', this.equipo_id).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
+      console.log(data);
       turnosPendientes = data;
+      console.log(turnosPendientes);
     });
     if (turnosPendientes.length > 0) {
       this.presentToast('Ya existen turnos pendientes');
