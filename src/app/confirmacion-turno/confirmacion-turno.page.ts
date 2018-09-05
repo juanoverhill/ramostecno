@@ -1,6 +1,6 @@
 import { PrecioReparacion, Turno, Color } from './../../Model/models';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirestoreService } from '../../services/f-base.service';
 import { ModalController, ToastController } from '@ionic/angular';
@@ -17,7 +17,7 @@ export class ConfirmacionTurnoPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private fb: FirestoreService,
     private modalController: ModalController, private auth: AuthService, private sMail: SendMailService,
-    public toastController: ToastController) { }
+    public toastController: ToastController, private router: Router) { }
 
   reparacionID: string;
   colorID: string;
@@ -106,6 +106,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.observacion = '';
       this.fb.add('TURNO', turnoNuevo);
       this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, this.fecha);
+      this.router.navigateByUrl('turno-confirmado');
     }
   }
 
@@ -114,6 +115,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', usuario).
     where('equipo_id', '==', equipo).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
       turnosPendientes = data;
+      console.log(turnosPendientes);
     });
     if (turnosPendientes.length > 0) {
       return true;
