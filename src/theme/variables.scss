@@ -28,7 +28,7 @@
   --ion-color-tertiary-tint: #f5b255;
 
   /** success **/
-  --ion-color-success: #10dc60;
+  --ion-color-success: #0ba548;
   --ion-color-success-rgb: 16,220,96;
   --ion-color-success-contrast: #fff;
   --ion-color-success-contrast-rgb: 255,255,255;
@@ -114,4 +114,9 @@ ion-content {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   display: table;
   margin: 0 auto;
+}
+
+.centrar {
+   display: table;
+   margin: 0 auto;
 }

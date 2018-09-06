@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     get authenticated(): boolean {
-        return this.user !== (null || undefined);
+        return this.user !== null;
       }
 
       getEmail() {
@@ -40,6 +40,7 @@ export class AuthService {
       }
 
       signOut(): Promise<void> {
+        this.user = null;
         return this.afAuth.auth.signOut();
       }
 
@@ -67,6 +68,7 @@ export class AuthService {
                         const token = result.credential.providerId;
                         // The signed-in user info.
                         const user = result.user;
+                        this.user = result.user;
                         console.log(token, user);
                     }).catch(function (error) {
                         // Handle Errors here.

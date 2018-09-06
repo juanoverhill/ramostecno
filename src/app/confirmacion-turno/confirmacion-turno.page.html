@@ -29,9 +29,13 @@
         Ingresar con Facebook
       </ion-button>
     </ion-row>
-   <p class="texto" *ngIf="autenticado">{{nombreUsuario}} hace click para confirmar el turno</p>
+    <ion-item-divider color="light" *ngIf="autenticado">
+      <p class="texto" >Bien {{nombreUsuario}} 😃 por ultimo hace click para confirmar el turno</p>     
+    </ion-item-divider>  
+    <ion-button size="small" fill="outline" color="danger" *ngIf="autenticado" class="centrar" (click)="logOut()">No soy {{nombreUsuario}}</ion-button>
+    <div></div>
     <ion-row *ngIf="autenticado" justify-content-center align-items-center style="height: 100%">
-      <ion-button icon-right block clear color="danger" size="small" (click)="grabar()">
+      <ion-button icon-right block clear color="secondary" size="small" (click)="grabar()">
         <ion-icon slot="end" name="mail"></ion-icon>
         Confirmar turno
       </ion-button>

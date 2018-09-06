@@ -36,22 +36,25 @@ export class ConfirmacionTurnoPage implements OnInit {
   autenticado = false;
 
   ngOnInit() {
-
-    if(this.auth.authenticated) {
-      this.autenticado = true;
-      this.email = this.auth.getEmail();
-        this.usuario_id = this.auth.getUserID();
-        this.nombreUsuario = this.auth.getUserNombre();
-     }
+     // Verifico previamente si esta logueado
+     this.auth.afAuth.authState.subscribe(user => {
+       if (user) {
+         this.autenticado = true;
+         this.email = this.auth.getEmail();
+         this.usuario_id = this.auth.getUserID();
+         this.nombreUsuario = this.auth.getUserNombre();
+         this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
+       }
+     });
 
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
     this.reparacion = this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID);
     this.colorID = this.route.snapshot.paramMap.get('idColor');
     this.fecha = this.route.snapshot.paramMap.get('fecha');
-    const year = this.fecha.slice(0,4);
-    const month =  this.fecha.slice(5,7);
-    const day = this.fecha.slice(8,10);
-    this.fecha = new Date(year,month,day);
+    const year = this.fecha.slice(0, 4);
+    const month =  this.fecha.slice(5, 7);
+    const day = this.fecha.slice(8, 10);
+    this.fecha = new Date(year, month - 1, day);
     this.hora = this.route.snapshot.paramMap.get('hora');
 
     // Obtengo los datos de reparacion
@@ -80,31 +83,30 @@ export class ConfirmacionTurnoPage implements OnInit {
   }
 
   signInGoogle() {
-      
-     
         this.auth.signInWithGoogle().then(() => {
         this.email = this.auth.getEmail();
         this.fecha = this.fecha.toISOString().slice(0, 10);
         this.usuario_id = this.auth.getUserID();
+        console.log(this.usuario_id);
         this.nombreUsuario = this.auth.getUserNombre();
+        this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
         this.autenticado = true;
+        console.log(this.autenticado);
         });
     }
 
   signInFacebook() {
-    
       this.auth.signInWithFacebook().then(() => {
+      this.autenticado = true;
       this.email = this.auth.getEmail();
       this.fecha = this.fecha.toISOString().slice(0, 10);
       this.usuario_id = this.auth.getUserID();
       this.nombreUsuario = this.auth.getUserNombre();
-      this.autenticado = true;
+      this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
       });
- 
    }
 
   grabaTurno() {
-    
       const turnoNuevo = new Turno();
       turnoNuevo.usuario_id = this.usuario_id;
       turnoNuevo.nombre_usuario = this.nombreUsuario;
@@ -121,7 +123,6 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.fb.add('TURNO', turnoNuevo);
       this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, this.fecha);
       this.router.navigateByUrl('turno-confirmado');
-    
   }
 
     grabar() {
@@ -143,6 +144,13 @@ export class ConfirmacionTurnoPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  logOut() {
+    this.auth.signOut().then(() => {
+      this.autenticado = false;
+      console.log(this.auth.getUserID());
+    });
   }
 
 }
