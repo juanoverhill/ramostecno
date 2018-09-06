@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TurnoConfirmadoPage implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
+
+  ionViewCanLeave() {
+   return false;
+  }
 
   ngOnInit() {
   }

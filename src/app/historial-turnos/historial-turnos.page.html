@@ -1,0 +1,26 @@
+<ion-header *ngIf="autenticado">
+<ion-toolbar color="primary">
+    <ion-buttons slot="end">
+    <ion-button (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+        Salir
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{nombreUsuario}} este es tu historial 😉</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="autenticado">
+  <ion-grid> 
+      <ion-list inset="true" class="animated bounceInDown">
+        <ion-item *ngFor="let turno of turnosPrevios | async" lines="inset">
+          <ion-label>
+            <p style="font-size: 13px; color:#488aff">Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
+              {{turno.estado_reparacion_id}}</p>
+            <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p>          
+          </ion-label>
+        <ion-button slot="end" fill="outline" color="danger" size="small">Cancelar turno</ion-button>          
+        </ion-item>
+      </ion-list>
+  </ion-grid>
+</ion-content>

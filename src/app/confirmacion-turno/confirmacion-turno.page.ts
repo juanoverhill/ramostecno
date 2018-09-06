@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirestoreService } from '../../services/f-base.service';
 import { ModalController, ToastController } from '@ionic/angular';
-import { LoginComponent } from '../components/login/login.component';
 import { AuthService } from '../../services/auth.service';
 import { SendMailService } from '../../services/send-mail.service';
 
@@ -77,14 +76,6 @@ export class ConfirmacionTurnoPage implements OnInit {
           const datos = data as Color;
           this.color = datos.color;
     });
-  }
-
-  async login(tipo) {
-    const modal = await this.modalController.create({
-      component: LoginComponent,
-      componentProps: { tipo: tipo }
-    });
-    return await modal.present();
   }
 
   signInGoogle() {

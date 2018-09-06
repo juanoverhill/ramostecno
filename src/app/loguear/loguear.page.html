@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ingresa con Google o Facebook a tu cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h5 class="texto">Selecciona uno de los proveedores de ingreso disponibles</h5>
+<ion-row justify-content-center style="height: 100%">
+  <ion-button icon-right block clear (click)="signInGoogle()" color="danger">
+    <ion-icon slot="end" name="logo-google"></ion-icon>
+    Ingresar con Google
+  </ion-button>
+  <ion-button icon-right block clear (click)="signInFacebook()" color="darkBlue">
+    <ion-icon slot="end" name="logo-facebook"></ion-icon>
+    Ingresar con Facebook
+  </ion-button>
+</ion-row>
+</ion-content>

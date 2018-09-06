@@ -5,25 +5,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ConfirmacionTurnoPage } from './confirmacion-turno.page';
-
-import { SharedModule } from './../shared.module';
+import { LoguearPage } from './loguear.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ConfirmacionTurnoPage
+    component: LoguearPage
   }
 ];
 
 @NgModule({
   imports: [
-    SharedModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ConfirmacionTurnoPage]
+  declarations: [LoguearPage]
 })
-export class ConfirmacionTurnoPageModule {}
+export class LoguearPageModule {}

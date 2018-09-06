@@ -10,7 +10,9 @@ const routes: Routes = [
   { path: 'seleccionEquipo/:id', loadChildren: './seleccion-equipo/seleccion-equipo.module#SeleccionEquipoPageModule' },
   // tslint:disable-next-line:max-line-length
   { path: 'confirmacion-turno/:idReparacion/:idColor/:fecha/:hora', loadChildren: './confirmacion-turno/confirmacion-turno.module#ConfirmacionTurnoPageModule' },
-  { path: 'turno-confirmado', loadChildren: './turno-confirmado/turno-confirmado.module#TurnoConfirmadoPageModule' }
+  { path: 'turno-confirmado', loadChildren: './turno-confirmado/turno-confirmado.module#TurnoConfirmadoPageModule' },  { path: 'historial-turnos', loadChildren: './historial-turnos/historial-turnos.module#HistorialTurnosPageModule' },
+  { path: 'loguear', loadChildren: './loguear/loguear.module#LoguearPageModule' }
+
 
 
 

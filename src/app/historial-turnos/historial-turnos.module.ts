@@ -2,28 +2,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { SharedModule } from './../shared.module';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ConfirmacionTurnoPage } from './confirmacion-turno.page';
+import { HistorialTurnosPage } from './historial-turnos.page';
 
-import { SharedModule } from './../shared.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ConfirmacionTurnoPage
+    component: HistorialTurnosPage
   }
 ];
 
 @NgModule({
   imports: [
-    SharedModule,
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ConfirmacionTurnoPage]
+  declarations: [HistorialTurnosPage]
+
 })
-export class ConfirmacionTurnoPageModule {}
+export class HistorialTurnosPageModule {}

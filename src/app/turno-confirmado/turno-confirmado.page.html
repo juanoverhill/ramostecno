@@ -11,7 +11,9 @@
 <p class="texto" style="color:dimgray">Desde aca podes ver el estado de tus turnos</p>
     </ion-row>
     <ion-row>
-      <ion-button class="centrar" color="danger">Ver mis turnos</ion-button>
+    <ion-button [href]="'/historial-turnos'" class=" centrar" color="danger">
+    <ion-icon slot="end" name="list"></ion-icon>
+      Ver mis turnos</ion-button>
     </ion-row>
   </ion-grid>
 
