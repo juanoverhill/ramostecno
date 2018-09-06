@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from './../shared.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -22,6 +23,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     SharedModule,
+    MatTooltipModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage]
