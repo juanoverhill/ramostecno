@@ -1,14 +1,36 @@
 <ion-header *ngIf="autenticado">
 <ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-button icon-only (click)="meniu.open()">
+      <ion-icon name="menu"></ion-icon>
+    </ion-button>
+  </ion-buttons>
     <ion-buttons slot="end">
     <ion-button (click)="logOut()">
-        <ion-icon name="log-out"></ion-icon>
+    <ion-icon name="log-out"></ion-icon>
         Salir
       </ion-button>
     </ion-buttons>
     <ion-title>{{nombreUsuario}} este es tu historial 😉</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-menu side="start" #meniu>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Opciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+    <ion-button color="darkGray" expand="block">
+      <ion-icon slot="start" name="settings"></ion-icon>
+        Configurar
+      </ion-button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet main></ion-router-outlet>
 
 <ion-content padding *ngIf="autenticado">
   <ion-grid> 
