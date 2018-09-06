@@ -34,6 +34,10 @@ export class ConfirmacionTurnoPage implements OnInit {
   email: any;
   cargoOK = false;
   autenticado = false;
+  fechaShow: Date;
+  year: number;
+  month: number;
+  day: number;
 
   ngOnInit() {
      // Verifico previamente si esta logueado
@@ -51,10 +55,11 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.reparacion = this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID);
     this.colorID = this.route.snapshot.paramMap.get('idColor');
     this.fecha = this.route.snapshot.paramMap.get('fecha');
-    const year = this.fecha.slice(0, 4);
-    const month =  this.fecha.slice(5, 7);
-    const day = this.fecha.slice(8, 10);
-    this.fecha = new Date(year, month - 1, day);
+    this.year = this.fecha.slice(0, 4);
+    this.month =  this.fecha.slice(5, 7);
+    this.day = this.fecha.slice(8, 10);
+    this.fechaShow = new Date(this.year, this.month - 1, this.day);
+    this.fecha = this.fechaShow.toISOString().slice(0, 10);
     this.hora = this.route.snapshot.paramMap.get('hora');
 
     // Obtengo los datos de reparacion
@@ -85,7 +90,6 @@ export class ConfirmacionTurnoPage implements OnInit {
   signInGoogle() {
         this.auth.signInWithGoogle().then(() => {
         this.email = this.auth.getEmail();
-        this.fecha = this.fecha.toISOString().slice(0, 10);
         this.usuario_id = this.auth.getUserID();
         console.log(this.usuario_id);
         this.nombreUsuario = this.auth.getUserNombre();
@@ -99,7 +103,6 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.auth.signInWithFacebook().then(() => {
       this.autenticado = true;
       this.email = this.auth.getEmail();
-      this.fecha = this.fecha.toISOString().slice(0, 10);
       this.usuario_id = this.auth.getUserID();
       this.nombreUsuario = this.auth.getUserNombre();
       this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
@@ -107,13 +110,14 @@ export class ConfirmacionTurnoPage implements OnInit {
    }
 
   grabaTurno() {
+      console.log(this.fecha);
       const turnoNuevo = new Turno();
       turnoNuevo.usuario_id = this.usuario_id;
       turnoNuevo.nombre_usuario = this.nombreUsuario;
       turnoNuevo.equipo_id = this.equipo_id;
       turnoNuevo.equipoRef = this.equipoReference;
       turnoNuevo.fecha_reparacion = this.fecha;
-      turnoNuevo.hora_reparacion = this.hora;
+      turnoNuevo.hora_reparacion = Number(this.hora);
       turnoNuevo.color = this.color;
       turnoNuevo.estado_reparacion_id = 'Pendiente';
       turnoNuevo.reparacion_id = this.reparacionID;
@@ -121,7 +125,9 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.valor_efectivo = this.valorEfectivo;
       turnoNuevo.observacion = '';
       this.fb.add('TURNO', turnoNuevo);
-      this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, this.fecha);
+      const fechaMail = this.day.toString() + '/' + this.month.toString() + '/' + this.year.toString();
+      console.log(fechaMail);
+      this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, fechaMail);
       this.router.navigateByUrl('turno-confirmado');
   }
 
@@ -131,7 +137,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     where('equipo_id', '==', this.equipo_id).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
       turnosPendientes = data;
       if (turnosPendientes.length > 0) {
-        this.presentToast('Ya existen turnos pendientes');
+        this.presentToast('Ya tenes al menos un turno pendiente!');
       } else {
         this.grabaTurno();
       }
@@ -141,7 +147,8 @@ export class ConfirmacionTurnoPage implements OnInit {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000
+      duration: 2000,
+      position: 'middle'
     });
     toast.present();
   }

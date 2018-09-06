@@ -10,7 +10,7 @@
         <ion-item color="primary" class="titulo">
           <p class="titulo" style="text-align: center;">Buenisimo! 🤗<br><br>
             Ingresa para confirmar tu turno para el dia
-            <b>{{fecha | date: 'dd/MM/yyyy'}} a las {{hora}} hs</b> 
+            <b>{{fechaShow | date: 'dd/MM/yyyy'}} a las {{hora}} hs</b> 
             para reparar tu {{ (equipoReference | doc | async)?.descripcion }} <br><br>
           </p>
           <div class="line-separator"></div>
