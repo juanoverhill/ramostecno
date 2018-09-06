@@ -37,11 +37,24 @@
       <ion-list inset="true" class="animated bounceInDown">
         <ion-item *ngFor="let turno of turnosPrevios | async" lines="inset">
           <ion-label>
-            <p style="font-size: 13px; color:#488aff">Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
-              {{turno.estado_reparacion_id}}</p>
-            <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p>          
+            <p style="font-size: 13px; color:#488aff">Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}}</p>           
+            <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p> 
+            <p class="letra" style="font-size: 13px;">Reparacion {{turno.estado_reparacion_id}}</p>
           </ion-label>
-        <ion-button slot="end" fill="outline" color="danger" size="small">Cancelar turno</ion-button>          
+          <ion-row>
+            <ion-col>
+              <ion-button icon-only size="small">
+                <ion-icon name="time"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button icon-only color="danger" size="small">
+              <ion-icon name="close"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>  
         </ion-item>
       </ion-list>
   </ion-grid>
