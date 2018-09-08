@@ -29,13 +29,33 @@
         Ingresar con Facebook
       </ion-button>
     </ion-row>
-    <ion-item-divider color="light" *ngIf="autenticado">
-      <p class="texto" >Bien {{nombreUsuario}} 😃 por ultimo hace click para confirmar el turno</p>     
-    </ion-item-divider>  
-    <ion-button size="small" fill="outline" color="danger" *ngIf="autenticado" class="centrar" (click)="logOut()">No soy {{nombreUsuario}}</ion-button>
-    <div></div>
-    <ion-row *ngIf="autenticado" justify-content-center align-items-center style="height: 100%">
-      <ion-button icon-right block clear color="secondary" size="small" (click)="grabar()">
+    <ion-row>
+       <ion-col class="centrar" size="7">
+      <ion-item color="primary" *ngIf="autenticado">
+      <p class="texto" >Bien {{nombreUsuario}} 👍  por ultimo hace click para confirmar el turno</p>     
+      <ion-button slot="end" size="small" color="danger" *ngIf="autenticado" class="centrar" (click)="logOut()">No soy {{nombreUsuario}}</ion-button>
+    </ion-item>  
+    <ion-item color="light" *ngIf="autenticado"> 
+      <p class="texto" >Es importante que antes de confirmar leas los <b>Terminos y Condiciones</b> del servicio.</p>
+    </ion-item>
+    <ion-item color="light">
+      <ion-label position="stacked">Terminos y condiciones de la reparacion</ion-label>
+      <ion-textarea
+        disabled
+        readonly
+        rows="4"
+        value="{{(reparacionReference | doc | async)?.terminos}}">
+      </ion-textarea>
+    </ion-item>
+    <ion-item color="light">
+      <ion-label>Acepto los terminos y condiciones</ion-label>
+      <ion-checkbox slot="end" #checkBox></ion-checkbox>
+    </ion-item>
+    </ion-col>
+    </ion-row>
+   <div></div>
+    <ion-row *ngIf="autenticado && checkBox.checked" justify-content-center align-items-center style="height: 100%">
+      <ion-button icon-right block clear color="secondary" (click)="grabar()">
         <ion-icon slot="end" name="mail"></ion-icon>
         Confirmar turno
       </ion-button>

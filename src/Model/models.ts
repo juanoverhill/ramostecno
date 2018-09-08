@@ -15,6 +15,7 @@ export class Reparacion {
     descripcion?: string;
     categoria_id?: string;
     categoriaRef?: firebase.firestore.DocumentReference;
+    terminos?: string;
 }
 
 export class PrecioReparacion {

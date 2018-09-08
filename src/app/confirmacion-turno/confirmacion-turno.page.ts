@@ -29,6 +29,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   nombreUsuario: any;
   valorEfectivo: any;
   valor: any;
+  reparacionReference: any;
   equipoReference: any;
   email: any;
   cargoOK = false;
@@ -68,6 +69,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.valor = datos.valor;
       this.equipoReference = datos.equipoRef;
       this.valorEfectivo = datos.valor_efectivo;
+      this.reparacionReference = datos.reparacionRef;
       this.cargoOK = true;
     });
 
@@ -117,7 +119,6 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.observacion = '';
       this.fb.add('TURNO', turnoNuevo);
       const fechaMail = this.day.toString() + '/' + this.month.toString() + '/' + this.year.toString();
-      console.log(fechaMail);
       this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, fechaMail);
       this.router.navigateByUrl('turno-confirmado');
   }
@@ -150,5 +151,6 @@ export class ConfirmacionTurnoPage implements OnInit {
       console.log(this.auth.getUserID());
     });
   }
+
 
 }
