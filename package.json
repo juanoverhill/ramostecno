@@ -34,6 +34,7 @@
     "@sendgrid/mail": "^6.3.1",
     "angularfire2": "^5.0.0-rc.11",
     "animate.css": "^3.7.0",
+    "cordova-plugin-accountkit": "^1.4.0",
     "cordova-plugin-firebase-config": "^1.0.0",
     "core-js": "^2.5.3",
     "cors": "^2.8.4",
@@ -82,7 +83,13 @@
   "description": "RTR",
   "cordova": {
     "plugins": {
-      "cordova-plugin-firebase-config": {}
+      "cordova-plugin-firebase-config": {},
+      "cordova-plugin-accountkit": {
+        "APP_ID": "324523784962228",
+        "APP_NAME": "RamosTecnoReparaciones",
+        "CLIENT_TOKEN": "cb7692c79be2f1e8d572ec3a529fd0d8",
+        "API_VERSION": "v1.1"
+      }
     }
   }
 }
