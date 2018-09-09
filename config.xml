@@ -89,10 +89,5 @@
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
-    <plugin name="cordova-plugin-accountkit" spec="^1.4.0">
-        <variable name="APP_ID" value="324523784962228" />
-        <variable name="APP_NAME" value="RamosTecnoReparaciones" />
-        <variable name="CLIENT_TOKEN" value="cb7692c79be2f1e8d572ec3a529fd0d8" />
-        <variable name="API_VERSION" value="v1.1" />
-    </plugin>
+   
 </widget>

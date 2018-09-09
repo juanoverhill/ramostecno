@@ -1,13 +1,13 @@
 <ion-header *ngIf="autenticado">
-<ion-toolbar color="primary">
-  <ion-buttons slot="start">
-    <ion-button icon-only (click)="meniu.open()">
-      <ion-icon name="menu"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button *ngIf="permisos == true" icon-only (click)="meniu.open()">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
-    <ion-button (click)="logOut()">
-    <ion-icon name="log-out"></ion-icon>
+      <ion-button (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
         Salir
       </ion-button>
     </ion-buttons>
@@ -23,55 +23,78 @@
   </ion-header>
   <ion-content>
     <ion-list>
-    <ion-button color="darkGray" expand="block">
-      <ion-icon slot="start" name="airplane"></ion-icon>
+      <ion-button color="darkGray" expand="block">
+        <ion-icon slot="start" name="airplane"></ion-icon>
         Anular fechas
       </ion-button>
-    <ion-button color="darkGray" expand="block">
-      <ion-icon slot="start" name="code-working"></ion-icon>
-      Horarios de trabajo
-    </ion-button>
-    <ion-button color="darkGray" expand="block">
-      <ion-icon slot="start" name="phone-portrait"></ion-icon>
-      Administrar Equipos
-    </ion-button>
-    <ion-button color="darkGray" expand="block">
-      <ion-icon slot="start" name="construct"></ion-icon>
-      Config. Reparaciones
-    </ion-button>
+      <ion-button color="darkGray" expand="block">
+        <ion-icon slot="start" name="code-working"></ion-icon>
+        Horarios de trabajo
+      </ion-button>
+      <ion-button color="darkGray" expand="block">
+        <ion-icon slot="start" name="phone-portrait"></ion-icon>
+        Administrar Equipos
+      </ion-button>
+      <ion-button color="darkGray" expand="block">
+        <ion-icon slot="start" name="construct"></ion-icon>
+        Config. Reparaciones
+      </ion-button>
     </ion-list>
   </ion-content>
 </ion-menu>
 <ion-router-outlet main></ion-router-outlet>
 
 <ion-content *ngIf="autenticado">
-  <ion-grid> 
-      <ion-list inset="true" class="animated bounceInDown">
-        <ion-item *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
-          <ion-label>
-            <p style="font-size: 12px; color:#488aff"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} - {{turno.hora_reparacion}}hs</b></p>           
-            <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p> 
-            <p class="letra" style="font-size: 13px;">Reparacion {{turno.estado_reparacion_id}}</p>
-            <div class="line-separator"></div>
-            <br>
-            <p class="letra" style="font-size: 12px;">Valor EFT ${{turno.valor_efectivo}}</p>
-            <p class="letra" style="font-size: 10px;">Valor MP ${{turno.valor}}</p>
-          </ion-label>
-          <ion-row>
-            <ion-col>
-              <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno">
-                <ion-icon name="time"></ion-icon>
-              </ion-button>               
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-          <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno">
+  <ion-grid>
+
+    <ion-item color="light">
+      <ion-row>
+      <ion-col size="3">
+         <mat-form-field>
+            <input matInput [matDatepicker]="dp3" placeholder="Selecciona una fecha" disabled>
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+          </mat-form-field>
+      </ion-col>
+      <ion-col size="8">
+          <mat-form-field>
+              <mat-select placeholder="Selecciona un estado">
+                <mat-option *ngFor="let opcion of opciones" [value]="opcion">
+                  {{opcion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </ion-col>
+    </ion-row>
+    </ion-item>
+
+    <ion-list inset="true" class="animated bounceInDown">
+      <ion-item *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+        <ion-label>
+          <p style="font-size: 12px; color:#488aff"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
+              {{turno.hora_reparacion}}hs</b></p>
+          <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p>
+          <p class="letra" style="font-size: 13px;">Reparacion {{turno.estado_reparacion_id}}</p>
+          <div class="line-separator"></div>
+          <br>
+          <p class="letra" style="font-size: 12px;">Valor EFT ${{turno.valor_efectivo}}</p>
+          <p class="letra" style="font-size: 10px;">Valor MP ${{turno.valor}}</p>
+        </ion-label>
+        <ion-row>
+          <ion-col>
+            <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno">
+              <ion-icon name="time"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno">
               <ion-icon name="close"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>  
-        </ion-item>
-      </ion-list>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
   </ion-grid>
 </ion-content>

@@ -27,6 +27,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   equipo_id: any;
   usuario_id: any;
   nombreUsuario: any;
+  nombreCompleto: any;
   valorEfectivo: any;
   valor: any;
   reparacionReference: any;
@@ -48,6 +49,7 @@ export class ConfirmacionTurnoPage implements OnInit {
          this.email = this.auth.getEmail();
          this.usuario_id = this.auth.getUserID();
          this.nombreUsuario = this.auth.getUserNombre();
+         this.nombreCompleto = this.auth.getUserNombre();
          this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
        }
      });
@@ -55,7 +57,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
     this.reparacion = this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID);
     this.colorID = this.route.snapshot.paramMap.get('idColor');
-    this.fecha = atob(this.route.snapshot.paramMap.get('fecha'));
+    this.fecha = this.route.snapshot.paramMap.get('fecha');
     this.year = this.fecha.slice(0, 4);
     this.month =  this.fecha.slice(5, 7);
     this.day = this.fecha.slice(8, 10);
@@ -84,11 +86,10 @@ export class ConfirmacionTurnoPage implements OnInit {
         this.auth.signInWithGoogle().then(() => {
         this.email = this.auth.getEmail();
         this.usuario_id = this.auth.getUserID();
-        console.log(this.usuario_id);
         this.nombreUsuario = this.auth.getUserNombre();
         this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
         this.autenticado = true;
-        console.log(this.autenticado);
+        this.nombreCompleto = this.auth.getUserNombre();
         });
     }
 
@@ -98,6 +99,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.email = this.auth.getEmail();
       this.usuario_id = this.auth.getUserID();
       this.nombreUsuario = this.auth.getUserNombre();
+      this.nombreCompleto = this.auth.getUserNombre();
       this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
       });
    }
@@ -106,7 +108,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       // console.log(this.fecha);
       const turnoNuevo = new Turno();
       turnoNuevo.usuario_id = this.usuario_id;
-      turnoNuevo.nombre_usuario = this.nombreUsuario;
+      turnoNuevo.nombre_usuario = this.nombreCompleto;
       turnoNuevo.equipo_id = this.equipo_id;
       turnoNuevo.equipoRef = this.equipoReference;
       turnoNuevo.fecha_reparacion = this.fecha;
@@ -117,6 +119,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.valor = this.valor;
       turnoNuevo.valor_efectivo = this.valorEfectivo;
       turnoNuevo.observacion = '';
+      turnoNuevo.email = this.email;
       this.fb.add('TURNO', turnoNuevo);
       const fechaMail = this.day.toString() + '/' + this.month.toString() + '/' + this.year.toString();
       this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, fechaMail);

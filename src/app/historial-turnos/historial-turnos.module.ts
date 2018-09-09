@@ -8,6 +8,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule } from '@ionic/angular';
 
 import { HistorialTurnosPage } from './historial-turnos.page';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+
 
 
 const routes: Routes = [
@@ -24,6 +31,11 @@ const routes: Routes = [
     IonicModule,
     SharedModule,
     MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage]

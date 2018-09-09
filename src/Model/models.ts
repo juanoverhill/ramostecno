@@ -49,6 +49,7 @@ export class Turno {
     reparacionRef?: firebase.firestore.DocumentReference;
     valor_efectivo?: string;
     valor?: string;
+    email?: string;
 }
 
 export class Color {

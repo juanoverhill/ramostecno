@@ -56,6 +56,8 @@ export class AuthService {
         return this.oauthSignIn(new firebase.auth.FacebookAuthProvider());
     }
 
+    
+
     private oauthSignIn(provider: AuthProvider) {
         if (!(<any>window).cordova) {
             return this.afAuth.auth.signInWithPopup(provider);
