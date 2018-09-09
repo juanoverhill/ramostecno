@@ -38,6 +38,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   year: number;
   month: number;
   day: number;
+  terminosAceptados = false;
 
   ngOnInit() {
      // Verifico previamente si esta logueado
@@ -54,7 +55,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
     this.reparacion = this.fb.doc$('PRECIO_REPARACION/' + this.reparacionID);
     this.colorID = this.route.snapshot.paramMap.get('idColor');
-    this.fecha = this.route.snapshot.paramMap.get('fecha');
+    this.fecha = atob(this.route.snapshot.paramMap.get('fecha'));
     this.year = this.fecha.slice(0, 4);
     this.month =  this.fecha.slice(5, 7);
     this.day = this.fecha.slice(8, 10);
@@ -70,15 +71,14 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.equipoReference = datos.equipoRef;
       this.valorEfectivo = datos.valor_efectivo;
       this.reparacionReference = datos.reparacionRef;
+      // Obtengo el color especifico
+      this.fb.doc$('COLOR/' + this.colorID).subscribe(data => {
+      const datos = data as Color;
+      this.color = datos.color;
       this.cargoOK = true;
+      });
     });
-
-    // Obtengo el color especifico
-    this.fb.doc$('COLOR/' + this.colorID).subscribe(data => {
-          const datos = data as Color;
-          this.color = datos.color;
-    });
-  }
+}
 
   signInGoogle() {
         this.auth.signInWithGoogle().then(() => {
@@ -103,7 +103,7 @@ export class ConfirmacionTurnoPage implements OnInit {
    }
 
   grabaTurno() {
-      console.log(this.fecha);
+      // console.log(this.fecha);
       const turnoNuevo = new Turno();
       turnoNuevo.usuario_id = this.usuario_id;
       turnoNuevo.nombre_usuario = this.nombreUsuario;
@@ -131,7 +131,15 @@ export class ConfirmacionTurnoPage implements OnInit {
       if (turnosPendientes.length > 0) {
         this.presentToast('Ya tenes al menos un turno pendiente!');
       } else {
-        this.grabaTurno();
+        // verifico que este disponible todavia ese horario
+        this.fb.col$('TURNO', ref => ref.where('fecha_reparacion', '==', this.fecha)
+        .where('hora_reparacion', '==', Number(this.hora))).subscribe(data => {
+          if(data.length == 0) {
+            this.grabaTurno();
+          } else {
+            this.presentToastTurnoNoDisp();
+          }
+        });
       }
     });
   }
@@ -145,12 +153,28 @@ export class ConfirmacionTurnoPage implements OnInit {
     toast.present();
   }
 
-  logOut() {
-    this.auth.signOut().then(() => {
-      this.autenticado = false;
-      console.log(this.auth.getUserID());
+  async presentToastTurnoNoDisp() {
+    const toast = await this.toastController.create({
+      message: 'Lo lamento... Este horario ya no esta disponible pero podes pedir otro!',
+      showCloseButton: true,
+      duration: 4000,
+      position: 'middle',
+      closeButtonText: 'Pedir nuevo turno', 
+    });
+    toast.present();
+    toast.onDidDismiss().then(() => {
+      
     });
   }
 
+  logOut() {
+    this.auth.signOut().then(() => {
+      this.autenticado = false;
+    });
+  }
+
+  aceptar(check) {
+    this.terminosAceptados = check.detail.checked;
+  }
 
 }

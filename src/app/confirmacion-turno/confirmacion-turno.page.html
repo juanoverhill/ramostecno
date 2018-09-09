@@ -38,7 +38,7 @@
     <ion-item color="light" *ngIf="autenticado"> 
       <p class="texto" >Es importante que antes de confirmar leas los <b>Terminos y Condiciones</b> del servicio.</p>
     </ion-item>
-    <ion-item color="light">
+    <ion-item *ngIf="autenticado" color="light">
       <ion-label position="stacked">Terminos y condiciones de la reparacion</ion-label>
       <ion-textarea
         disabled
@@ -47,14 +47,14 @@
         value="{{(reparacionReference | doc | async)?.terminos}}">
       </ion-textarea>
     </ion-item>
-    <ion-item color="light">
+    <ion-item *ngIf="autenticado" color="light">
       <ion-label>Acepto los terminos y condiciones</ion-label>
-      <ion-checkbox slot="end" #checkBox></ion-checkbox>
+      <ion-checkbox slot="end" (ionChange)="aceptar($event)"></ion-checkbox>
     </ion-item>
     </ion-col>
     </ion-row>
    <div></div>
-    <ion-row *ngIf="autenticado && checkBox.checked" justify-content-center align-items-center style="height: 100%">
+    <ion-row *ngIf="autenticado && terminosAceptados" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear color="secondary" (click)="grabar()">
         <ion-icon slot="end" name="mail"></ion-icon>
         Confirmar turno
