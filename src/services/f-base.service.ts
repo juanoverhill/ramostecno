@@ -73,6 +73,21 @@ export class FirestoreService {
       );
   }
 
+  /// with Ids
+  docWithIds$<T>(ref: DocPredicate<T>): Observable<T> {
+    return this.doc(ref)
+      .snapshotChanges()
+      .pipe(
+        map((actions: DocumentChangeAction<T>[]) => {
+          return actions.map((a: DocumentChangeAction<T>) => {
+            const data: Object = a.payload.doc.data() as T;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        }),
+      );
+  }
+
   /// **************
   /// Write Data
   /// **************

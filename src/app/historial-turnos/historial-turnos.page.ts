@@ -1,3 +1,4 @@
+import { Reparacion } from './../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from '../../services/f-base.service';
@@ -25,8 +26,10 @@ export class HistorialTurnosPage implements OnInit {
   permisos = false;
   estado_reparacion: string;
   fechaSeleccionada: string;
+  reparacion: Reparacion;
+  filtroFecha = false;
 
-  opciones = ['Pendiente', 'Confirmado', 'Reparado', 'Retirado', 'Cancelado'];
+  opciones = ['Pendiente', 'Confirmado', 'Recepcionado' , 'Reparado', 'Retirado', 'Cancelado'];
 
   date = new FormControl(new Date());
 
@@ -36,7 +39,7 @@ export class HistorialTurnosPage implements OnInit {
 
   ngOnInit() {
     this.fechaSeleccionada = new Date().toISOString().slice(0, 10);
-    this.estado_reparacion = 'Pendiente';
+    this.estado_reparacion = 'Confirmado';
     // Verifico previamente si esta logueado
     this.auth.afAuth.authState.subscribe(user => {
       if (user) {
@@ -68,7 +71,6 @@ export class HistorialTurnosPage implements OnInit {
       data => {
         if (data.length > 0) {
           this.permisos = true;
-          console.log(this.permisos);
           this.traeTodosLosTurnos();
         } else {
           this.traeTurnosPrevios();
@@ -90,8 +92,12 @@ export class HistorialTurnosPage implements OnInit {
   }
 
   traeTodosLosTurnos() {
-    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
-    .where('fecha_reparacion', '==', this.fechaSeleccionada));
+    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => {
+      let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+      query = query.where('estado_reparacion_id', '==', this.estado_reparacion);
+      query = query.orderBy('createdAt', 'desc');
+      return query;
+    });
   }
 
   logOut() {
@@ -134,6 +140,10 @@ export class HistorialTurnosPage implements OnInit {
 
   cancelacionTurno(turno) {
     this.fb.update('TURNO/' + turno, {'estado_reparacion_id': 'Cancelado'});
+  }
+  setFiltro(filtro) {
+    console.log(filtro);
+    this.filtroFecha = filtro;
   }
 
 }

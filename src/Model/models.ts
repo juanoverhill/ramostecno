@@ -50,6 +50,7 @@ export class Turno {
     valor_efectivo?: string;
     valor?: string;
     email?: string;
+    telefono?: string;
 }
 
 export class Color {

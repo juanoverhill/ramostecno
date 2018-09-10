@@ -14,7 +14,8 @@ export class SendMailService {
       toEmail: mail,
       toName: name,
       dia: dia,
-      fecha: fecha
+      fecha: fecha,
+      templateID: 'd-47b68a6dc0a1409eba235610e806d017',
     };
     this.http.post(this.endpoint, data).subscribe();
   }

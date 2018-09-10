@@ -7,6 +7,8 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { SendMailService } from '../../services/send-mail.service';
 
+// const admin = require('firebase-admin');
+
 @Component({
   selector: 'app-confirmacion-turno',
   templateUrl: './confirmacion-turno.page.html',
@@ -18,6 +20,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     private modalController: ModalController, private auth: AuthService, private sMail: SendMailService,
     public toastController: ToastController, private router: Router) { }
 
+  // db = admin.firestore();
   reparacionID: string;
   colorID: string;
   color: any;
@@ -40,6 +43,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   month: number;
   day: number;
   terminosAceptados = false;
+  telefono: any;
 
   ngOnInit() {
      // Verifico previamente si esta logueado
@@ -51,6 +55,7 @@ export class ConfirmacionTurnoPage implements OnInit {
          this.nombreUsuario = this.auth.getUserNombre();
          this.nombreCompleto = this.auth.getUserNombre();
          this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
+         this.telefono = this.auth.getTelefono();
        }
      });
 
@@ -74,9 +79,9 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.valorEfectivo = datos.valor_efectivo;
       this.reparacionReference = datos.reparacionRef;
       // Obtengo el color especifico
-      this.fb.doc$('COLOR/' + this.colorID).subscribe(data => {
-      const datos = data as Color;
-      this.color = datos.color;
+      this.fb.doc$('COLOR/' + this.colorID).subscribe(d => {
+      const dat = d as Color;
+      this.color = dat.color;
       this.cargoOK = true;
       });
     });
@@ -90,6 +95,7 @@ export class ConfirmacionTurnoPage implements OnInit {
         this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
         this.autenticado = true;
         this.nombreCompleto = this.auth.getUserNombre();
+        this.telefono = this.auth.getTelefono();
         });
     }
 
@@ -101,6 +107,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       this.nombreUsuario = this.auth.getUserNombre();
       this.nombreCompleto = this.auth.getUserNombre();
       this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
+      this.telefono = this.auth.getTelefono();
       });
    }
 
@@ -120,6 +127,10 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.valor_efectivo = this.valorEfectivo;
       turnoNuevo.observacion = '';
       turnoNuevo.email = this.email;
+      if (this.telefono === null) {this.telefono = 'Sin numero'; }
+      turnoNuevo.telefono = this.telefono;
+      turnoNuevo.reparacionRef = this.reparacionReference;
+      console.log(turnoNuevo.reparacionRef);
       this.fb.add('TURNO', turnoNuevo);
       const fechaMail = this.day.toString() + '/' + this.month.toString() + '/' + this.year.toString();
       this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, fechaMail);
@@ -136,8 +147,8 @@ export class ConfirmacionTurnoPage implements OnInit {
       } else {
         // verifico que este disponible todavia ese horario
         this.fb.col$('TURNO', ref => ref.where('fecha_reparacion', '==', this.fecha)
-        .where('hora_reparacion', '==', Number(this.hora))).subscribe(data => {
-          if(data.length == 0) {
+        .where('hora_reparacion', '==', Number(this.hora))).subscribe(d => {
+          if (d.length === 0) {
             this.grabaTurno();
           } else {
             this.presentToastTurnoNoDisp();
@@ -162,11 +173,10 @@ export class ConfirmacionTurnoPage implements OnInit {
       showCloseButton: true,
       duration: 4000,
       position: 'middle',
-      closeButtonText: 'Pedir nuevo turno', 
+      closeButtonText: 'Pedir nuevo turno',
     });
     toast.present();
     toast.onDidDismiss().then(() => {
-      
     });
   }
 

@@ -61,7 +61,6 @@ export class ModalHorariosComponent implements OnInit {
   }
 
   confirmaTurno(hora) {
-    console.log(btoa(this.fecha));
     const url = '/confirmacion-turno/' +
     this.reparacionID + '/' +
     this.colorID + '/' +

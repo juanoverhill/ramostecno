@@ -13,7 +13,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -36,6 +36,7 @@ const routes: Routes = [
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage]
