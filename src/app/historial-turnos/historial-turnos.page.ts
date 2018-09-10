@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from '../../services/f-base.service';
 import { SendMailService } from '../../services/send-mail.service';
 import { AuthService } from '../../services/auth.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Turno } from '../../Model/models';
 import {FormControl} from '@angular/forms';
+
 
 @Component({
   selector: 'app-historial-turnos',
@@ -22,14 +23,20 @@ export class HistorialTurnosPage implements OnInit {
   turnosPrevios: Observable<Turno[]>;
   perfil: any;
   permisos = false;
+  estado_reparacion: string;
+  fechaSeleccionada: string;
 
-  opciones = ['Pendiente','Confirmado','Reparado','Retirado'];
+  opciones = ['Pendiente', 'Confirmado', 'Reparado', 'Retirado', 'Cancelado'];
+
+  date = new FormControl(new Date());
 
   constructor(private route: ActivatedRoute, private fb: FirestoreService,
     private auth: AuthService, private sMail: SendMailService, private router: Router,
-    private modalController: ModalController) { }
+    private modalController: ModalController, public alertController: AlertController) { }
 
   ngOnInit() {
+    this.fechaSeleccionada = new Date().toISOString().slice(0, 10);
+    this.estado_reparacion = 'Pendiente';
     // Verifico previamente si esta logueado
     this.auth.afAuth.authState.subscribe(user => {
       if (user) {
@@ -59,7 +66,7 @@ export class HistorialTurnosPage implements OnInit {
   getPerfilUsuario(usuarioID) {
     this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuarioID)).subscribe(
       data => {
-        if(data.length > 0) {
+        if (data.length > 0) {
           this.permisos = true;
           console.log(this.permisos);
           this.traeTodosLosTurnos();
@@ -70,8 +77,21 @@ export class HistorialTurnosPage implements OnInit {
     );
   }
 
+  actualizaFechaTurnos(fecha) {
+    this.fechaSeleccionada = fecha.value.toISOString().slice(0, 10);
+    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
+      .where('fecha_reparacion', '==', this.fechaSeleccionada));
+  }
+
+  actualizaEstadoTurnos(estado) {
+    this.estado_reparacion = estado.value;
+    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
+    .where('fecha_reparacion', '==', this.fechaSeleccionada));
+  }
+
   traeTodosLosTurnos() {
-    this.turnosPrevios = this.fb.colWithIds$('TURNO');
+    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
+    .where('fecha_reparacion', '==', this.fechaSeleccionada));
   }
 
   logOut() {
@@ -79,6 +99,41 @@ export class HistorialTurnosPage implements OnInit {
       this.autenticado = false;
       this.router.navigateByUrl('/');
     });
+  }
+
+  async cancelaTurno(turno) {
+    const alert = await this.alertController.create({
+      header: 'Cancelar Turno',
+      subHeader: 'Seguro desea cancelarlo?',
+      message: 'Una vez cancelado no hay vuelta atras!',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => { }
+        }, {
+          text: 'SI',
+          handler: () => {
+            this.cancelacionTurno(turno);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  cambiaEstado(estadoNuevo, item) {
+    this.fb.update('TURNO/' + item, {'estado_reparacion_id': estadoNuevo});
+  }
+
+  reprogramaTurno(nuevaFecha, item) {
+    const fechaNew = nuevaFecha.value.toISOString().slice(0, 10);
+    this.fb.update('TURNO/' + item, {'fecha_reparacion': fechaNew});
+  }
+
+  cancelacionTurno(turno) {
+    this.fb.update('TURNO/' + turno, {'estado_reparacion_id': 'Cancelado'});
   }
 
 }

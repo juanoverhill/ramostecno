@@ -23,19 +23,19 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-button color="darkGray" expand="block">
+      <ion-button color="primary" expand="block">
         <ion-icon slot="start" name="airplane"></ion-icon>
         Anular fechas
       </ion-button>
-      <ion-button color="darkGray" expand="block">
+      <ion-button color="primary" expand="block">
         <ion-icon slot="start" name="code-working"></ion-icon>
         Horarios de trabajo
       </ion-button>
-      <ion-button color="darkGray" expand="block">
+      <ion-button color="primary" expand="block">
         <ion-icon slot="start" name="phone-portrait"></ion-icon>
         Administrar Equipos
       </ion-button>
-      <ion-button color="darkGray" expand="block">
+      <ion-button color="primary" expand="block">
         <ion-icon slot="start" name="construct"></ion-icon>
         Config. Reparaciones
       </ion-button>
@@ -47,23 +47,23 @@
 <ion-content *ngIf="autenticado">
   <ion-grid>
 
-    <ion-item color="light">
+    <ion-item color="light" *ngIf="permisos == true">
       <ion-row>
       <ion-col size="3">
          <mat-form-field>
-            <input matInput [matDatepicker]="dp3" placeholder="Selecciona una fecha" disabled>
-            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+          <input matInput [matDatepicker]="fc" placeholder="Selecciona una fecha" [value]="date.value" (dateChange)="actualizaFechaTurnos($event)" disabled>
+            <mat-datepicker-toggle matSuffix [for]="fc"></mat-datepicker-toggle>
+            <mat-datepicker #fc disabled="false"></mat-datepicker>
           </mat-form-field>
       </ion-col>
       <ion-col size="8">
           <mat-form-field>
-              <mat-select placeholder="Selecciona un estado">
+          <mat-select placeholder="Selecciona un estado" [(value)]="estado_reparacion" (selectionChange)="actualizaEstadoTurnos($event)">
                 <mat-option *ngFor="let opcion of opciones" [value]="opcion">
                   {{opcion}}
                 </mat-option>
-              </mat-select>
-            </mat-form-field>
+          </mat-select>
+          </mat-form-field>
       </ion-col>
     </ion-row>
     </ion-item>
@@ -79,22 +79,43 @@
           <br>
           <p class="letra" style="font-size: 12px;">Valor EFT ${{turno.valor_efectivo}}</p>
           <p class="letra" style="font-size: 10px;">Valor MP ${{turno.valor}}</p>
+          <div class="line-separator"></div>
+          <br>
+          <p class="letra">Solicita: {{turno.nombre_usuario}}</p>
         </ion-label>
+        <ion-row *ngIf="permisos == true">
+          <ion-col>
+            <ion-button icon-only color="secondary" size="small" mat-raised-button matTooltip="Cambiar estado" (click)="selectReparacion.open()">
+              <ion-icon name="open"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno">
+            <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="pickerDate.open()">
               <ion-icon name="time"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno">
+            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)">
               <ion-icon name="close"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
+      <mat-form-field hidden class="example-full-width">
+        <input matInput [matDatepicker]="pickerDate" placeholder="Choose a date" (dateChange)="reprogramaTurno($event,turno.id)">
+        <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #pickerDate></mat-datepicker>
+      </mat-form-field>
+      <ion-item hidden>
+        <ion-label>Estado Reparacion</ion-label>
+        <ion-select #selectReparacion placeholder="Selecciona una" value="estado_reparacion" (ionChange)="cambiaEstado(selectReparacion.value,turno.id)">
+          <ion-select-option *ngFor="let opcion of opciones" value="{{opcion}}">{{opcion}}</ion-select-option>
+        </ion-select>
       </ion-item>
-    </ion-list>
-  </ion-grid>
+      </ion-item>
+    </ion-list>     
+      </ion-grid>
 </ion-content>
