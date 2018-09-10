@@ -50,13 +50,13 @@
     <ion-item color="light" *ngIf="permisos == true">
       <ion-row>
         <ion-col size="1">
-        <mat-checkbox #check (click)="setFiltro(check.value)"></mat-checkbox>
+        <mat-checkbox #check (click)="setFiltro(check.checked)"></mat-checkbox>
         </ion-col>
       <ion-col size="3">     
          <mat-form-field>         
           <input matInput [matDatepicker]="fc" placeholder="Selecciona una fecha" [value]="date.value" (dateChange)="actualizaFechaTurnos($event)" disabled>
             <mat-datepicker-toggle matSuffix [for]="fc"></mat-datepicker-toggle>
-            <mat-datepicker #fc disabled="filtroFecha"></mat-datepicker>
+            <mat-datepicker #fc [disabled] = "filtroFecha == false"></mat-datepicker>
           </mat-form-field>
       </ion-col>
       <ion-col size="8">

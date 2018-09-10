@@ -87,15 +87,15 @@ export class HistorialTurnosPage implements OnInit {
 
   actualizaEstadoTurnos(estado) {
     this.estado_reparacion = estado.value;
-    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
-    .where('fecha_reparacion', '==', this.fechaSeleccionada));
+    this.traeTodosLosTurnos();
   }
 
   traeTodosLosTurnos() {
     this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => {
       let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
       query = query.where('estado_reparacion_id', '==', this.estado_reparacion);
-      query = query.orderBy('createdAt', 'desc');
+      query = query.orderBy('fecha_reparacion', 'desc');
+      query = query.orderBy('hora_reparacion', 'desc');
       return query;
     });
   }
@@ -142,8 +142,11 @@ export class HistorialTurnosPage implements OnInit {
     this.fb.update('TURNO/' + turno, {'estado_reparacion_id': 'Cancelado'});
   }
   setFiltro(filtro) {
-    console.log(filtro);
-    this.filtroFecha = filtro;
+    this.filtroFecha = !filtro;
+    if (!filtro === false) {this.traeTodosLosTurnos(); } else {
+      this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
+        .where('fecha_reparacion', '==', this.fechaSeleccionada));
+     }
   }
 
 }
