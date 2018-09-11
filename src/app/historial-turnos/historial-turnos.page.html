@@ -52,8 +52,8 @@
         <ion-col size="1">
         <mat-checkbox #check (click)="setFiltro(check.checked)"></mat-checkbox>
         </ion-col>
-      <ion-col size="3">     
-         <mat-form-field>         
+      <ion-col size="3">
+         <mat-form-field>
           <input matInput [matDatepicker]="fc" placeholder="Selecciona una fecha" [value]="date.value" (dateChange)="actualizaFechaTurnos($event)" disabled>
             <mat-datepicker-toggle matSuffix [for]="fc"></mat-datepicker-toggle>
             <mat-datepicker #fc [disabled] = "filtroFecha == false"></mat-datepicker>

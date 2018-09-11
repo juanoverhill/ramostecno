@@ -43,6 +43,7 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
         const toDia = req.body.dia;
         const toFecha = req.body.fecha;
         const toEmail = req.body.toEmail;
+        const templateID = req.body.templateID;
         const msg = {
             to: toEmail,
             from: 'juan.arias@csantacatalina.com.ar',
@@ -50,7 +51,7 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
             // text: `Hey ${toName}. You have a new follower!!! `,
             // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
             // custom templates
-            templateId: 'd-47b68a6dc0a1409eba235610e806d017',
+            templateId: templateID,
             personalizations: [
                 {
                     to: [{ email: toEmail }],
