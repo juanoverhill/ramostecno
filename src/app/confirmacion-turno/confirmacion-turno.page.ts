@@ -130,10 +130,9 @@ export class ConfirmacionTurnoPage implements OnInit {
       if (this.telefono === null) {this.telefono = 'Sin numero'; }
       turnoNuevo.telefono = this.telefono;
       turnoNuevo.reparacionRef = this.reparacionReference;
-      console.log(turnoNuevo.reparacionRef);
       this.fb.add('TURNO', turnoNuevo);
       const fechaMail = this.day.toString() + '/' + this.month.toString() + '/' + this.year.toString();
-      this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, fechaMail);
+      this.sMail.sendEmail(this.email, this.nombreUsuario, this.hora, fechaMail, 'd-47b68a6dc0a1409eba235610e806d017');
       this.router.navigateByUrl('turno-confirmado');
   }
 

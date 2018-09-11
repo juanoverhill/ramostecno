@@ -129,8 +129,20 @@ export class HistorialTurnosPage implements OnInit {
     await alert.present();
   }
 
-  cambiaEstado(estadoNuevo, item) {
+  cambiaEstado(estadoNuevo, item, fecha, hora) {
     this.fb.update('TURNO/' + item, {'estado_reparacion_id': estadoNuevo});
+    this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
+    const year = fecha.slice(0, 4);
+    const month = fecha.slice(5, 7);
+    const day = fecha.slice(8, 10);
+    const fechaMail = day.toString() + '/' + month.toString() + '/' + year.toString();
+    if (estadoNuevo === 'Confirmado') {
+      this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-6b08188256ff4655b1f1950b70d32f7f');
+    } else if (estadoNuevo === 'Recepcionado') {
+      this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-0443bc9b990b41c3bcda8bb8ec888fe3');
+    } else if (estadoNuevo === 'Reparado') {
+      this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-fdcd262f65df459eb2c976b335a1e033');
+    }
   }
 
   reprogramaTurno(nuevaFecha, item) {
