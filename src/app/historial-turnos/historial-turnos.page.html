@@ -97,14 +97,21 @@
             </ion-button>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="pickerDate.open()">
-              <ion-icon name="time"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
+          <ion-row *ngIf="permisos == true">
+            <ion-col>
+              <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket">
+                <ion-icon name="time"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>       
+          <ion-row *ngIf="permisos == true">
+            <ion-col>
+              <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="pickerDate.open()">
+                <ion-icon name="time"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
           <ion-col>
             <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)">
               <ion-icon name="close"></ion-icon>
