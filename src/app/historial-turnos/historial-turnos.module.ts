@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TicketComponent } from '../components/ticket/ticket.component';
 
 
 
@@ -37,9 +38,11 @@ const routes: Routes = [
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    TicketComponent,
     RouterModule.forChild(routes)
   ],
-  declarations: [HistorialTurnosPage]
+  declarations: [HistorialTurnosPage, TicketComponent],
+  entryComponents: [TicketComponent]
 
 })
 export class HistorialTurnosPageModule {}
