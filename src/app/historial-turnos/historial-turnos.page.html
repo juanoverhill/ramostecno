@@ -97,9 +97,9 @@
             </ion-button>
           </ion-col>
         </ion-row>
-          <ion-row *ngIf="permisos == true && selectReparacion.value == 'Confirmado'">
+          <ion-row *ngIf="permisos == true && selectReparacion.value != 'Pendiente'">
             <ion-col>
-              <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket">
+              <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket" (click)="verTicket(turno.id)">
                 <ion-icon name="list-box"></ion-icon>
               </ion-button>
             </ion-col>

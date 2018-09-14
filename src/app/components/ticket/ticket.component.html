@@ -1,3 +1,163 @@
-<p>
-  ticket works!
-</p>
+<ion-content>
+<ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item color="primary"><p class="texto print"><b>Ticket de servicio</b></p></ion-item>
+        <div class="line-separator"></div>
+      </ion-col>
+    </ion-row>
+    <ion-item color="light">
+         <ion-col>
+          <p class="letra">Numero de control: <b>272</b></p>         
+        </ion-col>
+        <ion-col>
+          <p class="letra">Equipo: <b>Samsung Galaxy S8 Negro</b></p>
+        </ion-col>         
+    </ion-item>  
+    <div class="line-separator"></div>
+    <ion-item color="light">        
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Contacto</ion-label>
+          <ion-input color="primary" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+             <ion-label position="floating">IMEI</ion-label>
+          <ion-input color="primary" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+    </ion-item>
+    <ion-item color="light">
+      <ion-col>
+        <ion-item>
+        <ion-label position="floating">Clave</ion-label>
+        <ion-input color="primary" type="text"></ion-input>
+      </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label>Patron</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+      </ion-col>      
+    </ion-item>
+    <ion-item-divider color="primary">Checks</ion-item-divider>
+    <ion-item color="light">
+      <table>
+        <tr>
+          <td>
+            <ion-item>
+              <ion-label>Tarjeta SIM</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Bandeja porta SIM</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>SD</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+              <ion-label>Bateria</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Carga</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Tapa</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+              <ion-label>Bluetooth</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Wifi</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Cap</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+              <ion-label>Auricular</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Microfono</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Altavoz</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+              <ion-label>Cam. Trasera</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Cam. Frontal</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+              <ion-label>Teclado</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+              <ion-label>Boton ON</ion-label>
+              <ion-checkbox slot="start"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+      </table>
+    </ion-item>
+    <ion-button expand="full" (click)="generatePDF()">Generar Orden</ion-button>
+</ion-grid>
+</ion-content>
+
+

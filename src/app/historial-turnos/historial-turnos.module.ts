@@ -38,7 +38,6 @@ const routes: Routes = [
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    TicketComponent,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage, TicketComponent],

@@ -8,6 +8,7 @@ import { ModalController, PopoverController, AlertController } from '@ionic/angu
 import { Observable } from 'rxjs';
 import { Turno } from '../../Model/models';
 import {FormControl} from '@angular/forms';
+import { TicketComponent } from '../components/ticket/ticket.component';
 
 
 @Component({
@@ -159,6 +160,14 @@ export class HistorialTurnosPage implements OnInit {
       this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
         .where('fecha_reparacion', '==', this.fechaSeleccionada));
      }
+  }
+
+  async verTicket(idTurno) {
+    const modal = await this.modalController.create({
+      component: TicketComponent,
+      componentProps: { idTurno: idTurno}
+    });
+    return await modal.present();
   }
 
 }

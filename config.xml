@@ -89,5 +89,4 @@
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
-   
 </widget>
