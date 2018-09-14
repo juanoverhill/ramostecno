@@ -89,7 +89,7 @@ export class TicketComponent implements OnInit {
                           ['Cam. Trasera: SI', 'Cam. Frontal: SI', ''],
                           ['Teclado: SI', 'Boton ON: SI', '']
                         ]
-                }
+                },
               },
               {
                 table: {
@@ -101,7 +101,7 @@ export class TicketComponent implements OnInit {
                           ['Cam. Trasera: SI', 'Cam. Frontal: SI', ''],
                           ['Teclado: SI', 'Boton ON: SI', '']
                         ]
-                }
+                },
               }
             ]
           ]
