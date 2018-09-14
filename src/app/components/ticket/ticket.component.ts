@@ -26,7 +26,7 @@ export class TicketComponent implements OnInit {
         style: 'tableExample',
         table: {
           widths: ['*', '*'],
-          heights: [20, 40, 20, 30, 50, 30],
+          heights: [20, 40, 20, 30, 50, 40, 80],
           body: [
             [
              { text: 'Fundacion Ramos Tecnoreparaciones', style: 'header', alignment: 'center' },
