@@ -26,7 +26,7 @@ export class TicketComponent implements OnInit {
         style: 'tableExample',
         table: {
           widths: ['*', '*'],
-          heights: [20, 40, 20, 30],
+          heights: [20, 40, 20, 30, 50, 30],
           body: [
             [
              { text: 'Fundacion Ramos Tecnoreparaciones', style: 'header', alignment: 'center' },
@@ -61,7 +61,6 @@ export class TicketComponent implements OnInit {
                   {
                     image: 'patron',
                     fit: [100, 100],
-                    pageBreak: 'after'
                   }
                 ]
               },
@@ -70,29 +69,38 @@ export class TicketComponent implements OnInit {
                   { text: 'Clave: XXX', alignment: 'left', fontSize: 10 },
                   {
                     image: 'patron',
-                    fit: [100, 100],
-                    pageBreak: 'after'
-                  }
+                    fit: [100, 100]
+                   }
                 ]
                }
+            ],
+            [
+              { text: 'Checks', alignment: 'left', fontSize: 11 },
+              { text: 'Checks', alignment: 'left', fontSize: 11 }
             ],
             [
               {
                 table: {
                   body: [
-                    {text: 'Tarjeta SIM: SI', alignment: 'left', fontSize: 10},
-                    { text: 'Bandeja porta SIM: SI', alignment: 'left', fontSize: 10 },
-                    { text: 'Tarjeta SD: NO', alignment: 'left', fontSize: 10 }
-                ]
+                          ['Tarjeta SIM: SI', 'Bandeja Porta SIM: SI', 'Tarjeta SD: NO'],
+                          ['Bateria: SI', 'Carga: SI', 'Tapa: NO'],
+                          ['Bluetooth: SI', 'Wifi: SI', 'CAP: NO'],
+                          ['Auricular: SI', 'Microfono: SI', 'Altavoz: NO'],
+                          ['Cam. Trasera: SI', 'Cam. Frontal: SI', ''],
+                          ['Teclado: SI', 'Boton ON: SI', '']
+                        ]
                 }
               },
               {
                 table: {
                   body: [
-                    { text: 'Tarjeta SIM: SI', alignment: 'left', fontSize: 10 },
-                    { text: 'Bandeja porta SIM: SI', alignment: 'left', fontSize: 10 },
-                    { text: 'Tarjeta SD: NO', alignment: 'left', fontSize: 10 }
-                  ]
+                          ['Tarjeta SIM: SI', 'Bandeja Porta SIM: SI', 'Tarjeta SD: NO'],
+                          ['Bateria: SI', 'Carga: SI', 'Tapa: NO'],
+                          ['Bluetooth: SI', 'Wifi: SI', 'CAP: NO'],
+                          ['Auricular: SI', 'Microfono: SI', 'Altavoz: NO'],
+                          ['Cam. Trasera: SI', 'Cam. Frontal: SI', ''],
+                          ['Teclado: SI', 'Boton ON: SI', '']
+                        ]
                 }
               }
             ]
