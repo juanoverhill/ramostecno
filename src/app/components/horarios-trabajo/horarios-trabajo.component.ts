@@ -63,7 +63,7 @@ export class HorariosTrabajoComponent implements OnInit {
     if(chk === true) {
       this._dias.push(dia);
     } else {
-      this._dias = this._horarios.filter(x => x != dia);
+      this._dias = this._dias.filter(x => x != dia);
     }
 
     this._dias = this._dias.sort((n1,n2) => n1 - n2);
