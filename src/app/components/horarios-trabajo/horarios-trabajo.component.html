@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="cargoOK">
     <ion-row>
       <ion-col size="1">
           <ion-button size="small" color="danger" (click)="close()">X</ion-button>
@@ -8,7 +8,7 @@
           <ion-item-divider color="primary">Configuracion de horas de trabajo</ion-item-divider>
         </ion-col>
     </ion-row>
-    <ion-row *ngIf="cargoOK">
+    <ion-row >
       <ion-col *ngFor="let hora of horariosDisponibles">
           <ion-item color="light" >
               <ion-label>{{hora}}hs.</ion-label>
@@ -22,6 +22,14 @@
         <ion-item color="light">
           <ion-label>{{dia | diaSemana}}</ion-label>
           <ion-checkbox #chd slot="start" [checked]="_dias.includes(dia)" (ionChange)="cambiaDia(chd.checked,dia)"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-item-divider color="primary">N dias de anulacion automatica</ion-item-divider>
+    <ion-row>
+      <ion-col>
+        <ion-item color="light">
+          <ion-input type="number" #d value="{{nDias}}" (ionChange)="cambiaN(d.value)"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

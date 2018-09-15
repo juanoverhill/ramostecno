@@ -18,6 +18,7 @@ export class HorariosTrabajoComponent implements OnInit {
   cargoOK = false;
   idHorario;
   idParametro;
+  nDias;
 
   constructor(private fb: FirestoreService,private modalCtrl: ModalController,
     public alertController: AlertController) { }
@@ -32,6 +33,7 @@ export class HorariosTrabajoComponent implements OnInit {
       this.fb.colWithIds$('PARAMETRO_ANULACION', ref => ref.where('empresa', '==', 'ramosTecno')).subscribe(dates => {
         const dat = dates[0] as ParametroAnulacion;
         this.idParametro = dat.id;
+        this.nDias = dat.dias_anulados;
         const array2 = dat.dias_laborables.split(',').map(Number);
         
         this._dias = array2;
@@ -71,6 +73,12 @@ export class HorariosTrabajoComponent implements OnInit {
     param.dias_laborables = String(this._dias).replace('[','').replace(']','');
     this.fb.update('PARAMETRO_ANULACION/' + this.idParametro, param);
 
+  }
+
+  cambiaN(numero) {
+    const param = new ParametroAnulacion();
+    param.dias_anulados = numero;
+    this.fb.update('PARAMETRO_ANULACION/' + this.idParametro, param);
   }
 
 }
