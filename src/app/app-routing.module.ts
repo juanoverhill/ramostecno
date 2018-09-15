@@ -11,7 +11,9 @@ const routes: Routes = [
   // tslint:disable-next-line:max-line-length
   { path: 'confirmacion-turno/:idReparacion/:idColor/:fecha/:hora', loadChildren: './confirmacion-turno/confirmacion-turno.module#ConfirmacionTurnoPageModule' },
   { path: 'turno-confirmado', loadChildren: './turno-confirmado/turno-confirmado.module#TurnoConfirmadoPageModule' },  { path: 'historial-turnos', loadChildren: './historial-turnos/historial-turnos.module#HistorialTurnosPageModule' },
-  { path: 'loguear', loadChildren: './loguear/loguear.module#LoguearPageModule' }
+  { path: 'loguear', loadChildren: './loguear/loguear.module#LoguearPageModule' },
+  { path: 'admnistrar-equipos', loadChildren: './admnistrar-equipos/admnistrar-equipos.module#AdmnistrarEquiposPageModule' },
+  { path: 'administrar-reparaciones', loadChildren: './administrar-reparaciones/administrar-reparaciones.module#AdministrarReparacionesPageModule' }
 
 
 

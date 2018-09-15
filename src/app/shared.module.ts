@@ -1,14 +1,15 @@
 import { DocPipe } from './doc.pipe';
 import { NgModule } from '@angular/core';
+import { DiaSemanaPipe } from './dia-semana.pipe';
 
 @NgModule({
     imports: [
     ],
     declarations: [
-        DocPipe
+        DocPipe, DiaSemanaPipe
     ],
     exports: [
-        DocPipe
+        DocPipe, DiaSemanaPipe
     ]
 })
 export class SharedModule {}

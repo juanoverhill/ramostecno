@@ -91,3 +91,18 @@ export class Fecha {
     id?: string;
     fecha?: string;
 }
+
+export class ParametroAnulacion {
+    id?: string;
+    dias_anulados?: number;
+    dias_laborables?: string;
+    empresa?: string;
+    suma_n_viernes?: string;
+    trabaja_feriados?: string;
+}
+
+export class HoraDisponible {
+    id?: string;
+    empresa?; string;
+    horas_trabajo?: string;
+}

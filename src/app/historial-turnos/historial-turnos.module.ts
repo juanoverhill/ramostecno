@@ -18,6 +18,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TicketComponent } from '../components/ticket/ticket.component';
 import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
+import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
 
 
 
@@ -44,8 +45,8 @@ const routes: Routes = [
     MatDialogModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HistorialTurnosPage, TicketComponent, AnularFechasComponent],
-  entryComponents: [TicketComponent, AnularFechasComponent]
+  declarations: [HistorialTurnosPage, TicketComponent, AnularFechasComponent, HorariosTrabajoComponent],
+  entryComponents: [TicketComponent, AnularFechasComponent, HorariosTrabajoComponent]
 
 })
 export class HistorialTurnosPageModule {}

@@ -1,0 +1,29 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1">
+          <ion-button size="small" color="danger" (click)="close()">X</ion-button>
+      </ion-col>
+      <ion-col>
+          <ion-item-divider color="primary">Configuracion de horas de trabajo</ion-item-divider>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="cargoOK">
+      <ion-col *ngFor="let hora of horariosDisponibles">
+          <ion-item color="light" >
+              <ion-label>{{hora}}hs.</ion-label>
+              <ion-checkbox #ch slot="start" [checked]="_horarios.includes(hora)" (ionChange)="cambiaHora(ch.checked, hora)"></ion-checkbox>
+            </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-item-divider color="primary">Dias de trabajo</ion-item-divider>
+    <ion-row>
+      <ion-col *ngFor="let dia of diasDisponibles">
+        <ion-item color="light">
+          <ion-label>{{dia | diaSemana}}</ion-label>
+          <ion-checkbox #chd slot="start" [checked]="_dias.includes(dia)" (ionChange)="cambiaDia(chd.checked,dia)"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

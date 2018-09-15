@@ -10,6 +10,7 @@ import { Turno } from '../../Model/models';
 import {FormControl} from '@angular/forms';
 import { TicketComponent } from '../components/ticket/ticket.component';
 import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
+import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
 
 
 @Component({
@@ -174,6 +175,14 @@ export class HistorialTurnosPage implements OnInit {
   async anularFechas() {
     const modal = await this.modalController.create({
       component: AnularFechasComponent,
+      componentProps: {}
+    });
+    return await modal.present();
+  }
+
+  async horariosTrabajo() {
+    const modal = await this.modalController.create({
+      component: HorariosTrabajoComponent,
       componentProps: {}
     });
     return await modal.present();
