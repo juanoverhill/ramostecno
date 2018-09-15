@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from './../shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 import { IonicModule } from '@ionic/angular';
 
@@ -39,6 +41,7 @@ const routes: Routes = [
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
+    MatDialogModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage, TicketComponent, AnularFechasComponent],

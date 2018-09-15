@@ -1,19 +1,32 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-        <ion-col size="1">
+        <ion-col size="4">
             <ion-button size="small" color="danger" (click)="close()">X</ion-button>
         </ion-col>
+        <ion-col>
+          <ion-item color="light">
+            <mat-form-field>
+                <input matInput [matDatepicker]="fc" placeholder="Selecciona una fecha a anular" [value]="date.value" (dateChange)="presentAlert($event)">
+                <mat-datepicker-toggle matSuffix [for]="fc"></mat-datepicker-toggle>
+                <mat-datepicker #fc></mat-datepicker>
+              </mat-form-field>
+          </ion-item>
+            
+        </ion-col>
     </ion-row>
-    <ion-row>
+    
       <ion-item-divider color="primary">
-        <p class="texto">Fechas Anuladas</p>
+        <p class="titulo">Fechas Anuladas</p>
       </ion-item-divider>
       <ion-list>
-        <ion-item>
-          <p class="letra">Fecha:</p>
+        <ion-item *ngFor = "let fecha of fechasAnuladas | async" lines="inset" color="light">
+          <p class="letra">Fecha: {{fecha.fecha}}</p>
+          <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar anulacion" (click)="cancelarAnulacion(fecha.id)">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
         </ion-item>
       </ion-list>
-    </ion-row>
+  
   </ion-grid>
 </ion-content>

@@ -86,3 +86,8 @@ export class Ticket {
     teclado?: boolean;
     botonON?: boolean;
 }
+
+export class Fecha {
+    id?: string;
+    fecha?: string;
+}
