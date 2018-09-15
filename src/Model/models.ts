@@ -59,3 +59,30 @@ export class Color {
     equipoRef?: firebase.firestore.DocumentReference;
     equipo_id?: string;
 }
+
+export class Ticket {
+    id?: string;
+    n_control?: number;
+    turno_id?: string;
+    contacto?: string;
+    imei?: string;
+    clave?: string;
+    patron?: boolean;
+    importe?: string;
+    simCard?: boolean;
+    bandejaSIM?: boolean;
+    tarjetaSD: boolean;
+    bateria?: boolean;
+    carga?: boolean;
+    tapa?: boolean;
+    bluetooth?: boolean;
+    wifi?: boolean;
+    cap?: boolean;
+    auricular?: boolean;
+    microfono?: boolean;
+    altavoz?: boolean;
+    camTrasera?: boolean;
+    camFrontal?: boolean;
+    teclado?: boolean;
+    botonON?: boolean;
+}

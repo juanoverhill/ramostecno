@@ -42,6 +42,7 @@
     "cordova-plugin-firebase-config": "^1.0.0",
     "core-js": "^2.5.3",
     "cors": "^2.8.4",
+    "dom-to-image": "^2.6.0",
     "express": "^4.16.3",
     "firebase": "^5.3.0",
     "firebase-admin": "^5.13.1",

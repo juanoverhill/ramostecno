@@ -23,7 +23,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-button color="primary" expand="block">
+      <ion-button color="primary" expand="block" (click)="anularFechas()">
         <ion-icon slot="start" name="airplane"></ion-icon>
         Anular fechas
       </ion-button>
@@ -50,9 +50,9 @@
     <ion-item color="light" *ngIf="permisos == true">
       <ion-row>
         <ion-col size="1">
-          <mat-checkbox #check (click)="setFiltro(check.checked)"></mat-checkbox>
+          <mat-checkbox #check (click)="setFiltro(check.checked)" color="primary"></mat-checkbox>
         </ion-col>
-        <ion-col size="3">
+        <ion-col >
           <mat-form-field>
             <input matInput [matDatepicker]="fc" placeholder="Selecciona una fecha" [value]="date.value" (dateChange)="actualizaFechaTurnos($event)"
               disabled>
@@ -60,7 +60,7 @@
             <mat-datepicker #fc [disabled]="filtroFecha == false"></mat-datepicker>
           </mat-form-field>
         </ion-col>
-        <ion-col size="8">
+        <ion-col size="4">
           <mat-form-field>
             <mat-select placeholder="Selecciona un estado" [(value)]="estado_reparacion" (selectionChange)="actualizaEstadoTurnos($event)">
               <mat-option *ngFor="let opcion of opciones" [value]="opcion">

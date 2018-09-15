@@ -542,10 +542,10 @@
     "@types/cordova" latest
 
 "@ionic/angular@^4.0.0-beta.7":
-  version "4.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-beta.8.tgz#43b1596666199bc5c80d5bef600b3f27bb7703c1"
+  version "4.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-beta.11.tgz#2307363f97faee5a792d740a7a644677957d4ba4"
   dependencies:
-    "@ionic/core" "4.0.0-beta.8"
+    "@ionic/core" "4.0.0-beta.11"
 
 "@ionic/cli-framework@1.0.0":
   version "1.0.0"
@@ -625,9 +625,9 @@
     uuid "^3.0.1"
     wrap-ansi "^3.0.1"
 
-"@ionic/core@4.0.0-beta.8":
-  version "4.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.0.0-beta.8.tgz#abe892f96b5af60732878ce2767e656e91593494"
+"@ionic/core@4.0.0-beta.11":
+  version "4.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.0.0-beta.11.tgz#175e4cc5aae2484d82a456a9e159680f1fc2f9fd"
   dependencies:
     ionicons "4.4.3"
 
@@ -3341,6 +3341,10 @@ dom-storage@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dom-storage/-/dom-storage-2.1.0.tgz#00fb868bc9201357ea243c7bcfd3304c1e34ea39"
 
+dom-to-image@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/dom-to-image/-/dom-to-image-2.6.0.tgz#8a503608088c87b1c22f9034ae032e1898955867"
+
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -4251,7 +4255,7 @@ gaze@^1.0.0:
 
 gcp-metadata@^0.6.1, gcp-metadata@^0.6.3:
   version "0.6.3"
-  resolved "https://registry.yarnpkg.com/gcp-metadata/-/gcp-metadata-0.6.3.tgz#4550c08859c528b370459bd77a7187ea0bdbc4ab"
+  resolved "http://registry.npmjs.org/gcp-metadata/-/gcp-metadata-0.6.3.tgz#4550c08859c528b370459bd77a7187ea0bdbc4ab"
   dependencies:
     axios "^0.18.0"
     extend "^3.0.1"
@@ -4475,8 +4479,8 @@ grpc@1.13.1:
     protobufjs "^5.0.3"
 
 grpc@^1.12.2:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.15.0.tgz#0faf0c6bf8fd319da510dc2f661b2855876aa150"
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.15.1.tgz#046263d9b0c440c8e36fece03e227cb3afe28514"
   dependencies:
     lodash "^4.17.5"
     nan "^2.0.0"

@@ -1,162 +1,167 @@
 <ion-content>
-<ion-grid>
+<ion-grid id="ticket">
     <ion-row>
       <ion-col>
-        <ion-item color="primary"><p class="texto print"><b>Ticket de servicio</b></p></ion-item>
+        <ion-item-divider  color="primary"><p class="titulo"><b>Ticket de servicio</b></p></ion-item-divider>
         <div class="line-separator"></div>
       </ion-col>
     </ion-row>
-    <ion-item color="light">
-         <ion-col>
-          <p class="letra">Numero de control: <b>272</b></p>         
-        </ion-col>
-        <ion-col>
-          <p class="letra">Equipo: <b>Samsung Galaxy S8 Negro</b></p>
-        </ion-col>         
-    </ion-item>  
-    <div class="line-separator"></div>
-    <ion-item color="light">        
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating">Contacto</ion-label>
-          <ion-input color="primary" type="text"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-             <ion-label position="floating">IMEI</ion-label>
-          <ion-input color="primary" type="text"></ion-input>
-          </ion-item>
-        </ion-col>
-    </ion-item>
-    <ion-item color="light">
-      <ion-col>
-        <ion-item>
-        <ion-label position="floating">Clave</ion-label>
-        <ion-input color="primary" type="text"></ion-input>
-      </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item>
-          <ion-label>Patron</ion-label>
-          <ion-checkbox slot="end"></ion-checkbox>
-        </ion-item>
-      </ion-col>      
-    </ion-item>
-    <ion-item-divider color="primary">Checks</ion-item-divider>
+     <div class="line-separator"></div>
+     <form #f="ngForm"  novalidate>
+    <ion-item color="light"> 
+        <table style="width:100%">
+            <tr >
+              <td>
+                  <p  class="letra">Numero de control: <b>{{n_control}}</b></p>  
+              </td>
+              <td>
+                  <p class="letra">Equipo: <b>{{((turno | async)?.equipoRef | doc | async)?.descripcion }} {{(turno | async)?.color}}</b></p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  <mat-form-field>
+                      <input name="contacto" ngModel matInput placeholder="Contacto" value="{{(ticket | async)?.contacto}}">
+                    </mat-form-field>
+              </td>
+              <td>
+                  <mat-form-field>
+                      <input name="imei" ngModel matInput placeholder="IMEI" value="{{(ticket | async)?.imei}}">
+                    </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  <mat-form-field>
+                      <input name="clave" ngModel matInput placeholder="Clave" value="{{(ticket | async)?.clave}}">
+                    </mat-form-field>
+              </td>
+              <td>
+                  <ion-item>
+                      <ion-checkbox hidden #pat checked="{{(ticket | async)?.patron}}"></ion-checkbox>
+                      <mat-checkbox name="patron" [(ngModel)]="pat.checked" color="primary">Patron</mat-checkbox>
+                    </ion-item>
+              </td>
+            </tr>
+          </table>       
+       </ion-item>
+    <ion-item-divider color="primary">Checks de control</ion-item-divider>
     <ion-item color="light">
       <table>
         <tr>
           <td>
             <ion-item>
-              <ion-label>Tarjeta SIM</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #sim checked="{{(ticket | async)?.simCard}}"></ion-checkbox>
+                <mat-checkbox name="simCard" [(ngModel)]="sim.checked" color="primary">Tarjeta SIM</mat-checkbox>
             </ion-item>
           </td>
           <td>
             <ion-item>
-              <ion-label>Bandeja porta SIM</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #simB checked="{{(ticket | async)?.bandejaSIM}}"></ion-checkbox>
+                <mat-checkbox name="bandejaSIM" [(ngModel)]="simB.checked" color="primary">Bandeja Porta SIM</mat-checkbox>
             </ion-item>
           </td>
           <td>
             <ion-item>
-              <ion-label>SD</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-            </ion-item>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <ion-item>
-              <ion-label>Bateria</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-            </ion-item>
-          </td>
-          <td>
-            <ion-item>
-              <ion-label>Carga</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-            </ion-item>
-          </td>
-          <td>
-            <ion-item>
-              <ion-label>Tapa</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #sd checked="{{(ticket | async)?.tarjetaSD}}"></ion-checkbox>
+                <mat-checkbox name="tarjetaSD" [(ngModel)]="sd.checked" color="primary">SD</mat-checkbox>
             </ion-item>
           </td>
         </tr>
         <tr>
           <td>
             <ion-item>
-              <ion-label>Bluetooth</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #bat checked="{{(ticket | async)?.bateria}}"></ion-checkbox>
+                <mat-checkbox name="bateria" [(ngModel)]="bat.checked" color="primary">Bateria</mat-checkbox>
             </ion-item>
           </td>
           <td>
             <ion-item>
-              <ion-label>Wifi</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #car checked="{{(ticket | async)?.carga}}"></ion-checkbox>
+                <mat-checkbox name="carga" [(ngModel)]="car.checked" color="primary">Carga</mat-checkbox>
             </ion-item>
           </td>
           <td>
             <ion-item>
-              <ion-label>Cap</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-            </ion-item>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <ion-item>
-              <ion-label>Auricular</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-            </ion-item>
-          </td>
-          <td>
-            <ion-item>
-              <ion-label>Microfono</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
-            </ion-item>
-          </td>
-          <td>
-            <ion-item>
-              <ion-label>Altavoz</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #tap checked="{{(ticket | async)?.tapa}}"></ion-checkbox>
+                <mat-checkbox name="tapa" [(ngModel)]="tap.checked" color="primary">Tapa</mat-checkbox>
             </ion-item>
           </td>
         </tr>
         <tr>
           <td>
             <ion-item>
-              <ion-label>Cam. Trasera</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #bl checked="{{(ticket | async)?.bluetooth}}"></ion-checkbox>
+                <mat-checkbox name="bluetooth" [(ngModel)]="bl.checked" color="primary">Bluetooth</mat-checkbox>
             </ion-item>
           </td>
           <td>
             <ion-item>
-              <ion-label>Cam. Frontal</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #wf checked="{{(ticket | async)?.wifi}}"></ion-checkbox>
+                <mat-checkbox name="wifi" [(ngModel)]="wf.checked" color="primary">Wifi</mat-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+                <ion-checkbox hidden #cp checked="{{(ticket | async)?.cap}}"></ion-checkbox>
+                <mat-checkbox name="cap" [(ngModel)]="cp.checked" color="primary">Cap</mat-checkbox>
             </ion-item>
           </td>
         </tr>
         <tr>
           <td>
             <ion-item>
-              <ion-label>Teclado</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #au checked="{{(ticket | async)?.auricular}}"></ion-checkbox>
+                <mat-checkbox name="auricular" [(ngModel)]="au.checked" color="primary">Auricular</mat-checkbox>
             </ion-item>
           </td>
           <td>
             <ion-item>
-              <ion-label>Boton ON</ion-label>
-              <ion-checkbox slot="start"></ion-checkbox>
+                <ion-checkbox hidden #mi checked="{{(ticket | async)?.microfono}}"></ion-checkbox>
+                <mat-checkbox name="microfono" [(ngModel)]="mi.checked" color="primary">Microfono</mat-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+                <ion-checkbox hidden #al checked="{{(ticket | async)?.altavoz}}"></ion-checkbox>
+                <mat-checkbox name="altavoz" [(ngModel)]="al.checked" color="primary">Altavoz</mat-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+                <ion-checkbox hidden #cmt checked="{{(ticket | async)?.camTrasera}}"></ion-checkbox>
+                <mat-checkbox name="camTrasera" [(ngModel)]="cmt.checked" color="primary">Cam. Trasera</mat-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+                <ion-checkbox hidden #cmf checked="{{(ticket | async)?.camFrontal}}"></ion-checkbox>
+                <mat-checkbox name="camFrontal" [(ngModel)]="cmf.checked" color="primary">Cam Frontal</mat-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ion-item>
+                <ion-checkbox hidden #tecl checked="{{(ticket | async)?.teclado}}"></ion-checkbox>
+                <mat-checkbox name="teclado" [(ngModel)]="tecl.checked" color="primary">Teclado</mat-checkbox>
+            </ion-item>
+          </td>
+          <td>
+            <ion-item>
+                <ion-checkbox hidden #botn checked="{{(ticket | async)?.botonON}}"></ion-checkbox>
+                <mat-checkbox name="botonON" [(ngModel)]="botn.checked" color="primary">Boton ON</mat-checkbox>
             </ion-item>
           </td>
         </tr>
       </table>
     </ion-item>
-    <ion-button expand="full" (click)="generatePDF()">Generar Orden</ion-button>
+    <div class="line-separator"></div>
+    <ion-button *ngIf="cargoOK" expand="full" (click)="print('ticket', f)">Generar Orden</ion-button>
+    <p hidden class="texto" style="margin-top:20px;">Firma del cliente</p>
+  </form>
 </ion-grid>
 </ion-content>
 

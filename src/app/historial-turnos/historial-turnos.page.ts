@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Turno } from '../../Model/models';
 import {FormControl} from '@angular/forms';
 import { TicketComponent } from '../components/ticket/ticket.component';
+import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
 
 
 @Component({
@@ -95,8 +96,8 @@ export class HistorialTurnosPage implements OnInit {
     this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => {
       let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
       query = query.where('estado_reparacion_id', '==', this.estado_reparacion);
-      query = query.orderBy('fecha_reparacion', 'desc');
-      query = query.orderBy('hora_reparacion', 'desc');
+      query = query.orderBy('fecha_reparacion', 'asc');
+      query = query.orderBy('hora_reparacion', 'asc');
       return query;
     });
   }
@@ -166,6 +167,14 @@ export class HistorialTurnosPage implements OnInit {
     const modal = await this.modalController.create({
       component: TicketComponent,
       componentProps: { idTurno: idTurno}
+    });
+    return await modal.present();
+  }
+
+  async anularFechas() {
+    const modal = await this.modalController.create({
+      component: AnularFechasComponent,
+      componentProps: {}
     });
     return await modal.present();
   }
