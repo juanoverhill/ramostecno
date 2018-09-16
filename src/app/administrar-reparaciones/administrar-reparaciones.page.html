@@ -7,19 +7,19 @@
       <ion-col size="12">
         <ion-item color="light">
         <mat-form-field style="width: 80%;">
-            <mat-select  placeholder="Selecciona una categoria" (selectionChange)="getSubCategorias($event)">
-              <mat-option *ngFor="let categoria of categorias | async" [value]="categoria.id">
+            <mat-select #cat placeholder="Selecciona una categoria" (selectionChange)="getSubCategorias($event)">
+              <mat-option  *ngFor="let categoria of categorias | async" [value]="categoria.id">
                 {{categoria.descripcion}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar">
+          <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarCategoria(cat.value, cat.selected?.viewValue)">
               <ion-icon name="create"></ion-icon>
             </ion-button>
-            <ion-button slot="end" icon-only color="secondary" size="small" mat-raised-button matTooltip="Agregar">
+            <ion-button slot="end" icon-only color="secondary" size="small" mat-raised-button matTooltip="Agregar" (click)="alertNuevaCategoria()">
                 <ion-icon name="add"></ion-icon>
               </ion-button>
-              <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar">
+              <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaCategoria(cat.value)">
                   <ion-icon name="close"></ion-icon>
                 </ion-button>
     </ion-item>

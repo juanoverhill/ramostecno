@@ -106,3 +106,8 @@ export class HoraDisponible {
     empresa?; string;
     horas_trabajo?: string;
 }
+
+export class CategoriaReparacion {
+    id?: string;
+    descripcion?: string;
+}
