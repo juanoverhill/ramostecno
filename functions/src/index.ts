@@ -6,6 +6,7 @@ import * as sgMail from '@sendgrid/mail';
 admin.initializeApp();
 const db = admin.firestore();
 const Equipos = db.collection('EQUIPO');
+const Turnos = db.collection('TURNO');
 
 // const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 const SENDGRID_API_KEY = functions.config().sendgrid.key;
@@ -31,6 +32,43 @@ catch(err){
     res.status(500).send(err);
 }
 })
+
+exports.getTurnosHoy = functions.https.onRequest(async (req,res)=>{    
+    try{
+        const templateID = req.body.templateID;
+
+        const snapshot = await Turnos.get();
+        const results = [];
+        snapshot.forEach(item => {
+            const data = item.data();
+            const fechaHoy = new Date().toISOString().slice(0,10);
+            const fechaTurno = data.fecha_reparacion;
+           
+            console.log(fechaHoy);
+            console.log(fechaTurno);
+
+            const endpoint = 'https://us-central1-calidad-csc.cloudfunctions.net/httpEmail';
+
+            const datos = {
+                toEmail: data.email,
+                toName: data.nombre_usuario,
+                dia: data.hora_reparacion,
+                fecha: data.fecha_reparacion,
+                templateID: 'd-6b08188256ff4655b1f1950b70d32f7f',
+              };
+
+            if(fechaHoy === fechaTurno) {
+                this.http.post(endpoint, datos).subscribe();
+            }
+           
+        })
+
+        res.status(200).send('email sent!')
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+    })
  
 
 exports.httpEmail = functions.https.onRequest((req, res) => {
