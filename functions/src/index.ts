@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as sgMail from '@sendgrid/mail';
 
-
 admin.initializeApp();
 const db = admin.firestore();
 const Equipos = db.collection('EQUIPO');
@@ -33,81 +32,97 @@ catch(err){
 }
 })
 
-exports.getTurnosHoy = functions.https.onRequest(async (req,res)=>{    
-    try{
-        const templateID = req.body.templateID;
+exports.getTurnosHoy = functions.https.onRequest(async (req, res) => {
 
-        const snapshot = await Turnos.get();
-        const results = [];
-        snapshot.forEach(item => {
-            const data = item.data();
-            const fechaHoy = new Date().toISOString().slice(0,10);
-            const fechaTurno = data.fecha_reparacion;
-           
-            console.log(fechaHoy);
-            console.log(fechaTurno);
+    const snapshot = await Turnos.get();
+    snapshot.forEach(item => {
+        const data = item.data();
+        const fechaHoy = new Date().toISOString().slice(0,10);
+        const fechaTurno = data.fecha_reparacion;
 
-            const endpoint = 'https://us-central1-calidad-csc.cloudfunctions.net/httpEmail';
+        console.log(fechaHoy);
+        console.log(fechaTurno);
 
-            const datos = {
-                toEmail: data.email,
-                toName: data.nombre_usuario,
-                dia: data.hora_reparacion,
-                fecha: data.fecha_reparacion,
-                templateID: 'd-6b08188256ff4655b1f1950b70d32f7f',
-              };
+        if (fechaHoy === fechaTurno) {
+            const msg = {
+                to: data.email,
+                from: 'juan.arias@csantacatalina.com.ar',
+                subject: 'Hola',
+                // text: `Hey ${toName}. You have a new follower!!! `,
+                // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
 
-            if(fechaHoy === fechaTurno) {
-                this.http.post(endpoint, datos).subscribe();
-            }
-           
-        })
+                // custom templates
+                templateId: 'd-6b08188256ff4655b1f1950b70d32f7f',
+                personalizations: [
+                    {
+                        to: [{ email: data.email }],
+                        dynamic_template_data: {
+                            name: data.nombre_usuario,
+                            dia: data.hora_reparacion,
+                            fecha: data.fecha_reparacion
+                            // and other custom properties here
+                        }
+                    }
+                ]
+            };
 
-        res.status(200).send('email sent!')
-    }
-    catch(err){
-        res.status(500).send(err);
-    }
+            return sgMail.send(msg)
+
+                .then(() => res.status(200).send('email sent!'))
+                .catch(err => res.status(400).send(err))
+        }
+
+        return res.status(200).send('No hay turnos hoy');
+    });
+
 });
 
-exports.getTurnosManiana = functions.https.onRequest(async (req,res)=>{    
-    try{
-        const templateID = req.body.templateID;
+
+exports.getTurnosManiana = functions.https.onRequest(async (req, res) => {
 
         const snapshot = await Turnos.get();
-        const results = [];
         snapshot.forEach(item => {
             const data = item.data();
             const fechaHoy = new Date();
-            const fechaManiana = new Date(fechaHoy.getTime() + (1000 * 60 * 60 * 24)).toISOString().slice(0,10);
+            const fechaManiana = new Date(fechaHoy.getTime() + (1000 * 60 * 60 * 24)).toISOString().slice(0, 10);
             const fechaTurno = data.fecha_reparacion;
-           
+
             console.log(fechaHoy);
             console.log(fechaTurno);
 
-            const endpoint = 'https://us-central1-calidad-csc.cloudfunctions.net/httpEmail';
+            if (fechaManiana === fechaTurno) {
+                const msg = {
+                    to: data.email,
+                    from: 'juan.arias@csantacatalina.com.ar',
+                    subject: 'Hola',
+                    // text: `Hey ${toName}. You have a new follower!!! `,
+                    // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
 
-            const datos = {
-                toEmail: data.email,
-                toName: data.nombre_usuario,
-                dia: data.hora_reparacion,
-                fecha: data.fecha_reparacion,
-                templateID: 'd-4028aa136a904859b6b60a3d4a21e5fc',
-              };
+                    // custom templates
+                    templateId: 'd-4028aa136a904859b6b60a3d4a21e5fc',
+                    personalizations: [
+                        {
+                            to: [{ email: data.email }],
+                            dynamic_template_data: {
+                                name: data.nombre_usuario,
+                                dia: data.hora_reparacion,
+                                fecha: data.fecha_reparacion
+                                // and other custom properties here
+                            }
+                        }
+                    ]
+                };
 
-            if(fechaManiana === fechaTurno) {
-                this.http.post(endpoint, datos).subscribe();
+                return sgMail.send(msg)
+
+                    .then(() => res.status(200).send('email sent!'))
+                    .catch(err => res.status(400).send(err)) 
             }
-           
-        })
 
-        res.status(200).send('email sent!')
-    }
-    catch(err){
-        res.status(500).send(err);
-    }
+            return res.status(200).send('No hay turnos hoy');
+    });
+
 });
- 
 
 exports.httpEmail = functions.https.onRequest((req, res) => {
 
