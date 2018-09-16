@@ -68,7 +68,45 @@ exports.getTurnosHoy = functions.https.onRequest(async (req,res)=>{
     catch(err){
         res.status(500).send(err);
     }
-    })
+});
+
+exports.getTurnosManiana = functions.https.onRequest(async (req,res)=>{    
+    try{
+        const templateID = req.body.templateID;
+
+        const snapshot = await Turnos.get();
+        const results = [];
+        snapshot.forEach(item => {
+            const data = item.data();
+            const fechaHoy = new Date();
+            const fechaManiana = new Date(fechaHoy.getTime() + (1000 * 60 * 60 * 24)).toISOString().slice(0,10);
+            const fechaTurno = data.fecha_reparacion;
+           
+            console.log(fechaHoy);
+            console.log(fechaTurno);
+
+            const endpoint = 'https://us-central1-calidad-csc.cloudfunctions.net/httpEmail';
+
+            const datos = {
+                toEmail: data.email,
+                toName: data.nombre_usuario,
+                dia: data.hora_reparacion,
+                fecha: data.fecha_reparacion,
+                templateID: 'd-4028aa136a904859b6b60a3d4a21e5fc',
+              };
+
+            if(fechaManiana === fechaTurno) {
+                this.http.post(endpoint, datos).subscribe();
+            }
+           
+        })
+
+        res.status(200).send('email sent!')
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+});
  
 
 exports.httpEmail = functions.https.onRequest((req, res) => {
