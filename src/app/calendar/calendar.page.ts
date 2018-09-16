@@ -17,6 +17,10 @@ interface DiasAnuladosInterface {
     empresa: string;
 }
 
+interface FechaAnulada {
+  fecha: string;
+}
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.page.html',
@@ -31,6 +35,7 @@ export class CalendarPage implements OnInit {
   diasAnulados: any;
   cargoOK = false;
   _feriados: any[] = [];
+  _fechasAnuladas: any[] = [];
 
   date: string;
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
@@ -102,7 +107,7 @@ export class CalendarPage implements OnInit {
             disable: false
           });
         }
-      this.cargoOK = true;
+      this.getFechasAnuladas();
     }
   }
 
@@ -120,6 +125,20 @@ export class CalendarPage implements OnInit {
     } else {
       this.anularFechas(n, dias_laborables);
     }
+  }
+
+  getFechasAnuladas() {
+    this.fBase.colWithIds$('FECHA_ANULADA').subscribe(data => {
+      data.forEach((item: FechaAnulada) => {
+        const fecha = new Date(item.fecha);
+        this.daysConfig.push({
+          date: fecha,
+          subTitle: '',
+          disable: true
+        });
+      });
+      this.cargoOK = true;
+    });
   }
 
   async presentModal(fecha) {
