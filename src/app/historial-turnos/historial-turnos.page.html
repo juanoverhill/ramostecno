@@ -73,11 +73,13 @@
     </ion-item>
 
   
-<ion-card class="animated bounceInLeft" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+<ion-card class="animated bounceInLeft BounceOut" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+<ion-item-divider color="primary">
+  <p class="titulo"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
+      {{turno.hora_reparacion}}hs</b></p>
+</ion-item-divider>
   <ion-card-content>
-        <ion-label>
-          <p style="font-size: 12px; color:#488aff"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
-              {{turno.hora_reparacion}}hs</b></p>
+        <ion-label>         
           <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p>
           <p class="letra" style="font-size: 13px;">{{(turno.reparacionRef | doc | async)?.accion}} <b>→</b>
             {{turno.estado_reparacion_id}}</p>
