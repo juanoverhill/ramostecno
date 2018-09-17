@@ -7,6 +7,8 @@ const db = admin.firestore();
 const Equipos = db.collection('EQUIPO');
 const Turnos = db.collection('TURNO');
 
+
+
 // const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 const SENDGRID_API_KEY = functions.config().sendgrid.key;
 const cors = require('cors')({ origin: true });
@@ -34,94 +36,94 @@ catch(err){
 
 exports.getTurnosHoy = functions.https.onRequest(async (req, res) => {
 
-    const snapshot = await Turnos.get();
-    snapshot.forEach(item => {
-        const data = item.data();
-        const fechaHoy = new Date().toISOString().slice(0,10);
-        const fechaTurno = data.fecha_reparacion;
+        const snapshot = await Turnos.get();
+        const listaMails = [];
+        let nombreUsuario = '';
+        let fecha_reparacion = '';
+        let hora_reparacion = '';
+        snapshot.forEach(item => {
+            const data = item.data();
+            const fechaHoy = new Date().toISOString().slice(0,10);
+            const fechaTurno = data.fecha_reparacion;
+            const estado = data.estado_reparacion_id;
 
-        console.log(fechaHoy);
-        console.log(fechaTurno);
+            if ((fechaHoy === fechaTurno) && estado === 'Confirmado') {                        
+                listaMails.push({mail: data.email, hora: data.hora_reparacion});
+                nombreUsuario = data.nombre_usuario;
+                fecha_reparacion = data.fecha_reparacion;
+                hora_reparacion = data.hora_reparacion;
+            }
+        });
 
-        if (fechaHoy === fechaTurno) {
-            const msg = {
-                to: data.email,
-                from: 'juan.arias@csantacatalina.com.ar',
-                subject: 'Hola',
-                // text: `Hey ${toName}. You have a new follower!!! `,
-                // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
+        if(listaMails !== []) {
+            // listaMails = listaMails.reverse();
+            const personal = [];
+            listaMails.forEach(item => {
+               personal.push({ to: item.mail, dynamic_template_data: { dia: item.hora }});
+            });
 
-                // custom templates
-                templateId: 'd-6b08188256ff4655b1f1950b70d32f7f',
-                personalizations: [
-                    {
-                        to: [{ email: data.email }],
-                        dynamic_template_data: {
-                            name: data.nombre_usuario,
-                            dia: data.hora_reparacion,
-                            fecha: data.fecha_reparacion
-                            // and other custom properties here
-                        }
-                    }
-                ]
-            };
+            console.log(personal);
+            cors(req, res, () => {
+                const msg = {                   
+                    from: 'juan.arias@csantacatalina.com.ar',
+                    subject: 'Recordatorio',
+                    templateId: 'd-6b08188256ff4655b1f1950b70d32f7f',
+                    personalizations: personal
+                };
+                return sgMail.sendMultiple(msg)
+                    .then(() => res.status(200).send('email sent!'))
+                    .catch(err => res.status(400).send(err));
 
-            return sgMail.send(msg)
+            });
+        }  
 
-                .then(() => res.status(200).send('email sent!'))
-                .catch(err => res.status(400).send(err))
-        }
-
-        return res.status(200).send('No hay turnos hoy');
-    });
-
+        return res.status(200).send('No mails');        
 });
-
 
 exports.getTurnosManiana = functions.https.onRequest(async (req, res) => {
 
-        const snapshot = await Turnos.get();
-        snapshot.forEach(item => {
-            const data = item.data();
-            const fechaHoy = new Date();
-            const fechaManiana = new Date(fechaHoy.getTime() + (1000 * 60 * 60 * 24)).toISOString().slice(0, 10);
-            const fechaTurno = data.fecha_reparacion;
+    const snapshot = await Turnos.get();
+    const listaMails = [];
+    const listaHora = [];
+    let nombreUsuario = '';
+    let fecha_reparacion = '';
+    let hora_reparacion = '';
+    snapshot.forEach(item => {
+        const data = item.data();
+        const fechaHoy = new Date();
+        const fechaManiana = new Date(fechaHoy.getTime() + (1000 * 60 * 60 * 24)).toISOString().slice(0, 10);
+        const fechaTurno = data.fecha_reparacion;
+        const estado = data.estado_reparacion_id;
 
-            console.log(fechaHoy);
-            console.log(fechaTurno);
-
-            if (fechaManiana === fechaTurno) {
-                const msg = {
-                    to: data.email,
-                    from: 'juan.arias@csantacatalina.com.ar',
-                    subject: 'Hola',
-                    // text: `Hey ${toName}. You have a new follower!!! `,
-                    // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
-
-                    // custom templates
-                    templateId: 'd-4028aa136a904859b6b60a3d4a21e5fc',
-                    personalizations: [
-                        {
-                            to: [{ email: data.email }],
-                            dynamic_template_data: {
-                                name: data.nombre_usuario,
-                                dia: data.hora_reparacion,
-                                fecha: data.fecha_reparacion
-                                // and other custom properties here
-                            }
-                        }
-                    ]
-                };
-
-                return sgMail.send(msg)
-
-                    .then(() => res.status(200).send('email sent!'))
-                    .catch(err => res.status(400).send(err)) 
-            }
-
-            return res.status(200).send('No hay turnos hoy');
+        if ((fechaManiana === fechaTurno) && estado === 'Confirmado') {
+            listaMails.push({ mail: data.email, hora: data.hora_reparacion });
+            nombreUsuario = data.nombre_usuario;
+            fecha_reparacion = data.fecha_reparacion;
+            hora_reparacion = data.hora_reparacion;
+        }
     });
 
+    if (listaMails !== []) {
+        const personal = [];    
+        listaMails.forEach(item => {    
+            personal.push({ to: item.mail, dynamic_template_data: { dia: item.hora } });                
+        });       
+        console.log(personal);
+        cors(req, res, () => {
+            const msg = {               
+                from: 'juan.arias@csantacatalina.com.ar',
+                subject: 'Recordatorio',
+                templateId: 'd-4028aa136a904859b6b60a3d4a21e5fc',               
+                personalizations: personal
+            };
+            return sgMail.sendMultiple(msg)
+                .then(() => res.status(200).send('email sent!'))
+                .catch(err => res.status(400).send(err));
+
+        });
+    }
+
+    return res.status(200).send('No mails');
 });
 
 exports.httpEmail = functions.https.onRequest((req, res) => {

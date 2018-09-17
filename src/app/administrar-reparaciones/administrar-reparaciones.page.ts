@@ -19,6 +19,7 @@ export class AdministrarReparacionesPage implements OnInit {
   categorias: Observable<any[]>;
   reparaciones: Observable<any[]>;
   tieneReparaciones = false;
+  ref: DocumentReference;
 
   constructor(private fb: FirestoreService, private auth: AuthService,
     private router: Router, public alertController: AlertController) { }
@@ -49,7 +50,7 @@ export class AdministrarReparacionesPage implements OnInit {
           this.permisos = true;
           this.getCategorias();
         } else {
-          
+
         }
       }
     );
@@ -76,7 +77,6 @@ export class AdministrarReparacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-           
           }
         }, {
           text: 'Okay',
@@ -110,7 +110,6 @@ export class AdministrarReparacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            
           }
         }, {
           text: 'Ok',
@@ -143,7 +142,6 @@ export class AdministrarReparacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            
           }
         }, {
           text: 'Ok',
@@ -169,7 +167,6 @@ export class AdministrarReparacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-           
           }
         }, {
           text: 'Ok',
@@ -212,7 +209,6 @@ export class AdministrarReparacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            
           }
         }, {
           text: 'Ok',
@@ -257,7 +253,6 @@ export class AdministrarReparacionesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            
           }
         }, {
           text: 'Ok',
@@ -267,9 +262,9 @@ export class AdministrarReparacionesPage implements OnInit {
             data.terminos = datos.updateTerminos;
             data.accion = datos.updateAccion;
             data.categoria_id = categoriaID;
-  
-          
-            this.fb.add('REPARACION/',data);
+            this.ref.set(this.fb.doc$('CATEGORIA_REPARACION/' + categoriaID));
+            data.categoriaRef = this.ref;
+            this.fb.add('REPARACION/', data);
           }
         }
       ],
