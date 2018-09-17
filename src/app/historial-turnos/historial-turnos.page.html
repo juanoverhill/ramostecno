@@ -72,8 +72,9 @@
       </ion-row>
     </ion-item>
 
-    <ion-list inset="true" class="animated bounceInDown">
-      <ion-item *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+  
+<ion-card class="animated bounceInLeft" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+  <ion-card-content>
         <ion-label>
           <p style="font-size: 12px; color:#488aff"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
               {{turno.hora_reparacion}}hs</b></p>
@@ -90,34 +91,23 @@
               {{turno.telefono}}</p>
           </div>
         </ion-label>
-        <ion-row *ngIf="permisos == true">
-          <ion-col>
-            <ion-button icon-only color="secondary" size="small" mat-raised-button matTooltip="Cambiar estado" (click)="selectReparacion.open()">
+      
+            <ion-button *ngIf="permisos == true" icon-only color="secondary" size="small" mat-raised-button matTooltip="Cambiar estado" (click)="selectReparacion.open()">
               <ion-icon name="open"></ion-icon>
             </ion-button>
-          </ion-col>
-        </ion-row>
-          <ion-row *ngIf="permisos == true && selectReparacion.value != 'Pendiente'">
-            <ion-col>
-              <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket" (click)="verTicket(turno.id)">
-                <ion-icon name="list-box"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-          <ion-row *ngIf="permisos == true">
-            <ion-col>
-              <ion-button icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="pickerDate.open()">
+
+            <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket" (click)="verTicket(turno.id)" *ngIf="permisos == true && selectReparacion.value != 'Pendiente'">
+              <ion-icon name="list-box"></ion-icon>
+              </ion-button>        
+      
+            <ion-button *ngIf="permisos == true" icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="pickerDate.open()">
                 <ion-icon name="time"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-          <ion-col>
+              </ion-button>          
+          
             <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)">
               <ion-icon name="close"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
+            </ion-button>        
+      
         <mat-form-field hidden class="example-full-width">
           <input matInput [matDatepicker]="pickerDate" placeholder="Choose a date" (dateChange)="reprogramaTurno($event,turno.id)">
           <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
@@ -130,7 +120,8 @@
           </ion-select>
         </ion-item>
         <div class="line-separator"></div>
-      </ion-item>
-    </ion-list>
+        </ion-card-content>
+      </ion-card>
+   
   </ion-grid>
 </ion-content>

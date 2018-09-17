@@ -94,13 +94,17 @@ export class HistorialTurnosPage implements OnInit {
   }
 
   traeTodosLosTurnos() {
-    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => {
-      let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-      query = query.where('estado_reparacion_id', '==', this.estado_reparacion);
-      query = query.orderBy('fecha_reparacion', 'asc');
-      query = query.orderBy('hora_reparacion', 'asc');
-      return query;
-    });
+    this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('estado_reparacion_id', '==', this.estado_reparacion)
+      .orderBy('fecha_reparacion', 'asc')
+      .orderBy('hora_reparacion', 'asc'));
+
+    // this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => {
+    //   let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+    //   query = query.where('estado_reparacion_id', '==', this.estado_reparacion);
+    //   query = query.orderBy('fecha_reparacion', 'asc');
+    //   query = query.orderBy('hora_reparacion', 'asc');
+    //   return query;
+    // });
   }
 
   logOut() {
@@ -139,9 +143,7 @@ export class HistorialTurnosPage implements OnInit {
     const month = fecha.slice(5, 7);
     const day = fecha.slice(8, 10);
     const fechaMail = day.toString() + '/' + month.toString() + '/' + year.toString();
-    if (estadoNuevo === 'Confirmado') {
-      this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-6b08188256ff4655b1f1950b70d32f7f');
-    } else if (estadoNuevo === 'Recepcionado') {
+    if (estadoNuevo === 'Recepcionado') {
       this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-0443bc9b990b41c3bcda8bb8ec888fe3');
     } else if (estadoNuevo === 'Reparado') {
       this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-fdcd262f65df459eb2c976b335a1e033');

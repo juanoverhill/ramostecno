@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirestoreService } from '../../services/f-base.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { SendMailService } from '../../services/send-mail.service';
 
@@ -18,7 +18,7 @@ export class ConfirmacionTurnoPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private fb: FirestoreService,
     private modalController: ModalController, private auth: AuthService, private sMail: SendMailService,
-    public toastController: ToastController, private router: Router) { }
+    public toastController: ToastController, private router: Router, public alertController: AlertController) { }
 
   // db = admin.firestore();
   reparacionID: string;
@@ -157,26 +157,26 @@ export class ConfirmacionTurnoPage implements OnInit {
     });
   }
 
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000,
-      position: 'middle'
+  async presentToast(mensaje) {
+    const alert = await this.alertController.create({
+      header: 'Upps!',
+      subHeader: '',
+      message: mensaje,
+      buttons: ['Ok']
     });
-    toast.present();
+
+    await alert.present();
   }
 
   async presentToastTurnoNoDisp() {
-    const toast = await this.toastController.create({
-      message: 'Lo lamento... Este horario ya no esta disponible pero podes pedir otro!',
-      showCloseButton: true,
-      duration: 4000,
-      position: 'middle',
-      closeButtonText: 'Pedir nuevo turno',
+    const alert = await this.alertController.create({
+      header: 'Turno no disponible',
+      subHeader: 'Este turno ya no esta disponible',
+      message: 'Por favor solicita uno nuevo',
+      buttons: ['Ok']
     });
-    toast.present();
-    toast.onDidDismiss().then(() => {
-    });
+
+    await alert.present();
   }
 
   logOut() {
@@ -187,6 +187,10 @@ export class ConfirmacionTurnoPage implements OnInit {
 
   aceptar(check) {
     this.terminosAceptados = check.detail.checked;
+  }
+
+  setTel(telefono) {
+    this.telefono = telefono;
   }
 
 }
