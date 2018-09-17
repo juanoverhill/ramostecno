@@ -4,7 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
-import { CategoriaReparacion } from '../../Model/models';
+import { CategoriaReparacion, Reparacion } from '../../Model/models';
+import { DocumentReference } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-administrar-reparaciones',
@@ -153,6 +154,126 @@ export class AdministrarReparacionesPage implements OnInit {
           }
         }
       ]
+    });
+
+    await alert.present();
+  }
+
+  async alertEliminaReparacion(reparacionID) {
+    const alert = await this.alertController.create({
+      header: 'Eliminar!',
+      message: '<strong>Desea eliminar la Reparacion?</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+           
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.fb.delete('REPARACION/' + reparacionID);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async alertEditarReparacion(reparacionID, descripcionReparacion, accion, terminos) {
+    const alert = await this.alertController.create({
+      header: 'Editar Reparacion',
+      inputs: [
+        {
+          name: 'updateDescripion',
+          type: 'text',
+          placeholder: 'Ingrese la descripcion',
+          value: descripcionReparacion
+        },
+        {
+          name: 'updateAccion',
+          type: 'text',
+          placeholder: 'Ingrese la descripcion',
+          value: accion
+        },
+        {
+          name: 'updateTerminos',
+          type: 'text',
+          placeholder: 'Ingrese la descripcion',
+          value: terminos
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            
+          }
+        }, {
+          text: 'Ok',
+          handler: (datos) => {
+            const data = new Reparacion();
+            data.descripcion = datos.updateDescripion;
+            data.terminos = datos.updateTerminos;
+            data.accion = datos.updateAccion;
+            this.fb.update('REPARACION/' + reparacionID, data);
+          }
+        }
+      ],
+      cssClass: ['alert'],
+    });
+
+    await alert.present();
+  }
+
+  async alertAddReparacion(categoriaID) {
+    const alert = await this.alertController.create({
+      header: 'Editar Reparacion',
+      inputs: [
+        {
+          name: 'updateDescripion',
+          type: 'text',
+          placeholder: 'Ingrese la descripcion'
+        },
+        {
+          name: 'updateAccion',
+          type: 'text',
+          placeholder: 'Ingrese la descripcion'
+        },
+        {
+          name: 'updateTerminos',
+          type: 'text',
+          placeholder: 'Ingrese la descripcion'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            
+          }
+        }, {
+          text: 'Ok',
+          handler: (datos) => {
+            const data = new Reparacion();
+            data.descripcion = datos.updateDescripion;
+            data.terminos = datos.updateTerminos;
+            data.accion = datos.updateAccion;
+            data.categoria_id = categoriaID;
+  
+          
+            this.fb.add('REPARACION/',data);
+          }
+        }
+      ],
+      cssClass: ['alert'],
     });
 
     await alert.present();

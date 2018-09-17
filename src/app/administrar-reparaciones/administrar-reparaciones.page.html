@@ -29,12 +29,17 @@
       <ion-col>
         <ion-list>
           <ion-item *ngFor="let reparacion of reparaciones | async" color="light">
-              <p class="letra">{{reparacion.descripcion}}</p>
-              <ion-button  slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar">
+            <ion-label>
+                <p class="letra">{{reparacion.descripcion}}</p>
+                <p style="font-size: 11px; color:black">{{reparacion.accion}}</p>
+                <p style="font-size: 10px; color:gray">Terminos: {{reparacion.terminos}}</p>
+            </ion-label>
+             
+              <ion-button  slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarReparacion(reparacion.id, reparacion.descripcion, reparacion.accion, reparacion.terminos)">
                   <ion-icon name="create"></ion-icon>
                 </ion-button>
                 
-                  <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar">
+                  <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaReparacion(reparacion.id)">
                       <ion-icon name="close"></ion-icon>
                     </ion-button>
           </ion-item>
@@ -43,7 +48,7 @@
     </ion-row>
   </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="tieneReparaciones">
-      <ion-fab-button>
+      <ion-fab-button (click)="alertAddReparacion(cat.value)">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
