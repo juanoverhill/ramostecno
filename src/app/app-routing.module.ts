@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'historial-turnos', loadChildren: './historial-turnos/historial-turnos.module#HistorialTurnosPageModule' },
   { path: 'loguear', loadChildren: './loguear/loguear.module#LoguearPageModule' },
   { path: 'admnistrar-equipos', loadChildren: './admnistrar-equipos/admnistrar-equipos.module#AdmnistrarEquiposPageModule' },
+  // tslint:disable-next-line:max-line-length
   { path: 'administrar-reparaciones', loadChildren: './administrar-reparaciones/administrar-reparaciones.module#AdministrarReparacionesPageModule' }
 
 

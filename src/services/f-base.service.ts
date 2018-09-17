@@ -12,7 +12,7 @@ import { Observable, from } from 'rxjs';
 import { map, tap, take, switchMap, mergeMap, expand, takeWhile } from 'rxjs/operators';
 
 import * as firebase from 'firebase/app';
-import { DocumentReference } from '@google-cloud/firestore';
+
 
 type CollectionPredicate<T> = string | AngularFirestoreCollection<T>;
 type DocPredicate<T> = string | AngularFirestoreDocument<T>;
@@ -49,7 +49,6 @@ export class FirestoreService {
       );
   }
 
-  
 
   col$<T>(ref: CollectionPredicate<T>, queryFn?): Observable<T[]> {
     return this.col(ref, queryFn)

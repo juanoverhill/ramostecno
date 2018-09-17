@@ -1,9 +1,61 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>admnistrar-equipos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content *ngIf="autenticado && permisos">
+  <ion-grid>
+    <ion-item-divider color="primary">
+      <p class="titulo">Configuracion de equipos</p>
+    </ion-item-divider>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item color="light">
+          <mat-form-field style="width: 80%;">
+            <mat-select #mar placeholder="Selecciona una marca" (selectionChange)="getEquipos($event)">
+              <mat-option *ngFor="let marca of marcas | async" [value]="marca.id">
+                {{marca.descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarMarca(mar.value, mar.selected?.viewValue)">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" icon-only color="secondary" size="small" mat-raised-button matTooltip="Agregar"
+            (click)="alertNuevaMarca()">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaMarca(mar.value)">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+      <ion-item color="light" *ngIf="tieneEquipos">
+        <ion-label>Mostrar Inactivos</ion-label>
+          <ion-checkbox slot="start" (ionChange)="getEquiposInactivos($event)"></ion-checkbox>
+      </ion-item>
+        <ion-list>
+          <ion-item *ngFor="let equipo of equipos | async" color="light" [hidden]="equipo.estado !== estado">
+            <ion-label>
+              <p class="letra">{{equipo.descripcion}}</p>
+            </ion-label>
 
-<ion-content padding>
+<ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="popUpEquipo(equipo.id)"
+  [hidden]="equipo.estado === 'INACTIVO'">
+              <ion-icon name="create"></ion-icon>
+            </ion-button>
 
+            <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar"
+              (click)="alertEliminaEquipo(equipo.id)" [hidden]="equipo.estado === 'INACTIVO'">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="tieneEquipos" (click)="popUpEquipo('Nuevo')">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

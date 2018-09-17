@@ -3,6 +3,7 @@ export class Equipo {
     descripcion?: string;
     marca_id?: string;
     marcaRef?: firebase.firestore.DocumentReference;
+    estado?: string;
 }
 
 export class Marca {

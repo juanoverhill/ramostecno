@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { CategoriaReparacion, Reparacion } from '../../Model/models';
-import { DocumentReference } from 'angularfire2/firestore';
+
 
 @Component({
   selector: 'app-administrar-reparaciones',
@@ -19,7 +19,7 @@ export class AdministrarReparacionesPage implements OnInit {
   categorias: Observable<any[]>;
   reparaciones: Observable<any[]>;
   tieneReparaciones = false;
-  ref: DocumentReference;
+  ref: firebase.firestore.DocumentReference;
 
   constructor(private fb: FirestoreService, private auth: AuthService,
     private router: Router, public alertController: AlertController) { }
@@ -239,12 +239,12 @@ export class AdministrarReparacionesPage implements OnInit {
         {
           name: 'updateAccion',
           type: 'text',
-          placeholder: 'Ingrese la descripcion'
+          placeholder: 'Accion'
         },
         {
           name: 'updateTerminos',
           type: 'text',
-          placeholder: 'Ingrese la descripcion'
+          placeholder: 'Terminos y condiciones'
         }
       ],
       buttons: [
@@ -262,8 +262,7 @@ export class AdministrarReparacionesPage implements OnInit {
             data.terminos = datos.updateTerminos;
             data.accion = datos.updateAccion;
             data.categoria_id = categoriaID;
-            this.ref.set(this.fb.doc$('CATEGORIA_REPARACION/' + categoriaID));
-            data.categoriaRef = this.ref;
+            data.categoriaRef = this.fb.doc('CATEGORIA_REPARACION/' + categoriaID).ref;
             this.fb.add('REPARACION/', data);
           }
         }
