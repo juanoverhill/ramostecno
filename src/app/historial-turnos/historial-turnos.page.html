@@ -73,7 +73,7 @@
     </ion-item>
 
   
-<ion-card class="animated bounceIn" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+<ion-card class="animated fadeIn" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
 <ion-item-divider color="primary">
   <p class="titulo"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
       {{turno.hora_reparacion}}hs</b></p>
@@ -128,7 +128,7 @@
   </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="permisos == false">
 <ion-toolbar>
   <ion-buttons slot="end" >
 <ion-button color="primary" fill="solid" [href]="'/'">

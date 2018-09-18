@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedModule } from './../shared.module';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -30,6 +32,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatCheckboxModule,
     MatTooltipModule,
+    SharedModule,
+    AngularFireStorageModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AdmnistrarEquiposPage, PopUpComponent],

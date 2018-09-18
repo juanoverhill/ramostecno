@@ -38,7 +38,7 @@
               <p class="letra">{{equipo.descripcion}}</p>
             </ion-label>
 
-<ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="popUpEquipo(equipo.id)"
+<ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="popUpEquipo(equipo.id, equipo.marca_id)"
   [hidden]="equipo.estado === 'INACTIVO'">
               <ion-icon name="create"></ion-icon>
             </ion-button>
@@ -52,7 +52,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="tieneEquipos" (click)="popUpEquipo('Nuevo')">
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="tieneEquipos" (click)="popUpEquipo('Nuevo', mar.value)">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

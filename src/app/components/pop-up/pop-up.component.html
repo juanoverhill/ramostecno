@@ -10,6 +10,80 @@
       </ion-item-divider>
     </ion-col>
   </ion-row>
+  <ion-row>
+    <ion-col size="3">
+      <img id="imgn" *ngIf="cargoImagenOK && nuevoEquipo == false" style="height: 100%; width: 100%" [src]="(equipo | async)?.imagen">
+      <img *ngIf="cargoImagenOK && nuevoEquipo == true" style="height: 100%; width: 100%" [src]="downloadURL | async">
+      <ion-button *ngIf="cargoOK" expand="full" (click)="fileInput.click()">Cambiar imagen</ion-button>
+      <div hidden>
+        <input type="file" id="fileUpload" #fileInput (change)="uploadFile($event)"/>
+      </div>
+    </ion-col>
+    <ion-col>
+      <ion-item color="light">
+        <ion-label position="floating">Descripcion de equipo</ion-label>
+        <ion-input #inp value="{{(equipo | async)?.descripcion}}"></ion-input>
+        <ion-button *ngIf="cargoImagenOK && inp.value != ''" slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Guardar" (click)="addEquipo(inp.value)">
+              <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+      </ion-item>
+      <div *ngIf="nuevoEquipo == false">
+          <ion-item-divider color="primary">
+            Colores disponibles
+            <ion-button slot="end" color="light" fill="clear" size="small" (click)="colsDisp.open()">
+          Agregar color
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+          </ion-item-divider>
+       
+        <ion-list>
+          <ion-item *ngFor="let color of colores | async">
+            <ion-label>
+              <p class="letra">{{color.color}}</p>
+            </ion-label>
+            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar color" (click)="deleteColor(color.id)">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
 
+        <ion-item-divider color="primary">
+            Reparaciones disponibles
+          <ion-button slot="end" color="light" fill="clear" size="small" (click)="colsReps.open()">
+          Agregar reparacion
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+          </ion-item-divider>
+       
+        <ion-list>
+          <ion-item *ngFor="let reparacion of reparaciones | async">
+            <ion-label>
+              <p class="letra"><b>{{(reparacion.reparacionRef | doc | async)?.descripcion}}</b></p>
+              <p class="letra">Valor Efectivo: ${{reparacion.valor_efectivo}}</p>
+              <p class="letra">Valor MP: ${{reparacion.valor}}</p>
+            </ion-label>
+            <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar valores" (click)="alertEditarReparacion(reparacion.reparacion_id, reparacion.valor_efectivo, reparacion.valor)">
+              <ion-icon name="open"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar reparacion" (click)="deleteReparacion(reparacion.id)">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+
+  <ion-select #colsDisp placeholder="Selecciona un color" hidden (ionChange)="agregaColor(colsDisp.value)">
+      <ion-select-option *ngFor="let cols of colores_disponibles | async" value="{{cols.descripcion}}">{{cols.descripcion}}</ion-select-option>
+  </ion-select>
+
+  <ion-select #colsReps placeholder="Selecciona una reparacion" hidden (ionChange)="alertAddReparacion(colsReps.value)">
+      <ion-select-option *ngFor="let reps of reparaciones_disponibles | async" value="{{reps.id}}">{{reps.descripcion}}</ion-select-option>
+  </ion-select>
+</div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>      
+    </ion-col>
+  </ion-row>
   </ion-grid>
 </ion-content>

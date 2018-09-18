@@ -4,12 +4,14 @@ export class Equipo {
     marca_id?: string;
     marcaRef?: firebase.firestore.DocumentReference;
     estado?: string;
+    imagen?: string;
 }
 
 export class Marca {
     id?: string;
     descripcion?: string;
 }
+
 
 export class Reparacion {
     id?: string;
@@ -110,6 +112,11 @@ export class HoraDisponible {
 }
 
 export class CategoriaReparacion {
+    id?: string;
+    descripcion?: string;
+}
+
+export class Colores {
     id?: string;
     descripcion?: string;
 }

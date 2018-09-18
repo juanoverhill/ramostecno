@@ -182,10 +182,11 @@ export class AdmnistrarEquiposPage implements OnInit {
     await alert.present();
   }
 
-  async popUpEquipo(equipoID) {
+  async popUpEquipo(equipoID, marcaID) {
+    console.log(marcaID);
     const modal = await this.modalController.create({
       component: PopUpComponent,
-      componentProps: { idEquipo: equipoID }
+      componentProps: { idEquipo: equipoID, idMarca: marcaID}
     });
     return await modal.present();
   }
