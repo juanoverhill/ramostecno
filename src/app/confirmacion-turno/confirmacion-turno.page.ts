@@ -164,8 +164,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       message: mensaje,
       buttons: ['Ok']
     });
-
-    await alert.present();
+    alert.present();
   }
 
   async presentToastTurnoNoDisp() {
@@ -175,8 +174,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       message: 'Por favor solicita uno nuevo',
       buttons: ['Ok']
     });
-
-    await alert.present();
+     alert.present();
   }
 
   logOut() {
