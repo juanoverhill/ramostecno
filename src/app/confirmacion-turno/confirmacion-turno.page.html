@@ -56,7 +56,7 @@
    <div></div>
     <ion-item *ngIf="autenticado && terminosAceptados">
       <ion-label color="primary" fixed>Ingresa tu telefono para que podamos contactarnos</ion-label>
-      <ion-input #te type="tel" placeholder="Telefono" (ionChange)="setTel(tel.value)"></ion-input>
+      <ion-input #te type="tel" placeholder="Telefono" (ionChange)="setTel(te.value)"></ion-input>
     </ion-item>
     <ion-row *ngIf="autenticado && terminosAceptados" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear color="secondary" (click)="grabar()">

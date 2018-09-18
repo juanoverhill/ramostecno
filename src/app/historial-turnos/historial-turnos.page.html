@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button *ngIf="permisos == true" icon-only (click)="meniu.open()">
         <ion-icon name="menu"></ion-icon>
-      </ion-button>
+      </ion-button>      
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="logOut()">
@@ -62,8 +62,8 @@
         </ion-col>
         <ion-col size="4">
           <mat-form-field>
-            <mat-select placeholder="Selecciona un estado" [(value)]="estado_reparacion" (selectionChange)="actualizaEstadoTurnos($event)">
-              <mat-option *ngFor="let opcion of opciones" [value]="opcion">
+            <mat-select  placeholder="Selecciona un estado" [(value)]="estado_reparacion" (selectionChange)="actualizaEstadoTurnos($event)">
+              <mat-option #sel *ngFor="let opcion of opciones" [value]="opcion">
                 {{opcion}}
               </mat-option>
             </mat-select>
@@ -73,7 +73,7 @@
     </ion-item>
 
   
-<ion-card class="animated bounceInLeft BounceOut" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+<ion-card class="animated bounceIn" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
 <ion-item-divider color="primary">
   <p class="titulo"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
       {{turno.hora_reparacion}}hs</b></p>
@@ -98,7 +98,7 @@
               <ion-icon name="open"></ion-icon>
             </ion-button>
 
-            <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket" (click)="verTicket(turno.id)" *ngIf="permisos == true && selectReparacion.value != 'Pendiente'">
+            <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket" (click)="verTicket(turno.id)" *ngIf="permisos == true">
               <ion-icon name="list-box"></ion-icon>
               </ion-button>        
       
@@ -106,7 +106,7 @@
                 <ion-icon name="time"></ion-icon>
               </ion-button>          
           
-            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)">
+            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)" [hidden]="turno.estado_reparacion_id != 'Confirmado'">
               <ion-icon name="close"></ion-icon>
             </ion-button>        
       
@@ -127,3 +127,14 @@
    
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+<ion-toolbar>
+  <ion-buttons slot="end" >
+<ion-button color="primary" fill="solid" [href]="'/'">
+      <ion-icon name="add"></ion-icon>
+      Nuevo Turno
+    </ion-button>
+  </ion-buttons> 
+</ion-toolbar>
+</ion-footer>
