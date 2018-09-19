@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { AppModule } from './../app.module';
+import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from './../shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
-
 
 import { IonicModule } from '@ionic/angular';
 
@@ -17,9 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TicketComponent } from '../components/ticket/ticket.component';
-import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
-import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
-
+import { MenuComponent } from '../components/menu/menu.component';
 
 
 const routes: Routes = [
@@ -45,8 +43,8 @@ const routes: Routes = [
     MatDialogModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HistorialTurnosPage, TicketComponent, AnularFechasComponent, HorariosTrabajoComponent],
-  entryComponents: [TicketComponent, AnularFechasComponent, HorariosTrabajoComponent]
+  declarations: [HistorialTurnosPage, TicketComponent],
+  entryComponents: [TicketComponent]
 
 })
 export class HistorialTurnosPageModule {}

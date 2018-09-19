@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { SharedModule } from './../shared.module';
+
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule } from '@ionic/angular';
 
 import { AdministrarReparacionesPage } from './administrar-reparaciones.page';
+
 
 const routes: Routes = [
   {
@@ -29,6 +32,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatCheckboxModule,
     MatTooltipModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AdministrarReparacionesPage]

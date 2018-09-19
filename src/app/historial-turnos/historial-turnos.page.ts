@@ -110,7 +110,7 @@ export class HistorialTurnosPage implements OnInit {
   logOut() {
     this.auth.signOut().then(() => {
       this.autenticado = false;
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/loguear');
     });
   }
 

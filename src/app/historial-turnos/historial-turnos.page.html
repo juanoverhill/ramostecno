@@ -1,9 +1,9 @@
-<ion-header *ngIf="autenticado">
+<ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button *ngIf="permisos == true" icon-only (click)="meniu.open()">
+      <ion-button icon-only (click)="meniu.open()">
         <ion-icon name="menu"></ion-icon>
-      </ion-button>      
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="logOut()">
@@ -11,7 +11,7 @@
         Salir
       </ion-button>
     </ion-buttons>
-    <ion-title>{{nombreUsuario}} este es tu historial 😉</ion-title>
+    <ion-title>{{nombreUsuario}} este es tu historial</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,6 +23,10 @@
   </ion-header>
   <ion-content>
     <ion-list>
+      <ion-button color="primary" expand="block" [href]="'/historial-turnos'">
+        <ion-icon slot="start" name="airplane"></ion-icon>
+        Administrar Turnos
+      </ion-button>
       <ion-button color="primary" expand="block" (click)="anularFechas()">
         <ion-icon slot="start" name="airplane"></ion-icon>
         Anular fechas
@@ -42,7 +46,6 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-<ion-router-outlet main></ion-router-outlet>
 
 <ion-content *ngIf="autenticado">
   <ion-grid>

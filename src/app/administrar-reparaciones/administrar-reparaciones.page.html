@@ -1,8 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button icon-only (click)="meniu.open()">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+        Salir
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{nombreUsuario}} administra las reparaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu side="start" #meniu>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Opciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-button color="primary" expand="block" [href]="'/historial-turnos'">
+        <ion-icon slot="start" name="airplane"></ion-icon>
+        Administrar Turnos
+      </ion-button>
+      <ion-button color="primary" expand="block" (click)="anularFechas()">
+        <ion-icon slot="start" name="airplane"></ion-icon>
+        Anular fechas
+      </ion-button>
+      <ion-button color="primary" expand="block" (click)="horariosTrabajo()">
+        <ion-icon slot="start" name="code-working"></ion-icon>
+        Horarios de trabajo
+      </ion-button>
+      <ion-button color="primary" expand="block" [href]="'/admnistrar-equipos'">
+        <ion-icon slot="start" name="phone-portrait"></ion-icon>
+        Administrar Equipos
+      </ion-button>
+      <ion-button color="primary" expand="block" [href]="'/administrar-reparaciones'">
+        <ion-icon slot="start" name="construct"></ion-icon>
+        Config. Reparaciones
+      </ion-button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-content *ngIf="autenticado && permisos">
   <ion-grid>
-    <ion-item-divider color="primary">
-      <p class="titulo">Configuracion de reparaciones</p>
-    </ion-item-divider>
     <ion-row>
       <ion-col size="12">
         <ion-item color="light">

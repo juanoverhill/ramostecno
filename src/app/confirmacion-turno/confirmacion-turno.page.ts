@@ -142,7 +142,7 @@ export class ConfirmacionTurnoPage implements OnInit {
     where('equipo_id', '==', this.equipo_id).where('estado_reparacion_id', '==', 'Pendiente')).subscribe(data => {
       turnosPendientes = data;
       if (turnosPendientes.length > 0) {
-        this.presentToast('Ya tenes al menos un turno pendiente!');
+        // this.presentToast('Ya tenes al menos un turno pendiente!');
       } else {
         // verifico que este disponible todavia ese horario
         this.fb.col$('TURNO', ref => ref.where('fecha_reparacion', '==', this.fecha)
@@ -150,7 +150,7 @@ export class ConfirmacionTurnoPage implements OnInit {
           if (d.length === 0) {
             this.grabaTurno();
           } else {
-            this.presentToastTurnoNoDisp();
+            // this.presentToastTurnoNoDisp();
           }
         });
       }

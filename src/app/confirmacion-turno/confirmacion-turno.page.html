@@ -23,14 +23,18 @@
         Ingresar con Google
       </ion-button>
     </ion-row>
-    <ion-row *ngIf="autenticado == false" justify-content-center align-items-center style="height: 100%">
+    <!-- <ion-row *ngIf="autenticado == false" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear (click)="signInFacebook()" color="primary">
         <ion-icon slot="end" name="logo-facebook"></ion-icon>
         Ingresar con Facebook
       </ion-button>
-    </ion-row>
+    </ion-row> -->
     <ion-row>
        <ion-col class="centrar" size="7">
+        <ion-item *ngIf="autenticado" color="light">
+          <ion-label color="primary" fixed>Si, Queres...</ion-label>
+          <ion-input #te type="tel" placeholder="dejanos aca tu telefono" (ionChange)="setTel(te.value)"></ion-input>
+        </ion-item>
       <ion-item color="primary" *ngIf="autenticado">
       <p class="texto" >Bien {{nombreUsuario}} 👍  por ultimo hace click para confirmar el turno</p>     
       <ion-button slot="end" size="small" color="danger" *ngIf="autenticado" class="centrar" (click)="logOut()">No soy {{nombreUsuario}}</ion-button>
@@ -53,12 +57,8 @@
     </ion-item>
     </ion-col>
     </ion-row>
-   <div></div>
-    <ion-item *ngIf="autenticado && terminosAceptados" color="light">
-      <ion-label color="primary" fixed>Ingresa tu telefono:</ion-label>
-      <ion-input #te type="tel" placeholder="Telefono" (ionChange)="setTel(te.value)"></ion-input>
-    </ion-item>
-    <ion-row *ngIf="autenticado && terminosAceptados && te.value != ''" justify-content-center align-items-center style="height: 100%">
+   <div></div>    
+    <ion-row *ngIf="autenticado && terminosAceptados" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear color="secondary" (click)="grabar()">
         <ion-icon slot="end" name="mail"></ion-icon>
         Confirmar turno

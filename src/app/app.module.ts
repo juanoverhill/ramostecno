@@ -1,3 +1,4 @@
+
 import { FormsModule } from '@angular/forms';
 import { EquipoService } from '../services/equipo.service';
 import { AuthService } from '../services/auth.service';
@@ -21,11 +22,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
-
+import { AnularFechasComponent } from './components/anular-fechas/anular-fechas.component';
+import { HorariosTrabajoComponent } from './components/horarios-trabajo/horarios-trabajo.component';
+import { SharedModule } from './shared.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent],
   exports: [],
   imports: [
     FormsModule,
@@ -36,9 +39,9 @@ import { environment } from '../environments/environment';
     MatInputModule,
      IonicModule.forRoot(),
      AppRoutingModule,
+    SharedModule,
      AngularFirestoreModule.enablePersistence(),
   AngularFireModule.initializeApp(environment.fire)],
-  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     StatusBar,
     SplashScreen,
@@ -50,6 +53,9 @@ import { environment } from '../environments/environment';
     EquipoService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA
+  ]
 })
 export class AppModule {}

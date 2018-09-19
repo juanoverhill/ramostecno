@@ -3,8 +3,10 @@ import { FirestoreService } from '../../services/f-base.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { CategoriaReparacion, Reparacion } from '../../Model/models';
+import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
+import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
 
 
 @Component({
@@ -20,15 +22,17 @@ export class AdministrarReparacionesPage implements OnInit {
   reparaciones: Observable<any[]>;
   tieneReparaciones = false;
   ref: firebase.firestore.DocumentReference;
+  nombreUsuario;
 
   constructor(private fb: FirestoreService, private auth: AuthService,
-    private router: Router, public alertController: AlertController) { }
+    private router: Router, public alertController: AlertController, private modalController: ModalController) { }
 
   ngOnInit() {
     // Verifico previamente si esta logueado
     this.auth.afAuth.authState.subscribe(user => {
       if (user) {
         this.autenticado = true;
+        this.nombreUsuario = this.auth.getUserNombre();
         this.getPerfilUsuario(this.auth.getUserID());
       } else {
         this.login();
@@ -271,6 +275,29 @@ export class AdministrarReparacionesPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  logOut() {
+    this.auth.signOut().then(() => {
+      this.autenticado = false;
+      this.router.navigateByUrl('/loguear');
+    });
+  }
+
+  async anularFechas() {
+    const modal = await this.modalController.create({
+      component: AnularFechasComponent,
+      componentProps: {}
+    });
+    return await modal.present();
+  }
+
+  async horariosTrabajo() {
+    const modal = await this.modalController.create({
+      component: HorariosTrabajoComponent,
+      componentProps: {}
+    });
+    return await modal.present();
   }
 
 
