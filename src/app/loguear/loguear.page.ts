@@ -17,15 +17,12 @@ export class LoguearPage implements OnInit {
 
   signInGoogle() {
     this.auth.signInWithGoogle().then(() => {
-      this.router.navigateByUrl('historial-turnos');
-      localStorage.setItem('autenticado', 'true');
       this.getPerfilUsuario(this.auth.getUserID());
     });
   }
 
   signInFacebook() {
     this.auth.signInWithFacebook().then(() => {
-      this.router.navigateByUrl('historial-turnos');
       this.getPerfilUsuario(this.auth.getUserID());
     });
   }
@@ -34,11 +31,14 @@ export class LoguearPage implements OnInit {
     this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuarioID)).subscribe(
       data => {
         if (data.length > 0) {
+          localStorage.setItem('autenticado', 'true');
           localStorage.setItem('permiso', 'true');
+          this.ingresoOK();
         } else {
           localStorage.setItem('permiso', 'false');
+          localStorage.setItem('autenticado', 'true');
+          this.ingresoOK();
         }
-        this.ingresoOK();
       }
     );
   }
