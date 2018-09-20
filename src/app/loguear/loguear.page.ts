@@ -28,14 +28,18 @@ export class LoguearPage implements OnInit {
   }
 
   getPerfilUsuario(usuarioID) {
+    console.log(usuarioID);
     this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuarioID)).subscribe(
       data => {
+        console.log(data);
         if (data.length > 0) {
           localStorage.setItem('autenticado', 'true');
           localStorage.setItem('permiso', 'true');
+          console.log(localStorage.getItem('permiso'));
           this.ingresoOK();
         } else {
           localStorage.setItem('permiso', 'false');
+          // console.log(localStorage.getItem('permiso'));
           localStorage.setItem('autenticado', 'true');
           this.ingresoOK();
         }

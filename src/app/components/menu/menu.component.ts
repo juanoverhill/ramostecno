@@ -19,25 +19,29 @@ export class MenuComponent implements OnInit {
   autenticado: boolean;
   permisos: boolean;
   nombre_usuario;
-  mobileQuery: MediaQueryList;
 
   constructor(private auth: AuthService, private router: Router,
     private modalController: ModalController, public alertController: AlertController, public mController: MenuController) {
 
     }
 
-
-
   ngOnInit() {
     this.autenticado = Boolean(localStorage.getItem('autenticado'));
-    this.permisos = Boolean(localStorage.getItem('permiso'));
+    if (localStorage.getItem('permiso') === 'false') {
+      this.permisos = false;
+    } else {
+      this.permisos = true;
+    }
+    console.log(this.permisos);
   }
 
   logOut() {
     this.auth.signOut().then(() => {
       this.autenticado = false;
-      localStorage.setItem('autenticado', 'false');
-      localStorage.setItem('permiso', 'false');
+      this.permisos = false;
+      localStorage.clear();
+      // localStorage.setItem('autenticado', 'false');
+      // localStorage.setItem('permiso', 'false');
       this.router.navigateByUrl('/loguear');
     });
   }
