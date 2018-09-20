@@ -23,12 +23,12 @@
         Ingresar con Google
       </ion-button>
     </ion-row>
-    <!-- <ion-row *ngIf="autenticado == false" justify-content-center align-items-center style="height: 100%">
+    <ion-row *ngIf="autenticado == false" justify-content-center align-items-center style="height: 100%">
       <ion-button icon-right block clear (click)="signInFacebook()" color="primary">
         <ion-icon slot="end" name="logo-facebook"></ion-icon>
         Ingresar con Facebook
       </ion-button>
-    </ion-row> -->
+    </ion-row>
     <ion-row>
        <ion-col class="centrar" size="7">
         <ion-item *ngIf="autenticado" color="light">
@@ -54,6 +54,10 @@
     <ion-item *ngIf="autenticado" color="light">
       <ion-label>Acepto los terminos y condiciones</ion-label>
       <ion-checkbox slot="end" (ionChange)="aceptar($event)"></ion-checkbox>
+    </ion-item>
+    <ion-item *ngIf="autenticado && email == undefined" color="light">
+      <ion-label color="primary" fixed>No tenemos tu mail...</ion-label>
+      <ion-input #m type="text" placeholder="dejanos aca tu mail... necesario para poder contactarnos" (ionChange)="setMail(m.value)"></ion-input>
     </ion-item>
     </ion-col>
     </ion-row>

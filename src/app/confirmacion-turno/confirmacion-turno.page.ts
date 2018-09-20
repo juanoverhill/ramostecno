@@ -51,6 +51,7 @@ export class ConfirmacionTurnoPage implements OnInit {
        if (user) {
          this.autenticado = true;
          this.email = this.auth.getEmail();
+         console.log(this.email);
          this.usuario_id = this.auth.getUserID();
          this.nombreUsuario = this.auth.getUserNombre();
          this.nombreCompleto = this.auth.getUserNombre();
@@ -189,6 +190,10 @@ export class ConfirmacionTurnoPage implements OnInit {
 
   setTel(telefono) {
     this.telefono = telefono;
+  }
+
+  setMail(mail) {
+    this.email = mail;
   }
 
 }
