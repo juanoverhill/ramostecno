@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, MenuController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnularFechasComponent } from '../anular-fechas/anular-fechas.component';
 import { HorariosTrabajoComponent } from '../horarios-trabajo/horarios-trabajo.component';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 
 
@@ -17,9 +19,14 @@ export class MenuComponent implements OnInit {
   autenticado: boolean;
   permisos: boolean;
   nombre_usuario;
+  mobileQuery: MediaQueryList;
 
   constructor(private auth: AuthService, private router: Router,
-    private modalController: ModalController, public alertController: AlertController) { }
+    private modalController: ModalController, public alertController: AlertController, public mController: MenuController) {
+
+    }
+
+
 
   ngOnInit() {
     this.autenticado = Boolean(localStorage.getItem('autenticado'));
@@ -51,5 +58,4 @@ export class MenuComponent implements OnInit {
     });
     return await modal.present();
   }
-
 }

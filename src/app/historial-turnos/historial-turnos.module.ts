@@ -1,4 +1,4 @@
-import { AppModule } from './../app.module';
+import { ComponentsModule } from './../components/component.module';
 import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TicketComponent } from '../components/ticket/ticket.component';
-import { MenuComponent } from '../components/menu/menu.component';
+
 
 
 const routes: Routes = [
@@ -41,6 +41,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatCheckboxModule,
     MatDialogModule,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage, TicketComponent],

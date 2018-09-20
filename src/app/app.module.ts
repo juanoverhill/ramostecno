@@ -1,4 +1,3 @@
-
 import { FormsModule } from '@angular/forms';
 import { EquipoService } from '../services/equipo.service';
 import { AuthService } from '../services/auth.service';

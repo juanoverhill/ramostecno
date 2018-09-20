@@ -23,6 +23,7 @@ export class AdministrarReparacionesPage implements OnInit {
   tieneReparaciones = false;
   ref: firebase.firestore.DocumentReference;
   nombreUsuario;
+  orden = 0;
 
   constructor(private fb: FirestoreService, private auth: AuthService,
     private router: Router, public alertController: AlertController, private modalController: ModalController) { }
@@ -61,7 +62,7 @@ export class AdministrarReparacionesPage implements OnInit {
   }
 
   getCategorias() {
-    this.categorias = this.fb.colWithIds$('CATEGORIA_REPARACION');
+    this.categorias = this.fb.colWithIds$('CATEGORIA_REPARACION', ref => ref.orderBy('orden', 'asc'));
   }
 
   getSubCategorias(categoria) {
@@ -129,36 +130,53 @@ export class AdministrarReparacionesPage implements OnInit {
     await alert.present();
   }
 
-  async alertEditarCategoria(categoriaID, categoriaDesc) {
-    const alert = await this.alertController.create({
-      header: 'Editar categoria',
-      inputs: [
-        {
-          name: 'updateCategoria',
-          type: 'text',
-          placeholder: 'Ingrese el nombre',
-          value: categoriaDesc
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-          }
-        }, {
-          text: 'Ok',
-          handler: (datos) => {
-            const data = new CategoriaReparacion();
-            data.descripcion = datos.updateCategoria;
-            this.fb.update('CATEGORIA_REPARACION/' + categoriaID, data);
-          }
-        }
-      ]
-    });
+  calculaOrden(categoriaID) {
 
-    await alert.present();
+    this.fb.doc$('CATEGORIA_REPARACION/' + categoriaID).subscribe(data => {
+        const ord = data as CategoriaReparacion;
+        this.orden = ord.orden;
+    });
+  }
+
+
+  async alertEditarCategoria(categoriaID, categoriaDesc) {
+    this.calculaOrden(categoriaID);
+    const alert = await this.alertController.create(
+            {
+              header: 'Editar categoria',
+              inputs: [
+                {
+                  name: 'updateCategoria',
+                  type: 'text',
+                  placeholder: 'Ingrese el nombre',
+                  value: categoriaDesc
+                },
+                {
+                  name: 'updateOrder',
+                  type: 'text',
+                  placeholder: 'Ingrese el orden',
+                  value: this.orden
+                }
+              ],
+              buttons: [
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: () => {
+                  }
+                }, {
+                  text: 'Ok',
+                  handler: (datos) => {
+                    const data = new CategoriaReparacion();
+                    data.descripcion = datos.updateCategoria;
+                    data.orden = datos.updateOrder;
+                    this.fb.update('CATEGORIA_REPARACION/' + categoriaID, data);
+                  }
+                }
+              ]
+            });
+         await alert.present();
   }
 
   async alertEliminaReparacion(reparacionID) {

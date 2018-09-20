@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { IonicModule } from '@ionic/angular';
 
 import { AdministrarReparacionesPage } from './administrar-reparaciones.page';
+import { ComponentsModule } from '../components/component.module';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
     MatCheckboxModule,
     MatTooltipModule,
     SharedModule,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AdministrarReparacionesPage]

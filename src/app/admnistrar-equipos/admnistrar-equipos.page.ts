@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Marca, Equipo } from '../../Model/models';
 import { PopUpComponent } from '../components/pop-up/pop-up.component';
+import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
+import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
 
 @Component({
   selector: 'app-admnistrar-equipos',
@@ -20,6 +22,7 @@ export class AdmnistrarEquiposPage implements OnInit {
   equipos: Observable<any[]>;
   tieneEquipos = false;
   estado = 'ACTIVO';
+  nombreUsuario;
 
   constructor(private fb: FirestoreService, private auth: AuthService,
     private router: Router, public alertController: AlertController, private modalController: ModalController) { }
@@ -190,5 +193,29 @@ export class AdmnistrarEquiposPage implements OnInit {
     });
     return await modal.present();
   }
+
+  async anularFechas() {
+    const modal = await this.modalController.create({
+      component: AnularFechasComponent,
+      componentProps: {}
+    });
+    return await modal.present();
+  }
+
+  async horariosTrabajo() {
+    const modal = await this.modalController.create({
+      component: HorariosTrabajoComponent,
+      componentProps: {}
+    });
+    return await modal.present();
+  }
+
+  logOut() {
+    this.auth.signOut().then(() => {
+      this.autenticado = false;
+      this.router.navigateByUrl('/loguear');
+    });
+  }
+
 
 }

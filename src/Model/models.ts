@@ -30,6 +30,7 @@ export class PrecioReparacion {
     reparacionRef?: firebase.firestore.DocumentReference;
     valor?: number;
     valor_efectivo?: number;
+    categoria_id?: string;
 }
 
 export class Usuario {
@@ -114,6 +115,7 @@ export class HoraDisponible {
 export class CategoriaReparacion {
     id?: string;
     descripcion?: string;
+    orden?: number;
 }
 
 export class Colores {

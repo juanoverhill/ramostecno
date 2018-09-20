@@ -14,6 +14,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { IonicModule } from '@ionic/angular';
 
 import { AdmnistrarEquiposPage } from './admnistrar-equipos.page';
+import { ComponentsModule } from '../components/component.module';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
     MatTooltipModule,
     SharedModule,
     AngularFireStorageModule,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [AdmnistrarEquiposPage, PopUpComponent],

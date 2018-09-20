@@ -156,7 +156,7 @@ export class PopUpComponent implements OnInit {
     await alert.present();
   }
 
-  async alertAddReparacion(reparacionID) {
+  async alertAddReparacion(reparacionID, categoriaID) {
     const alert = await this.alertController.create({
       header: 'Agregar Reparacion',
       inputs: [
@@ -181,14 +181,19 @@ export class PopUpComponent implements OnInit {
         }, {
           text: 'Ok',
           handler: (datos) => {
-            const rep = new PrecioReparacion();
-            rep.reparacion_id = reparacionID;
-            rep.reparacionRef = this.fb.doc('REPARACION/' + reparacionID).ref;
-            rep.equipo_id = this.idEquipo;
-            rep.equipoRef = this.fb.doc('EQUIPO/' + this.idEquipo).ref;
-            rep.valor_efectivo = datos.valorEF;
-            rep.valor = datos.valorMP;
-            this.fb.add('PRECIO_REPARACION', rep);
+            this.fb.doc$('REPARACION/' + reparacionID).subscribe(data => {
+              const cat = data as Reparacion;
+              console.log(cat.categoria_id);
+              const rep = new PrecioReparacion();
+              rep.reparacion_id = reparacionID;
+              rep.reparacionRef = this.fb.doc('REPARACION/' + reparacionID).ref;
+              rep.equipo_id = this.idEquipo;
+              rep.equipoRef = this.fb.doc('EQUIPO/' + this.idEquipo).ref;
+              rep.valor_efectivo = datos.valorEF;
+              rep.valor = datos.valorMP;
+              rep.categoria_id = cat.categoria_id;
+              this.fb.add('PRECIO_REPARACION', rep);
+            });
           }
         }
       ],

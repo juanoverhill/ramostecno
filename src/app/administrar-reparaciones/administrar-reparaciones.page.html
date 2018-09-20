@@ -1,52 +1,4 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-button icon-only (click)="meniu.open()">
-        <ion-icon name="menu"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="logOut()">
-        <ion-icon name="log-out"></ion-icon>
-        Salir
-      </ion-button>
-    </ion-buttons>
-    <ion-title>{{nombreUsuario}} administra las reparaciones</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-menu side="start" #meniu>
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Opciones</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-button color="primary" expand="block" [href]="'/historial-turnos'">
-        <ion-icon slot="start" name="airplane"></ion-icon>
-        Administrar Turnos
-      </ion-button>
-      <ion-button color="primary" expand="block" (click)="anularFechas()">
-        <ion-icon slot="start" name="airplane"></ion-icon>
-        Anular fechas
-      </ion-button>
-      <ion-button color="primary" expand="block" (click)="horariosTrabajo()">
-        <ion-icon slot="start" name="code-working"></ion-icon>
-        Horarios de trabajo
-      </ion-button>
-      <ion-button color="primary" expand="block" [href]="'/admnistrar-equipos'">
-        <ion-icon slot="start" name="phone-portrait"></ion-icon>
-        Administrar Equipos
-      </ion-button>
-      <ion-button color="primary" expand="block" [href]="'/administrar-reparaciones'">
-        <ion-icon slot="start" name="construct"></ion-icon>
-        Config. Reparaciones
-      </ion-button>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
+<app-menu></app-menu>
 <ion-content *ngIf="autenticado && permisos">
   <ion-grid>
     <ion-row>
@@ -54,12 +6,12 @@
         <ion-item color="light">
         <mat-form-field style="width: 80%;">
             <mat-select #cat placeholder="Selecciona una categoria" (selectionChange)="getSubCategorias($event)">
-              <mat-option  *ngFor="let categoria of categorias | async" [value]="categoria.id">
-                {{categoria.descripcion}}
+              <mat-option name="categoria.orden" *ngFor="let categoria of categorias | async" [value]="categoria.id">               
+                      {{categoria.descripcion}}                                
               </mat-option>
             </mat-select>
-          </mat-form-field>
-          <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarCategoria(cat.value, cat.selected?.viewValue)">
+          </mat-form-field>         
+<ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarCategoria(cat.value, cat.selected?.viewValue)">
               <ion-icon name="create"></ion-icon>
             </ion-button>
             <ion-button slot="end" icon-only color="secondary" size="small" mat-raised-button matTooltip="Agregar" (click)="alertNuevaCategoria()">
@@ -67,7 +19,7 @@
               </ion-button>
               <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaCategoria(cat.value)">
                   <ion-icon name="close"></ion-icon>
-                </ion-button>
+              </ion-button>
     </ion-item>
       </ion-col>
     </ion-row>
