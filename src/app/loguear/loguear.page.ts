@@ -10,20 +10,25 @@ import { FirestoreService } from '../../services/f-base.service';
 })
 export class LoguearPage implements OnInit {
 
+  logueando = false;
+
   constructor(private auth: AuthService, private router: Router, private fb: FirestoreService) { }
 
   ngOnInit() {
   }
 
   signInGoogle() {
-    this.auth.signInWithGoogle().then(() => {
-      this.getPerfilUsuario(this.auth.getUserID());
+    this.logueando = true;
+    this.auth.signInWithGoogle().then(res => {
+      console.log(res);
+      this.getPerfilUsuario(res.user.uid);
     });
   }
 
   signInFacebook() {
-    this.auth.signInWithFacebook().then(() => {
-      this.getPerfilUsuario(this.auth.getUserID());
+    this.logueando = true;
+    this.auth.signInWithFacebook().then(res => {
+      this.getPerfilUsuario(res.user.uid);
     });
   }
 
