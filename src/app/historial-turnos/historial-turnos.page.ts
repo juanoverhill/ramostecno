@@ -1,4 +1,4 @@
-import { Reparacion } from './../../Model/models';
+import { Reparacion, EstadoReparacion } from './../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from '../../services/f-base.service';
@@ -32,7 +32,7 @@ export class HistorialTurnosPage implements OnInit {
   reparacion: Reparacion;
   filtroFecha = false;
 
-  opciones = ['Pendiente', 'Confirmado', 'Recepcionado' , 'Reparado', 'Retirado', 'Cancelado'];
+  opciones: Observable<EstadoReparacion[]>;
 
   date = new FormControl(new Date());
 
@@ -41,6 +41,7 @@ export class HistorialTurnosPage implements OnInit {
     private modalController: ModalController, public alertController: AlertController) { }
 
   ngOnInit() {
+    this.opciones = this.fb.colWithIds$('ESTADO', ref => ref.orderBy('orden'));
     this.fechaSeleccionada = new Date().toISOString().slice(0, 10);
     this.estado_reparacion = 'Confirmado';
     // Verifico previamente si esta logueado
@@ -143,11 +144,19 @@ export class HistorialTurnosPage implements OnInit {
     const month = fecha.slice(5, 7);
     const day = fecha.slice(8, 10);
     const fechaMail = day.toString() + '/' + month.toString() + '/' + year.toString();
-    if (estadoNuevo === 'Recepcionado') {
-      this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-0443bc9b990b41c3bcda8bb8ec888fe3');
-    } else if (estadoNuevo === 'Reparado') {
-      this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-fdcd262f65df459eb2c976b335a1e033');
-    }
+    // if (estadoNuevo === 'Recepcionado') {
+    //   this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-0443bc9b990b41c3bcda8bb8ec888fe3');
+    // } else if (estadoNuevo === 'Reparado') {
+    //   this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-fdcd262f65df459eb2c976b335a1e033');
+    // }
+    console.log(estadoNuevo);
+    this.fb.colWithIds$('ESTADO', ref => ref.where('descripcion_estado', '==', estadoNuevo)).subscribe(est => {
+      const e = est as EstadoReparacion;
+      console.log(e[0].templateID);
+      if(e.templateID !== '') {
+        this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, e[0].templateID);
+      }
+    });
   }
 
   reprogramaTurno(nuevaFecha, item) {

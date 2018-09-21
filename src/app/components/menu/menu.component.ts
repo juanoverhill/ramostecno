@@ -6,6 +6,7 @@ import { AnularFechasComponent } from '../anular-fechas/anular-fechas.component'
 import { HorariosTrabajoComponent } from '../horarios-trabajo/horarios-trabajo.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { PopEditaEstadoComponent } from '../pop-edita-estado/pop-edita-estado.component';
 
 
 
@@ -58,6 +59,14 @@ export class MenuComponent implements OnInit {
   async horariosTrabajo() {
     const modal = await this.modalController.create({
       component: HorariosTrabajoComponent,
+      componentProps: {}
+    });
+    return await modal.present();
+  }
+
+  async estadosReparacion() {
+    const modal = await this.modalController.create({
+      component: PopEditaEstadoComponent,
       componentProps: {}
     });
     return await modal.present();

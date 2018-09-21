@@ -1,3 +1,18 @@
-<p>
-  pop-edita-estado works!
-</p>
+<ion-content>
+  <ion-grid>
+    <ion-item-divider color="primary">Estados de reparacion</ion-item-divider>
+    <ion-list>
+      <ion-item *ngFor="let estado of estadosReparacion | async">
+            <ion-input #inp value="{{estado.descripcion_estado}}" (ionChange)="cambiaDescripcion(estado.id, inp.value)"></ion-input>
+            <ion-button slot="end" icon-only color="danger" size="small" (click)="eliminaEstado(estado.id)">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+            <ion-button slot="end" icon-only color="secondary" size="small" (click)="alertEdita(estado.id, estado.templateID)">
+                <ion-icon name="open"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="full" color="primary" (click)="alertAddEstado()">Agregar estado</ion-button>
+  </ion-grid>
+</ion-content>
+

@@ -24,10 +24,11 @@ import { environment } from '../environments/environment';
 import { AnularFechasComponent } from './components/anular-fechas/anular-fechas.component';
 import { HorariosTrabajoComponent } from './components/horarios-trabajo/horarios-trabajo.component';
 import { SharedModule } from './shared.module';
+import { PopEditaEstadoComponent } from './components/pop-edita-estado/pop-edita-estado.component';
 
 @NgModule({
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent],
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent],
   exports: [],
   imports: [
     FormsModule,

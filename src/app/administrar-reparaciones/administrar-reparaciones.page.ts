@@ -130,17 +130,9 @@ export class AdministrarReparacionesPage implements OnInit {
     await alert.present();
   }
 
-  calculaOrden(categoriaID) {
-
-    this.fb.doc$('CATEGORIA_REPARACION/' + categoriaID).subscribe(data => {
-        const ord = data as CategoriaReparacion;
-        this.orden = ord.orden;
-    });
-  }
 
 
   async alertEditarCategoria(categoriaID, categoriaDesc) {
-    this.calculaOrden(categoriaID);
     const alert = await this.alertController.create(
             {
               header: 'Editar categoria',
@@ -150,12 +142,6 @@ export class AdministrarReparacionesPage implements OnInit {
                   type: 'text',
                   placeholder: 'Ingrese el nombre',
                   value: categoriaDesc
-                },
-                {
-                  name: 'updateOrder',
-                  type: 'text',
-                  placeholder: 'Ingrese el orden',
-                  value: this.orden
                 }
               ],
               buttons: [
@@ -170,7 +156,6 @@ export class AdministrarReparacionesPage implements OnInit {
                   handler: (datos) => {
                     const data = new CategoriaReparacion();
                     data.descripcion = datos.updateCategoria;
-                    data.orden = datos.updateOrder;
                     this.fb.update('CATEGORIA_REPARACION/' + categoriaID, data);
                   }
                 }
