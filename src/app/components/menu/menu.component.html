@@ -30,7 +30,7 @@
                 </ion-label>
               </ion-button>
               <ion-button color="primary" expand="block" (click)="anularFechas()">
-                <ion-icon slot="start" name="airplane"></ion-icon>
+                <ion-icon slot="start" name="calendar"></ion-icon>
                 <ion-label>Anular fechas</ion-label>                
               </ion-button>
               <ion-button color="primary" expand="block" (click)="horariosTrabajo()">
@@ -43,8 +43,12 @@
               </ion-button>
               <ion-button color="primary" expand="block" [href]="'/administrar-reparaciones'">
                 <ion-icon slot="start" name="construct"></ion-icon>
-                <ion-label>Config. Reparaciones</ion-label>
+                <ion-label>Administrar Reparaciones</ion-label>
             </ion-button>
+            <ion-button color="primary" expand="block">
+              <ion-icon slot="start" name="list"></ion-icon>
+              <ion-label>Administrar Estados</ion-label>
+          </ion-button>
     </ion-list>
   </ion-content>
 </ion-menu>

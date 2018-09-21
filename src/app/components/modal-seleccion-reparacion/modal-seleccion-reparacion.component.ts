@@ -49,6 +49,7 @@ export class ModalSeleccionReparacionComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this._reparaciones = this.fb.colWithIds$('PRECIO_REPARACION', ref => ref.where('equipo_id', '==', this.equipoID).where('categoria_id', '==', categoriaID));
     this._reparaciones.subscribe(() => {
+      this._reparacionSeleccionada = false;
       this._categoriaSeleccionada = true;
     });
   }
