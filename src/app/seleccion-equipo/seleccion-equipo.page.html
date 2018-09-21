@@ -33,12 +33,12 @@
                 <img class="image animated fadeIn" src="{{equipo.imagen}}">
               </ion-col>
             </ion-row>
-            <ion-button (click)="seleccionarReparacion(equipo.id)" expand="full">Seleccionar equipo</ion-button>
+            <ion-button [disabled]="colorSeleccionado == undefinded" (click)="seleccionarReparacion(equipo.id)" expand="full">Seleccionar equipo</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-slide>
     </ion-slides>
   </ion-col>
 </ion-row>
-<p *ngIf="isLoad" class="texto" style="font-size:14px">✋ Desliza con el mouse para ver mas equipos</p>
+<p *ngIf="isLoad" class="texto" style="font-size:14px">✋ Desliza para ver mas equipos</p>
 </ion-content>
