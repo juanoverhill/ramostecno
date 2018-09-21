@@ -70,7 +70,7 @@ export class CalendarPage implements OnInit {
   }
 
    anular_n_dias(n) {
-    for (let i = 0; i <= n; i++) {
+    for (let i = 0; i < n; i++) {
       this.daysConfig.push({
         date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + i),
         subTitle: '',
@@ -107,8 +107,8 @@ export class CalendarPage implements OnInit {
             disable: false
           });
         }
-      this.getFechasAnuladas();
-    }
+      }
+    this.getFechasAnuladas();
   }
 
   getFeriadosHTTP(n, dias_laborables: any, feriados: boolean) {
@@ -137,6 +137,7 @@ export class CalendarPage implements OnInit {
           disable: true
         });
       });
+      this.daysConfig = this.daysConfig.filter((el, i, a) => i === a.indexOf(el));
       this.cargoOK = true;
     });
   }

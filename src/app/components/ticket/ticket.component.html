@@ -1,7 +1,9 @@
 <ion-content>
-<ion-grid id="ticket">
+<ion-grid id="ticket" *ngIf="cargoOK">
     <ion-row>
       <ion-col>
+        <p class="texto centrar">Fundacion Ramos TecnoReparaciones</p>
+        <p class="texto centrar" style="font-size: 12px;">Av. Gaona y Vicente Lopez (Ramos Mejia)</p><br>
         <ion-item-divider  color="primary"><p class="titulo"><b>Ticket de servicio</b></p></ion-item-divider>
         <div class="line-separator"></div>
       </ion-col>
@@ -161,6 +163,7 @@
     <div class="line-separator"></div>
     <ion-button *ngIf="cargoOK" expand="full" (click)="print('ticket', f)">Generar Orden</ion-button>
     <p hidden class="texto" style="margin-top:20px;">Firma del cliente</p>
+    <p class="texto" style="font-size: 10px;">Terminos y condiciones: {{((turno | async)?.reparacionRef | doc | async)?.terminos }}</p>
   </form>
 </ion-grid>
 </ion-content>
