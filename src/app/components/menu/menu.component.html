@@ -11,7 +11,8 @@
         Salir
       </ion-button>
     </ion-buttons>
-    <ion-title>Historial de reparaciones</ion-title>
+    <ion-title [hidden]="permisos == false">Panel de administracion</ion-title>
+    <ion-title [hidden]="permisos">Historial de reparaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,7 +32,7 @@
               </ion-button>
               <ion-button color="primary" expand="block" (click)="anularFechas()">
                 <ion-icon slot="start" name="calendar"></ion-icon>
-                <ion-label>Anular fechas</ion-label>                
+                <ion-label>Anular fechas</ion-label>
               </ion-button>
               <ion-button color="primary" expand="block" (click)="horariosTrabajo()">
                 <ion-icon slot="start" name="code-working"></ion-icon>
