@@ -35,6 +35,7 @@ export class CalendarPage implements OnInit {
   diasAnulados: any;
   cargoOK = false;
   _feriados: any[] = [];
+  _fechaAnulada: any[] = [];
   _fechasAnuladas: any[] = [];
 
   date: string;
@@ -70,7 +71,7 @@ export class CalendarPage implements OnInit {
   }
 
    anular_n_dias(n) {
-    for (let i = 0; i <= n; i++) {
+    for (let i = 0; i < n; i++) {
       this.daysConfig.push({
         date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + i),
         subTitle: '',
@@ -83,32 +84,40 @@ export class CalendarPage implements OnInit {
     const arrayLaborables = dias_laborables.split(',').map(Number);
     const fechaDesde = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getUTCDate() + n, 0, 0, 0, 0);
     const actualYear = new Date().getFullYear();
-    const dateInicial = new Date('2018-01-01');
+    const dateInicial = new Date();
     // tslint:disable-next-line:max-line-length
     for (let fechaActual = dateInicial; fechaActual.getFullYear() <= (actualYear + 2); fechaActual = new Date(fechaActual.getTime() + (1000 * 60 * 60 * 24))) {
       const dia_actual = fechaActual.getDay();
       // calculo los dias laborables y feriados
       if (this._feriados.includes(fechaActual.toISOString().slice(0, 10))) {
+          // console.log('feriado: ' + fechaActual.toISOString().slice(0, 10));
           this.daysConfig.push({
-            date: new Date(fechaActual.getTime() + (1000 * 60 * 60 * 24)),
+            date: fechaActual,
             subTitle: '..',
             disable: true
           });
-      } else if (arrayLaborables.includes(dia_actual) === false) {
-          this.daysConfig.push({
-            date: fechaActual,
-            subTitle: '',
-            disable: true
-          });
-        } else if (fechaActual > fechaDesde) {
-          this.daysConfig.push({
-            date: fechaActual,
-            subTitle: 'disp.',
-            disable: false
-          });
-        }
-      this.getFechasAnuladas();
-    }
+       }
+        else if (arrayLaborables.includes(dia_actual) === false) {
+        this.daysConfig.push({
+          date: fechaActual,
+          subTitle: '',
+          disable: true
+        });
+      } else if (this._fechaAnulada.includes(fechaActual.toISOString().slice(0, 10))) {
+        this.daysConfig.push({
+          date: fechaActual,
+          subTitle: '',
+          disable: true
+        });
+      } else {
+        this.daysConfig.push({
+          date: fechaActual,
+          subTitle: '✓',
+          disable: false
+        });
+      }
+      }
+      this.cargoOK = true;
   }
 
   getFeriadosHTTP(n, dias_laborables: any, feriados: boolean) {
@@ -119,25 +128,22 @@ export class CalendarPage implements OnInit {
           const fechaActual = new Date(actualYear, item.mes - 1, item.dia).toISOString().slice(0, 10);
           this._feriados.push(fechaActual);
         });
-        this.anularFechas(n, dias_laborables);
+        // console.log(this._feriados);
+        this.getFechasAnuladas(n, dias_laborables);
       }, error => {
       });
     } else {
-      this.anularFechas(n, dias_laborables);
+      this.getFechasAnuladas(n, dias_laborables);
+      // console.log(this._feriados);
     }
   }
 
-  getFechasAnuladas() {
+  getFechasAnuladas(n, dias_laborables: any) {
     this.fBase.colWithIds$('FECHA_ANULADA').subscribe(data => {
       data.forEach((item: FechaAnulada) => {
-        const fecha = new Date(item.fecha);
-        this.daysConfig.push({
-          date: fecha,
-          subTitle: '',
-          disable: true
-        });
+        this._fechaAnulada.push(item.fecha);
       });
-      this.cargoOK = true;
+      this.anularFechas(n, dias_laborables);
     });
   }
 

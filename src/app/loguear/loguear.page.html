@@ -6,14 +6,25 @@
 
 <ion-content padding>
   <h5 class="texto">Selecciona uno de los proveedores de ingreso disponibles</h5>
-<ion-row justify-content-center style="height: 100%">
+<ion-row class="centrar" justify-content-center>
+  <ion-col>
   <ion-button icon-right block clear (click)="signInGoogle()" color="danger">
     <ion-icon slot="end" name="logo-google"></ion-icon>
     Ingresar con Google
   </ion-button>
-  <ion-button icon-right block clear (click)="signInFacebook()" color="primary">
+  </ion-col>
+</ion-row>
+<ion-row class="centrar" justify-content-center>
+  <ion-col>
+    <ion-button icon-right block clear (click)="signInFacebook()" color="primary">
     <ion-icon slot="end" name="logo-facebook"></ion-icon>
     Ingresar con Facebook
   </ion-button>
+  </ion-col>
 </ion-row>
+<ion-row class="centrar" justify-content-center>
+   <ion-spinner *ngIf="logueando"></ion-spinner>
+</ion-row>
+ 
+
 </ion-content>

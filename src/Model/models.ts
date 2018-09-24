@@ -122,3 +122,9 @@ export class Colores {
     id?: string;
     descripcion?: string;
 }
+
+export class EstadoReparacion {
+    id?: string;
+    descripcion_estado?: string;
+    templateID?: string;
+}
