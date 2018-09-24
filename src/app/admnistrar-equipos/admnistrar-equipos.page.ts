@@ -216,6 +216,30 @@ export class AdmnistrarEquiposPage implements OnInit {
       this.router.navigateByUrl('/loguear');
     });
   }
+  
+  async alertReactivaEquipo(equipoID) {
+    const alert = await this.alertController.create({
+      header: 'Activar',
+      message: '<strong>Desea Re-activar el Equipo?</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            const data = new Equipo();
+            data.estado = 'ACTIVO';
+            this.fb.update('EQUIPO/' + equipoID, data);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
 
 }

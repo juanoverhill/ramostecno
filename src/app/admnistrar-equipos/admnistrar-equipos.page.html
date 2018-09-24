@@ -45,6 +45,10 @@
               (click)="alertEliminaEquipo(equipo.id)" [hidden]="equipo.estado === 'INACTIVO'">
               <ion-icon name="close"></ion-icon>
             </ion-button>
+             <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Re-Activar"
+              (click)="alertReactivaEquipo(equipo.id)" [hidden]="equipo.estado === 'ACTIVO'">
+              <ion-icon name="open"></ion-icon>
+            </ion-button>
           </ion-item>
         </ion-list>
       </ion-col>
