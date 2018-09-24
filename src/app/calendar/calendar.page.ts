@@ -103,7 +103,7 @@ export class CalendarPage implements OnInit {
           subTitle: '',
           disable: true
         });
-      }else if (this._fechaAnulada.includes(fechaActual.toISOString().slice(0, 10))) {
+      } else if (this._fechaAnulada.includes(fechaActual.toISOString().slice(0, 10))) {
         this.daysConfig.push({
           date: fechaActual,
           subTitle: '',
