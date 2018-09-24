@@ -31,6 +31,7 @@ export class HistorialTurnosPage implements OnInit {
   fechaSeleccionada: string;
   reparacion: Reparacion;
   filtroFecha = false;
+  options: any[] = [];
 
   opciones: Observable<EstadoReparacion[]>;
 
@@ -42,6 +43,9 @@ export class HistorialTurnosPage implements OnInit {
 
   ngOnInit() {
     this.opciones = this.fb.colWithIds$('ESTADO', ref => ref.orderBy('orden'));
+    this.fb.colWithIds$('ESTADO', ref => ref.orderBy('orden')).subscribe(dat => {
+      this.options = dat;
+    });
     this.fechaSeleccionada = new Date().toISOString().slice(0, 10);
     this.estado_reparacion = 'Confirmado';
     // Verifico previamente si esta logueado

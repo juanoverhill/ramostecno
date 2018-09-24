@@ -51,16 +51,14 @@ export class ModalSeleccionReparacionComponent implements OnInit {
     this._reparaciones.subscribe(() => {
       this._reparacionSeleccionada = false;
       this._categoriaSeleccionada = true;
-      
     });
   }
 
   cargarDatosReparacion(reparacionID) {
       this._reparacionCotizada = this.fb.doc$('PRECIO_REPARACION/' + reparacionID);
+      this._reparacionID = reparacionID;
       this._reparacionCotizada.subscribe(data => {
       this._reparacionSeleccionada = true;
-      this._reparacionID = data.id;
-      
     });
   }
 
