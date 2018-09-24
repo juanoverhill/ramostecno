@@ -44,6 +44,7 @@ export class ConfirmacionTurnoPage implements OnInit {
   day: number;
   terminosAceptados = false;
   telefono: any;
+  mailSec: any;
 
   ngOnInit() {
      // Verifico previamente si esta logueado
@@ -193,7 +194,11 @@ export class ConfirmacionTurnoPage implements OnInit {
   }
 
   setMail(mail) {
-    this.email = mail;
+   this.mailSec = mail;
+  }
+
+  seteaMail() {
+    this.email = this.mailSec;
   }
 
 }

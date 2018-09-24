@@ -15,6 +15,7 @@
       <img id="imgn" *ngIf="cargoImagenOK && nuevoEquipo == false" style="height: 100%; width: 100%" [src]="(equipo | async)?.imagen">
       <img *ngIf="cargoImagenOK && nuevoEquipo == true" style="height: 100%; width: 100%" [src]="downloadURL | async">
       <ion-button *ngIf="cargoOK" expand="full" (click)="fileInput.click()">Cambiar imagen</ion-button>
+      <p class="texto" style="font-size:10px;">Tamaño recomendado 400px(ancho) - 900px(alto)</p>
       <div hidden>
         <input type="file" id="fileUpload" #fileInput (change)="uploadFile($event)"/>
       </div>
