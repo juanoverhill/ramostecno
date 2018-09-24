@@ -217,7 +217,7 @@ export class AdmnistrarEquiposPage implements OnInit {
       this.router.navigateByUrl('/loguear');
     });
   }
-  
+
   async alertReactivaEquipo(equipoID) {
     const alert = await this.alertController.create({
       header: 'Activar',
