@@ -157,7 +157,7 @@ export class HistorialTurnosPage implements OnInit {
     this.fb.colWithIds$('ESTADO', ref => ref.where('descripcion_estado', '==', estadoNuevo)).subscribe(est => {
       const e = est as EstadoReparacion;
       console.log(e[0].templateID);
-      if(e.templateID !== '') {
+      if (e[0].templateID !== '' && e[0].templateID !== undefined) {
         this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, e[0].templateID);
       }
     });

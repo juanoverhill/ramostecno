@@ -110,7 +110,7 @@ exports.getTurnosManiana = functions.https.onRequest(async (req, res) => {
         });       
         console.log(personal);
         cors(req, res, () => {
-            const msg = {               
+            const msg = {
                 from: 'noresponder@ramostecnoreparaciones.com',
                 subject: 'Recordatorio',
                 templateId: 'd-4028aa136a904859b6b60a3d4a21e5fc',               

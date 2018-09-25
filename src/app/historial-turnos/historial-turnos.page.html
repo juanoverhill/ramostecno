@@ -73,7 +73,7 @@
         <ion-item hidden>
           <ion-label>Estado Reparacion</ion-label>
           <ion-select #selectReparacion placeholder="Selecciona una" value="estado_reparacion" (ionChange)="cambiaEstado(selectReparacion.value,turno.id,turno.fecha_reparacion,turno.hora_reparacion)">
-            <ion-select-option *ngFor="let option of options" value="option.descripcion_estado">{{option.descripcion_estado}}</ion-select-option>
+            <ion-select-option *ngFor="let option of options" value="{{option.descripcion_estado}}">{{option.descripcion_estado}}</ion-select-option>
           </ion-select>
         </ion-item>
         <div class="line-separator"></div>
