@@ -57,9 +57,9 @@
               <ion-icon name="list-box"></ion-icon>
               </ion-button>        
       
-            <ion-button *ngIf="permisos == true" icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="pickerDate.open()">
+              <ion-button *ngIf="turno.estado_reparacion_id == 'Reprogramar'" icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="reprogramarTurno(turno.reparacion_id, turno.color_id)">
                 <ion-icon name="time"></ion-icon>
-              </ion-button>          
+              </ion-button>
           
             <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)" [hidden]="turno.estado_reparacion_id != 'Confirmado'">
               <ion-icon name="close"></ion-icon>

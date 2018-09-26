@@ -203,4 +203,8 @@ export class HistorialTurnosPage implements OnInit {
     return await modal.present();
   }
 
+  reprogramarTurno(idReparacion, color) {
+    this.router.navigateByUrl('calendar/' + idReparacion + '/' + color);
+  }
+
 }

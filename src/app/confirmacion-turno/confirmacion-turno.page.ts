@@ -123,6 +123,7 @@ export class ConfirmacionTurnoPage implements OnInit {
       turnoNuevo.fecha_reparacion = this.fecha;
       turnoNuevo.hora_reparacion = Number(this.hora);
       turnoNuevo.color = this.color;
+      turnoNuevo.color_id = this.colorID;
       turnoNuevo.estado_reparacion_id = 'Confirmado';
       turnoNuevo.reparacion_id = this.reparacionID;
       turnoNuevo.valor = this.valor;

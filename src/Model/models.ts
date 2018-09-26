@@ -46,6 +46,7 @@ export class Turno {
     equipoRef?: firebase.firestore.DocumentReference;
     equipo_id?: string;
     color?: string;
+    color_id?: string;
     estado_reparacion_id?: string;
     fecha_reparacion?: string;
     hora_reparacion?: number;
