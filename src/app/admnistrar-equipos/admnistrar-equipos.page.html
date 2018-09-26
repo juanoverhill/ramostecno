@@ -33,7 +33,7 @@
         <ion-list>
             <ion-reorder-group disabled="false" (ionItemReorder)="ordena($event)">
 
-              <ion-item *ngFor="let equipo of equipos | async" color="light" [hidden]="equipo.estado !== estado">
+              <ion-item id="{{equipo.id}}" *ngFor="let equipo of equipos | async" color="light" [hidden]="equipo.estado !== estado">
             <ion-label>
               <p class="letra">{{equipo.descripcion}}</p>
             </ion-label>
