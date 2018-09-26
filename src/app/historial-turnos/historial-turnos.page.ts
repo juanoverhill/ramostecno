@@ -141,7 +141,7 @@ export class HistorialTurnosPage implements OnInit {
     await alert.present();
   }
 
-  cambiaEstado(estadoNuevo, item, fecha, hora) {
+  cambiaEstado(estadoNuevo, item, fecha, hora, email) {
     this.fb.update('TURNO/' + item, {'estado_reparacion_id': estadoNuevo});
     this.nombreUsuario = this.nombreUsuario.substr(0, this.nombreUsuario.indexOf(' '));
     const year = fecha.slice(0, 4);
@@ -158,7 +158,7 @@ export class HistorialTurnosPage implements OnInit {
       const e = est as EstadoReparacion;
       console.log(e[0].templateID);
       if (e[0].templateID !== '' && e[0].templateID !== undefined) {
-        this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, e[0].templateID);
+        this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID);
       }
     });
   }

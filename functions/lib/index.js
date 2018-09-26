@@ -65,7 +65,10 @@ exports.getTurnosHoy = functions.https.onRequest((req, res) => __awaiter(this, v
         console.log(personal);
         cors(req, res, () => {
             const msg = {
-                from: 'juan.arias@csantacatalina.com.ar',
+                 from: {
+                     email: 'noresponder@ramostecnoreparaciones.com',
+                     name: 'RamosTecnoReparaciones'
+                 },
                 subject: 'Recordatorio',
                 templateId: 'd-6b08188256ff4655b1f1950b70d32f7f',
                 personalizations: personal
@@ -105,7 +108,10 @@ exports.getTurnosManiana = functions.https.onRequest((req, res) => __awaiter(thi
         console.log(personal);
         cors(req, res, () => {
             const msg = {
-                from: 'juan.arias@csantacatalina.com.ar',
+                from: {
+                    email: 'noresponder@ramostecnoreparaciones.com',
+                    name: 'RamosTecnoReparaciones'
+                },
                 subject: 'Recordatorio',
                 templateId: 'd-4028aa136a904859b6b60a3d4a21e5fc',
                 personalizations: personal
@@ -126,7 +132,10 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
         const templateID = req.body.templateID;
         const msg = {
             to: toEmail,
-            from: 'juan.arias@csantacatalina.com.ar',
+            from: {
+                email: 'noresponder@ramostecnoreparaciones.com',
+                name: 'RamosTecnoReparaciones'
+            },
             subject: 'Bienvenido',
             // text: `Hey ${toName}. You have a new follower!!! `,
             // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
