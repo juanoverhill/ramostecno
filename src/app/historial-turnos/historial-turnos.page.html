@@ -61,7 +61,7 @@
                 <ion-icon name="time"></ion-icon>
               </ion-button>
           
-            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)" [hidden]="turno.estado_reparacion_id != 'Confirmado'">
+            <ion-button icon-only color="danger" size="small" mat-raised-button matTooltip="Cancelar turno" (click)="cancelaTurno(turno.id)" [hidden]="turno.estado_reparacion_id != 'Confirmado' && turno.estado_reparacion_id != 'Reprogramar'">
               <ion-icon name="close"></ion-icon>
             </ion-button>        
       

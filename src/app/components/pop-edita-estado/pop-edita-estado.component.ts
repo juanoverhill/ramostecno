@@ -19,7 +19,7 @@ export class PopEditaEstadoComponent implements OnInit {
     public alertController: AlertController) { }
 
   ngOnInit() {
-    this.estadosReparacion = this.fb.colWithIds$('ESTADO');
+    this.estadosReparacion = this.fb.colWithIds$('ESTADO', ref => ref.orderBy('orden', 'asc'));
   }
 
   cambiaDescripcion(id, valor) {
@@ -99,6 +99,10 @@ export class PopEditaEstadoComponent implements OnInit {
       cssClass: ['alert'],
     });
     await alert.present();
+  }
+
+  ordena(evento) {
+    console.log(evento);
   }
 
 }
