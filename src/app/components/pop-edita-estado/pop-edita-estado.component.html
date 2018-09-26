@@ -4,7 +4,7 @@
     <ion-list>
         <ion-reorder-group disabled="false" (ionItemReorder)="ordena($event)">
             
-            <ion-item *ngFor="let estado of estadosReparacion | async">
+            <ion-item id="{{estado.id}}" *ngFor="let estado of estadosReparacion | async">
             
             <ion-input #inp value="{{estado.descripcion_estado}}" (ionChange)="cambiaDescripcion(estado.id, inp.value)"></ion-input>
             <ion-button slot="end" icon-only color="danger" size="small" (click)="eliminaEstado(estado.id)">

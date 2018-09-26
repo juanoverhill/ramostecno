@@ -128,4 +128,5 @@ export class EstadoReparacion {
     id?: string;
     descripcion_estado?: string;
     templateID?: string;
+    orden;
 }
