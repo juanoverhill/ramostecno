@@ -31,7 +31,9 @@
           <ion-checkbox slot="start" (ionChange)="getEquiposInactivos($event)"></ion-checkbox>
       </ion-item>
         <ion-list>
-          <ion-item *ngFor="let equipo of equipos | async" color="light" [hidden]="equipo.estado !== estado">
+            <ion-reorder-group disabled="false" (ionItemReorder)="ordena($event)">
+
+              <ion-item *ngFor="let equipo of equipos | async" color="light" [hidden]="equipo.estado !== estado">
             <ion-label>
               <p class="letra">{{equipo.descripcion}}</p>
             </ion-label>
@@ -49,7 +51,10 @@
               (click)="alertReactivaEquipo(equipo.id)" [hidden]="equipo.estado === 'ACTIVO'">
               <ion-icon name="open"></ion-icon>
             </ion-button>
+            <ion-reorder slot="start"></ion-reorder>
           </ion-item>
+            </ion-reorder-group>
+          
         </ion-list>
       </ion-col>
     </ion-row>

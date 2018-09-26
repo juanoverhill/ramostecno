@@ -63,7 +63,8 @@ export class AdmnistrarEquiposPage implements OnInit {
   }
 
   getEquipos(marca) {
-    this.equipos = this.fb.colWithIds$('EQUIPO', ref => ref.where('marca_id', '==', marca.value));
+    this.equipos = this.fb.colWithIds$('EQUIPO', ref => ref.where('marca_id', '==', marca.value)
+    .orderBy('orden'));
     this.equipos.subscribe(d => {
       this.tieneEquipos = true;
     });
@@ -240,6 +241,22 @@ export class AdmnistrarEquiposPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  ordena(evento) {
+    const orderFrom = evento.detail.from;
+    const idFrom = evento.srcElement.children[evento.detail.from].id;
+    const orderTo = evento.detail.to;
+    const idTo = evento.srcElement.children[evento.detail.to].id;
+
+    const eq = new Equipo();
+    eq.orden = orderFrom;
+    this.fb.update('EQUIPO/' + idFrom, eq);
+
+    const eq2 = new Equipo();
+    eq2.orden = orderTo;
+    this.fb.update('EQUIPO/' + idTo, eq2);
+
   }
 
 

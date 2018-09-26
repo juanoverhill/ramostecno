@@ -5,6 +5,7 @@ export class Equipo {
     marcaRef?: firebase.firestore.DocumentReference;
     estado?: string;
     imagen?: string;
+    orden?: number;
 }
 
 export class Marca {
@@ -128,5 +129,5 @@ export class EstadoReparacion {
     id?: string;
     descripcion_estado?: string;
     templateID?: string;
-    orden;
+    orden?: number;
 }

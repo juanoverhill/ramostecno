@@ -45,7 +45,8 @@ export class SeleccionEquipoPage implements OnInit {
 
   ngOnInit() {
     this.marcaID = this.route.snapshot.paramMap.get('id');
-    this.fb.colWithIds$('EQUIPO', ref => ref.where('marca_id', '==', this.marcaID).where('estado', '==', 'ACTIVO')).subscribe(data => {
+    this.fb.colWithIds$('EQUIPO', ref => ref.where('marca_id', '==', this.marcaID).where('estado', '==', 'ACTIVO')
+    .orderBy('orden')).subscribe(data => {
       this._equipos = data;
       this.isLoad = true;
     });
