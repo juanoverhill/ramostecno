@@ -62,7 +62,7 @@ export class AdministrarReparacionesPage implements OnInit {
   }
 
   getCategorias() {
-    this.categorias = this.fb.colWithIds$('CATEGORIA_REPARACION', ref => ref.orderBy('orden', 'asc'));
+    this.categorias = this.fb.colWithIds$('CATEGORIA_REPARACION');
   }
 
   getSubCategorias(categoria) {
