@@ -5,13 +5,21 @@
       <ion-col size="12">
         <ion-item color="light">
         <mat-form-field style="width: 80%;">
+
             <mat-select #cat placeholder="Selecciona una categoria" (selectionChange)="getSubCategorias($event)">
-              <mat-option name="categoria.orden" *ngFor="let categoria of categorias | async" [value]="categoria.id">               
-                      {{categoria.descripcion}}                                
-              </mat-option>
+          <ion-reorder-group disabled="false" (ionItemReorder)="ordenaCat($event)">                 
+          <mat-option id="{{categoria.id}}" name="categoria.orden" *ngFor="let categoria of categorias | async" [value]="categoria.id">
+                <ion-reorder>
+                  <ion-item>
+                     {{categoria.descripcion}}
+                  </ion-item>
+                </ion-reorder>
+            </mat-option>                 
+            </ion-reorder-group>
             </mat-select>
+
           </mat-form-field>         
-<ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarCategoria(cat.value, cat.selected?.viewValue)">
+            <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarCategoria(cat.value, cat.selected?.viewValue)">
               <ion-icon name="create"></ion-icon>
             </ion-button>
             <ion-button slot="end" icon-only color="secondary" size="small" mat-raised-button matTooltip="Agregar" (click)="alertNuevaCategoria()">
@@ -26,21 +34,27 @@
     <ion-row>
       <ion-col>
         <ion-list>
-          <ion-item *ngFor="let reparacion of reparaciones | async" color="light">
-            <ion-label>
-                <p class="letra">{{reparacion.descripcion}}</p>
-                <p style="font-size: 11px; color:black">{{reparacion.accion}}</p>
-                <p style="font-size: 10px; color:gray">Terminos: {{reparacion.terminos}}</p>
-            </ion-label>
-             
-              <ion-button  slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarReparacion(reparacion.id, reparacion.descripcion, reparacion.accion, reparacion.terminos)">
-                  <ion-icon name="create"></ion-icon>
-                </ion-button>
-                
-                  <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaReparacion(reparacion.id)">
-                      <ion-icon name="close"></ion-icon>
-                    </ion-button>
-          </ion-item>
+
+      <ion-reorder-group disabled="false" (ionItemReorder)="ordena($event)">
+        <ion-item id="{{reparacion.id}}" *ngFor="let reparacion of reparaciones | async" color="light">
+              <ion-label>
+                  <p class="letra">{{reparacion.descripcion}}</p>
+                  <p style="font-size: 11px; color:black">{{reparacion.accion}}</p>
+                  <p style="font-size: 10px; color:gray">Terminos: {{reparacion.terminos}}</p>
+              </ion-label>
+              
+                <ion-button  slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarReparacion(reparacion.id, reparacion.descripcion, reparacion.accion, reparacion.terminos)">
+                    <ion-icon name="create"></ion-icon>
+                  </ion-button>
+                  
+                    <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaReparacion(reparacion.id)">
+                        <ion-icon name="close"></ion-icon>
+                      </ion-button>
+                       <ion-reorder slot="start"></ion-reorder>        
+            </ion-item>
+      </ion-reorder-group>
+
+        
         </ion-list>
       </ion-col>
     </ion-row>

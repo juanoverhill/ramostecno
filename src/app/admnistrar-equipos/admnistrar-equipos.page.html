@@ -38,8 +38,8 @@
               <p class="letra">{{equipo.descripcion}}</p>
             </ion-label>
 
-<ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="popUpEquipo(equipo.id, equipo.marca_id)"
-  [hidden]="equipo.estado === 'INACTIVO'">
+            <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="popUpEquipo(equipo.id, equipo.marca_id)"
+              [hidden]="equipo.estado === 'INACTIVO'">
               <ion-icon name="create"></ion-icon>
             </ion-button>
 

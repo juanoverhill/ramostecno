@@ -28,7 +28,7 @@ export class ModalSeleccionReparacionComponent implements OnInit {
   ngOnInit() {
     this.equipoID = this.navParams.get('idEquipo');
     this.colorID = this.navParams.get('idColor');
-    this._categorias = this.fb.colWithIds$('CATEGORIA_REPARACION');
+    this._categorias = this.fb.colWithIds$('CATEGORIA_REPARACION', ref => ref.orderBy('orden'));
     this._categorias.subscribe(() => {
       this._cargoOK = true;
     });

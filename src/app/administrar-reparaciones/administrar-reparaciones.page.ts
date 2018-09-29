@@ -62,11 +62,11 @@ export class AdministrarReparacionesPage implements OnInit {
   }
 
   getCategorias() {
-    this.categorias = this.fb.colWithIds$('CATEGORIA_REPARACION');
+    this.categorias = this.fb.colWithIds$('CATEGORIA_REPARACION', ref => ref.orderBy('orden'));
   }
 
   getSubCategorias(categoria) {
-    this.reparaciones = this.fb.colWithIds$('REPARACION', ref => ref.where('categoria_id', '==', categoria.value));
+    this.reparaciones = this.fb.colWithIds$('REPARACION', ref => ref.where('categoria_id', '==', categoria.value).orderBy('orden'));
     this.reparaciones.subscribe(d => {
       this.tieneReparaciones = true;
     });
@@ -301,6 +301,38 @@ export class AdministrarReparacionesPage implements OnInit {
       componentProps: {}
     });
     return await modal.present();
+  }
+
+  ordena(evento) {
+    const orderFrom = evento.detail.from;
+    const idFrom = evento.srcElement.children[evento.detail.from].id;
+    const orderTo = evento.detail.to;
+    const idTo = evento.srcElement.children[evento.detail.to].id;
+
+    const rep = new Reparacion();
+    rep.orden = orderFrom;
+    this.fb.update('REPARACION/' + idFrom, rep);
+
+    const rep2 = new Reparacion();
+    rep2.orden = orderTo;
+    this.fb.update('REPARACION/' + idTo, rep2);
+
+  }
+
+  ordenaCat(evento) {
+    const orderFrom = evento.detail.from;
+    const idFrom = evento.srcElement.children[evento.detail.from].id;
+    const orderTo = evento.detail.to;
+    const idTo = evento.srcElement.children[evento.detail.to].id;
+
+    const rep = new CategoriaReparacion();
+    rep.orden = orderFrom;
+    this.fb.update('CATEGORIA_REPARACION/' + idFrom, rep);
+
+    const rep2 = new Reparacion();
+    rep2.orden = orderTo;
+    this.fb.update('CATEGORIA_REPARACION/' + idTo, rep2);
+
   }
 
 
