@@ -162,7 +162,7 @@ export class HistorialTurnosPage implements OnInit {
           this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID, '');
         } else {
           // tslint:disable-next-line:max-line-length
-          this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID, 'http://www.ramostecnoreparaciones.com/historial-turnos/');
+          this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID, 'http://www.reservas.ramostecnoreparaciones.com/historial-turnos/');
         }
       }
     });

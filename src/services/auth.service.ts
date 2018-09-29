@@ -35,6 +35,10 @@ export class AuthService {
         return this.user && this.user.uid;
       }
 
+    getUserPhoto() {
+        return this.user && this.user.photoURL;
+    }
+
       getUserNombre() {
         return this.user && this.user.displayName;
       }
