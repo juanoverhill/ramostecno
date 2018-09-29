@@ -129,6 +129,7 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
         const toDia = req.body.dia;
         const toFecha = req.body.fecha;
         const toEmail = req.body.toEmail;
+        const url = req.body.url;
         const templateID = req.body.templateID;
         const msg = {
             to: toEmail,
@@ -136,7 +137,7 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
                 email: 'noresponder@ramostecnoreparaciones.com',
                 name: 'RamosTecnoReparaciones'
             },
-            subject: 'Bienvenido',
+            subject: 'Hola',
             // text: `Hey ${toName}. You have a new follower!!! `,
             // html: `<strong>Hey ${toName}. You have a new follower!!!</strong>`,
             // custom templates
@@ -147,7 +148,8 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
                     dynamic_template_data: {
                         name: toName,
                         dia: toDia,
-                        fecha: toFecha
+                        fecha: toFecha,
+                        url: url
                         // and other custom properties here
                     }
                 }

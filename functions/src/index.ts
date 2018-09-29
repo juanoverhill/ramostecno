@@ -140,6 +140,7 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
         const toDia = req.body.dia;
         const toFecha = req.body.fecha;
         const toEmail = req.body.toEmail;
+        const url = req.body.url;
         const templateID = req.body.templateID;
         
         const msg = {
@@ -160,8 +161,8 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
                 dynamic_template_data: {
                     name: toName,
                     dia: toDia,
-                    fecha: toFecha
-                    // and other custom properties here
+                    fecha: toFecha,
+                    url: url
                 }
             }
             ]           
