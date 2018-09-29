@@ -158,7 +158,12 @@ export class HistorialTurnosPage implements OnInit {
       const e = est as EstadoReparacion;
       console.log(e[0].templateID);
       if (e[0].templateID !== '' && e[0].templateID !== undefined) {
-        this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID);
+        if (e[0].descripcion === 'Reprogramar') {
+          this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID, '');
+        } else {
+          // tslint:disable-next-line:max-line-length
+          this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID, 'http://www.ramostecnoreparaciones.com/historial-turnos/');
+        }
       }
     });
   }

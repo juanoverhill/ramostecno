@@ -9,13 +9,14 @@ export class SendMailService {
   endpoint = 'https://us-central1-calidad-csc.cloudfunctions.net/httpEmail';
   constructor(private http: HttpClient) { }
 
-  sendEmail(mail: string, name: string, dia: string, fecha: string, template) {
+  sendEmail(mail: string, name: string, dia: string, fecha: string, template, url: string) {
     const data = {
       toEmail: mail,
       toName: name,
       dia: dia,
       fecha: fecha,
       templateID: template,
+      url: url
     };
     this.http.post(this.endpoint, data).subscribe();
   }
