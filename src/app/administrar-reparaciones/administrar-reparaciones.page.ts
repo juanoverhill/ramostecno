@@ -265,6 +265,7 @@ export class AdministrarReparacionesPage implements OnInit {
           text: 'Ok',
           handler: (datos) => {
             const data = new Reparacion();
+            data.orden = 0;
             data.descripcion = datos.updateDescripion;
             data.terminos = datos.updateTerminos;
             data.accion = datos.updateAccion;

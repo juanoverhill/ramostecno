@@ -6,7 +6,7 @@
         <ion-item color="light">
         <mat-form-field style="width: 80%;">
 
-            <mat-select #cat placeholder="Selecciona una categoria" (selectionChange)="getSubCategorias($event)">
+          <mat-select #cat placeholder="Selecciona una categoria" (selectionChange)="getSubCategorias($event)">
           <ion-reorder-group disabled="false" (ionItemReorder)="ordenaCat($event)">                 
           <mat-option id="{{categoria.id}}" name="categoria.orden" *ngFor="let categoria of categorias | async" [value]="categoria.id">
                 <ion-reorder>
@@ -14,7 +14,7 @@
                      {{categoria.descripcion}}
                   </ion-item>
                 </ion-reorder>
-            </mat-option>                 
+            </mat-option>
             </ion-reorder-group>
             </mat-select>
 
