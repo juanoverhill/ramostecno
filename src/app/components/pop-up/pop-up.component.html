@@ -63,7 +63,7 @@
               <p class="letra">Valor Efectivo: ${{reparacion.valor_efectivo}}</p>
               <p class="letra">Valor MP: ${{reparacion.valor}}</p>
             </ion-label>
-            <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar valores" (click)="alertEditarReparacion(reparacion.reparacion_id, reparacion.valor_efectivo, reparacion.valor)">
+            <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar valores" (click)="alertEditarReparacion(reparacion.id, reparacion.valor_efectivo, reparacion.valor)">
               <ion-icon name="open"></ion-icon>
             </ion-button>
             <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar reparacion" (click)="deleteReparacion(reparacion.id)">
