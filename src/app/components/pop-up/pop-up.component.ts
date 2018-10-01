@@ -72,6 +72,7 @@ export class PopUpComponent implements OnInit {
       nwEquipo.estado = 'ACTIVO';
       nwEquipo.marca_id = this.idMarca;
       nwEquipo.marcaRef = this.fb.doc('MARCA/' + this.idMarca).ref;
+      nwEquipo.orden = 0;
       this.downloadURL.subscribe(img => {
         nwEquipo.imagen = img;
         this.fb.add('EQUIPO', nwEquipo).then(docRef => {
@@ -183,7 +184,6 @@ export class PopUpComponent implements OnInit {
           handler: (datos) => {
             this.fb.doc$('REPARACION/' + reparacionID).subscribe(data => {
               const cat = data as Reparacion;
-              console.log(cat.categoria_id);
               const rep = new PrecioReparacion();
               rep.reparacion_id = reparacionID;
               rep.reparacionRef = this.fb.doc('REPARACION/' + reparacionID).ref;

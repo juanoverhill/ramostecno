@@ -60,6 +60,7 @@ export class PopEditaEstadoComponent implements OnInit {
             const est = new EstadoReparacion();
             est.descripcion_estado = datos.descripcion;
             est.templateID = datos.template;
+            est.orden = 0;
             this.fb.add('ESTADO', est);
           }
         }
@@ -103,7 +104,6 @@ export class PopEditaEstadoComponent implements OnInit {
 
   ordena(evento) {
     // console.log(evento);
-    
     const orderFrom = evento.detail.from;
     const idFrom = evento.srcElement.children[evento.detail.from].id;
     const orderTo = evento.detail.to;
