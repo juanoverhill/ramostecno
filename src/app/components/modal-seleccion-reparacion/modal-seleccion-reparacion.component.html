@@ -33,7 +33,8 @@
             </ion-list>
             <br>
             <div class="speech-bubble animated bounceInLeft" [hidden]="_categoriaSeleccionada == false">
-                <p class="texto-burbuja">Upps... Que paso?</p>
+                <p *ngIf="tieneReparaciones" class="texto-burbuja">Upps... Que paso?</p>
+                <p *ngIf="tieneReparaciones == false" class="texto-burbuja">No tenemos reparaciones para este equipo todavia con esta categoria</p>
             </div>
             <br>
             <ion-list class="animated bounceInRight" [hidden]="_categoriaSeleccionada == false">

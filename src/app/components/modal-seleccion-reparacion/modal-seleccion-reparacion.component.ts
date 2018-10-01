@@ -1,3 +1,4 @@
+import { CategoriaReparacion, Reparacion } from './../../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
 import { Observable } from 'rxjs';
@@ -22,6 +23,7 @@ export class ModalSeleccionReparacionComponent implements OnInit {
   colorID: any;
   _reparacionCotizada: any;
   _reparacionID: any;
+  tieneReparaciones = false;
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController) { }
 
@@ -29,7 +31,7 @@ export class ModalSeleccionReparacionComponent implements OnInit {
     this.equipoID = this.navParams.get('idEquipo');
     this.colorID = this.navParams.get('idColor');
     this._categorias = this.fb.colWithIds$('CATEGORIA_REPARACION', ref => ref.orderBy('orden'));
-    this._categorias.subscribe(() => {
+    this._categorias.subscribe(data => {
       this._cargoOK = true;
     });
   }
@@ -45,10 +47,14 @@ export class ModalSeleccionReparacionComponent implements OnInit {
   }
 
   cargarOpciones(categoriaID) {
-    console.log(categoriaID, this.equipoID);
     // tslint:disable-next-line:max-line-length
     this._reparaciones = this.fb.colWithIds$('PRECIO_REPARACION', ref => ref.where('equipo_id', '==', this.equipoID).where('categoria_id', '==', categoriaID));
-    this._reparaciones.subscribe(() => {
+    this._reparaciones.subscribe(data => {
+      if (data.length > 0) {
+        this.tieneReparaciones = true;
+      } else {
+        this.tieneReparaciones = false;
+      }
       this._reparacionSeleccionada = false;
       this._categoriaSeleccionada = true;
     });
