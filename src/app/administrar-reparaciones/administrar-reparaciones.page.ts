@@ -120,6 +120,7 @@ export class AdministrarReparacionesPage implements OnInit {
           text: 'Ok',
           handler: (categoria) => {
             const data = new CategoriaReparacion();
+            data.orden = 0;
             data.descripcion = categoria.nuevaCateg;
             this.fb.add('CATEGORIA_REPARACION', data);
           }
