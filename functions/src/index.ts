@@ -66,7 +66,7 @@ exports.getTurnosHoy = functions.https.onRequest(async (req, res) => {
             cors(req, res, () => {
                 const msg = {                   
                     from: {
-                        email: 'noresponder@ramostecnoreparaciones.com',
+                        email: 'ramostecno@ramostecnoreparaciones.com',
                         name: 'Ramos TecnoReparaciones'
                     },
                     subject: 'Recordatorio',
@@ -115,7 +115,7 @@ exports.getTurnosManiana = functions.https.onRequest(async (req, res) => {
         cors(req, res, () => {
             const msg = {
                 from: {
-                    email: 'noresponder@ramostecnoreparaciones.com',
+                    email: 'ramostecno@ramostecnoreparaciones.com',
                     name: 'Ramos TecnoReparaciones'
                 },
                 subject: 'Recordatorio',
@@ -146,7 +146,7 @@ exports.httpEmail = functions.https.onRequest((req, res) => {
         const msg = {
             to: toEmail,
             from:{
-                    email: 'noresponder@ramostecnoreparaciones.com',
+                    email: 'ramostecno@ramostecnoreparaciones.com',
                     name: 'Ramos TecnoReparaciones'
                  },
             subject: 'Hola',

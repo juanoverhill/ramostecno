@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   fire: {
-    apiKey: 'AIzaSyDCk_y0AvUAYfJYMp9vBT5HLv9MP4cU5V4',
-    authDomain: 'calidad-csc.firebaseapp.com',
-    databaseURL: 'https://calidad-csc.firebaseio.com',
-    projectId: 'calidad-csc',
-    storageBucket: 'calidad-csc.appspot.com',
-    messagingSenderId: '112178196938'
+    apiKey: 'AIzaSyD2uuctul45SbAVR3aVVQws3xce2A8jWUw',
+    authDomain: 'ramostecnodev.firebaseapp.com',
+    databaseURL: 'https://ramostecnodev.firebaseio.com',
+    projectId: 'ramostecnodev',
+    storageBucket: 'ramostecnodev.appspot.com',
+    messagingSenderId: '679575782296'
   }
 };
 
