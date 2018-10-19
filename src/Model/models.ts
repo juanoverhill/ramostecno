@@ -132,3 +132,13 @@ export class EstadoReparacion {
     templateID?: string;
     orden?: number;
 }
+
+export class ChatRoom {
+    id?: string;
+    mensaje?: string;
+    leido?: boolean;
+    time?: Date;
+    usuario_id?: string;
+    empresa?: string;
+    sender?: boolean;
+}
