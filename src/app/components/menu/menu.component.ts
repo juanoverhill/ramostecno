@@ -1,3 +1,4 @@
+import { ChatRoomComponent } from '../chat-room/chat-room.component';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController, MenuController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
@@ -7,7 +8,6 @@ import { HorariosTrabajoComponent } from '../horarios-trabajo/horarios-trabajo.c
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { PopEditaEstadoComponent } from '../pop-edita-estado/pop-edita-estado.component';
-
 
 
 @Component({
@@ -67,6 +67,14 @@ export class MenuComponent implements OnInit {
   async estadosReparacion() {
     const modal = await this.modalController.create({
       component: PopEditaEstadoComponent,
+      componentProps: {}
+    });
+    return await modal.present();
+  }
+
+  async chatRoom() {
+    const modal = await this.modalController.create({
+      component: ChatRoomComponent,
       componentProps: {}
     });
     return await modal.present();

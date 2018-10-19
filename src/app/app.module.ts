@@ -1,3 +1,4 @@
+import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 import { FormsModule } from '@angular/forms';
 import { EquipoService } from '../services/equipo.service';
 import { AuthService } from '../services/auth.service';
@@ -27,8 +28,8 @@ import { SharedModule } from './shared.module';
 import { PopEditaEstadoComponent } from './components/pop-edita-estado/pop-edita-estado.component';
 
 @NgModule({
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent],
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent],
   exports: [],
   imports: [
     FormsModule,
