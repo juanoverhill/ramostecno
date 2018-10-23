@@ -103,7 +103,18 @@ export class PopUpComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() =>  this.downloadURL = fileRef.getDownloadURL())
     )
-    .subscribe(() => this.cargoImagenOK = true );
+    .subscribe(() => {
+      this.cargoImagenOK = true;
+      if (!this.nuevoEquipo) {
+        const upEquipo = new Equipo();
+        this.downloadURL.subscribe(data => {
+          upEquipo.imagen = data;
+          this.fb.update('EQUIPO/' + this.idEquipo, upEquipo);
+          const imagenEquipo = document.getElementById('imgn') as HTMLImageElement;
+          imagenEquipo.src = data;
+        });
+      }
+    });
   }
 
   deleteColor(colorID) {

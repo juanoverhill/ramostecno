@@ -19,6 +19,7 @@ export class ChatRoomComponent implements OnInit {
 
   ngOnInit() {
     this.messages = this.fb.colWithIds$('CHAT_ROOM');
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   newMessagge(message) {
