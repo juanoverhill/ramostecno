@@ -1,7 +1,7 @@
 import { ChatRoom } from './../../../Model/models';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, ChangeDetectorRef} from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
-import { NavParams, ModalController, Content, List } from '@ionic/angular';
+import { NavParams, ModalController, Content } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -14,25 +14,16 @@ import { AuthService } from '../../../services/auth.service';
 export class ChatRoomComponent implements OnInit {
 
   @ViewChild(Content) contentArea: Content;
-  @ViewChild(List, {read: ElementRef}) chatList: ElementRef;
 
   messages: Observable<ChatRoom[]>;
   autenticado = false;
   usuario;
-  private mutationObserver: MutationObserver;
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
-    private router: Router, private modalCtrl: ModalController, private auth: AuthService) { }
+    private router: Router, private modalCtrl: ModalController, private auth: AuthService) {
+     }
 
   ngOnInit() {
-
-    this.mutationObserver = new MutationObserver((mutations) => {
-      this.contentArea.scrollToBottom();
-  });
-
-  this.mutationObserver.observe(this.chatList.nativeElement, {
-      childList: true
-  });
 
     // Verifico previamente si esta logueado
     this.auth.afAuth.authState.subscribe(user => {
@@ -41,6 +32,14 @@ export class ChatRoomComponent implements OnInit {
         this.usuario = user.uid;
         // Obtengo los mensajes
         this.messages = this.fb.colWithIds$('CHAT_ROOM', ref => ref.orderBy('createdAt'));
+        this.messages.subscribe(() => {
+          setTimeout(() => {
+            this.contentArea.scrollToBottom();
+          }, 150);
+        });
+        setTimeout(() => {
+          this.contentArea.scrollToBottom();
+        }, 150);
       } else {
         this.login();
       }
@@ -49,6 +48,11 @@ export class ChatRoomComponent implements OnInit {
     }
     );
   }
+
+  onUpdate() {
+    this.contentArea.scrollToBottom();
+  }
+
 
   login() {
     this.router.navigateByUrl('loguear');
@@ -67,6 +71,19 @@ export class ChatRoomComponent implements OnInit {
     this.fb.add('CHAT_ROOM', newMess);
 
     textoMessage.value = '';
+
+    setTimeout(() => {
+      this.contentArea.scrollToBottom();
+    }, 100);
+  }
+
+  OnChanges(changes: SimpleChanges): void {
+    this.contentArea.scrollToBottom();
+  }
+
+  get runChangeDetection() {
+    console.log('Cambio registrado');
+    return true;
   }
 
 }
