@@ -1,27 +1,30 @@
 <ion-content>
   <ion-grid>
-    <ion-item-divider color="primary">Chatea con nosotros para lo que necesites!</ion-item-divider>
-    <div class="speech-bubble animated bounceInLeft">
-         <p class="texto-burbuja">Contanos... en que podemos ayudarte?</p>
-         <ion-icon color="light" class="double-check" name="done-all"></ion-icon>
-    </div>
-    <div class="speech-bubbleRes animated bounceInRight">
-        <p class="texto-burbuja">Para cuando va a estar reparado mi equipo? Gracias!!</p>               
-    </div>
-    <div class="speech-bubble animated bounceInLeft">
-        <p class="texto-burbuja">La reparacion de cambio de vidrio para un Galaxy S8 Plus es de 3 dias... 
-          Cuando este listo nos vamos a estar contactando para que saques un turno para retirarlo!</p>               
-    </div>
-  </ion-grid>
+
+      <ion-item-divider color="primary">Chatea con nosotros para lo que necesites!</ion-item-divider>
+      
+          <div class="speech-bubble">
+              <p class="texto-burbuja">Hola, gracias por contactarte con nosotros... Decinos en que podemos ayudarte</p>
+              <ion-icon color="light" class="double-check" name="done-all"></ion-icon>
+            </div>
+            <ion-list>
+            <ion-item *ngFor="let message of messages | async">  
+                <div [ngClass]="{'speech-bubble': message.sender, 'speech-bubbleRes': message.sender == false}">
+                    <p class="texto-burbuja">{{message.mensaje}}</p>
+                    <ion-icon *ngIf="message.leido" color="light" class="double-check" name="done-all"></ion-icon>
+                </div>
+            </ion-item>
+         </ion-list>
+    </ion-grid>
 </ion-content>
 <ion-footer>
   <ion-toolbar>
     <ion-row>
       <ion-col size="10">
-        <ion-textarea rows="3" placeholder="Escribi aca tu mensaje"></ion-textarea >
+        <ion-textarea id="mens" #mens rows="3" placeholder="Escribi aca tu mensaje" (keyup.enter)="newMessagge()"></ion-textarea>
       </ion-col>
       <ion-col size="2" style="margin-top:-10px;">
-        <ion-button shape="round" size="small">
+        <ion-button shape="round" size="small" (click)="newMessagge()">
           Enviar
           <ion-icon name="paper-plane"></ion-icon>
         </ion-button>
