@@ -143,6 +143,5 @@ export class ChatRoom {
     usuario_id?: string;
     empresa?: string;
     sender?: boolean;
-    userSender?: string;
-    createdAt?: Date;
+    sender_id?: string;
 }

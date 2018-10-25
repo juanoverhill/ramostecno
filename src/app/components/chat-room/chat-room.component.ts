@@ -31,7 +31,7 @@ export class ChatRoomComponent implements OnInit {
         this.autenticado = true;
         this.usuario = user.uid;
         // Obtengo los mensajes
-        this.messages = this.fb.colWithIds$('CHAT_ROOM', ref => ref.orderBy('createdAt'));
+        this.messages = this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('usuario_id', '==', this.usuario).orderBy('createdAt'));
         this.messages.subscribe(() => {
           setTimeout(() => {
             this.contentArea.scrollToBottom();
@@ -47,10 +47,6 @@ export class ChatRoomComponent implements OnInit {
       this.login();
     }
     );
-  }
-
-  onUpdate() {
-    this.contentArea.scrollToBottom();
   }
 
 
@@ -79,11 +75,6 @@ export class ChatRoomComponent implements OnInit {
 
   OnChanges(changes: SimpleChanges): void {
     this.contentArea.scrollToBottom();
-  }
-
-  get runChangeDetection() {
-    console.log('Cambio registrado');
-    return true;
   }
 
 }
