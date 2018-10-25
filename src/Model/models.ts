@@ -141,4 +141,5 @@ export class ChatRoom {
     usuario_id?: string;
     empresa?: string;
     sender?: boolean;
+    sender_id?: string;
 }

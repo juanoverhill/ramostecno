@@ -6,10 +6,15 @@
           <p class="texto-burbuja">Hola, gracias por contactarte con nosotros... Decinos en que podemos ayudarte</p>
           <ion-icon color="light" class="double-check" name="done-all"></ion-icon>
         </div> 
-        <div *ngFor="let message of messages | async" (update)="onUpdate()" [ngClass]="{'speech-bubble': message.sender, 'speech-bubbleRes': message.sender == false}">
-            <p class="texto-burbuja">{{message.mensaje}}</p>
-            <ion-icon *ngIf="message.leido" color="light" class="double-check" name="done-all"></ion-icon>
+        <div *ngFor="let message of messages | async">
+          <div  [ngClass]="{'speech-bubble': message.sender, 'speech-bubbleRes': message.sender == false}">
+              <p class="texto-burbuja">{{message.mensaje}}</p>
+              <ion-icon *ngIf="message.leido" color="light" class="double-check" name="done-all"></ion-icon>
+            </div>
+            <p class="hourChat">{{message.createdAt  | firestoreDate:'dd-MM-yyyy - hh:mm'}}</p>
         </div>
+        
+       
     </ion-grid>
 </ion-content>
 <ion-footer>
