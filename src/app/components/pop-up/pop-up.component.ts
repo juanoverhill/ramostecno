@@ -1,11 +1,10 @@
-import { Color, Reparacion, PrecioReparacion, Marca, Colores } from './../../../Model/models';
+import { Color, Reparacion, PrecioReparacion, Marca, Colores, Equipo } from './../../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
 import { Observable } from 'rxjs';
 import { NavParams, ModalController, AlertController } from '@ionic/angular';
 import { DocPipe } from '../../doc.pipe';
 import { Router } from '@angular/router';
-import { Equipo } from '../../../Model/models';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 
@@ -30,6 +29,7 @@ export class PopUpComponent implements OnInit {
   cargoImagenOK = false;
   colores_disponibles: Observable<Colores[]>;
   reparaciones_disponibles: Observable<Reparacion[]>;
+  imagenEquipo: string;
 
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
@@ -40,9 +40,9 @@ export class PopUpComponent implements OnInit {
     this.idEquipo = this.navParams.get('idEquipo');
     this.idMarca = this.navParams.get('idMarca');
     if (this.idEquipo !== 'Nuevo') {
-        this.cargaDatos(this.idEquipo);
-        this.cargoImagenOK = true;
-        this.nuevoEquipo = false;
+      this.cargaDatos(this.idEquipo);
+      this.cargoImagenOK = true;
+      this.nuevoEquipo = false;
     }
 
     this.fb.doc$('MARCA/' + this.idMarca).subscribe(data => {
@@ -58,6 +58,9 @@ export class PopUpComponent implements OnInit {
     this.reparaciones = this.fb.colWithIds$('PRECIO_REPARACION', ref => ref.where('equipo_id', '==', equipoID));
     this.colores_disponibles = this.fb.colWithIds$('COLORES');
     this.reparaciones_disponibles = this.fb.colWithIds$('REPARACION');
+    this.equipo.subscribe((eq: Equipo) => {
+      this.imagenEquipo = eq.imagenRef;
+    });
   }
 
   public async close() {
@@ -92,6 +95,11 @@ export class PopUpComponent implements OnInit {
   }
 
   uploadFile(event) {
+
+    if (!this.nuevoEquipo && this.imagenEquipo !== undefined) {
+      this.storage.ref(this.imagenEquipo).delete();
+    }
+
     const file = event.target.files[0];
     const filePath = '/' + this.nombreMarca + '/' + file.name;
     const fileRef = this.storage.ref(filePath);
@@ -101,19 +109,19 @@ export class PopUpComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     // get notified when the download URL is available
     task.snapshotChanges().pipe(
-      finalize(() =>  this.downloadURL = fileRef.getDownloadURL())
-    )
-    .subscribe(() => {
+      finalize(() => {
+        this.downloadURL = fileRef.getDownloadURL();
+        if (!this.nuevoEquipo) {
+          const upEquipo = new Equipo();
+          this.downloadURL.subscribe(data => {
+            upEquipo.imagen = data;
+            upEquipo.imagenRef = filePath;
+            this.fb.update('EQUIPO/' + this.idEquipo, upEquipo);
+          });
+        }
+      })
+    ).subscribe(() => {
       this.cargoImagenOK = true;
-      if (!this.nuevoEquipo) {
-        const upEquipo = new Equipo();
-        this.downloadURL.subscribe(data => {
-          upEquipo.imagen = data;
-          this.fb.update('EQUIPO/' + this.idEquipo, upEquipo);
-          const imagenEquipo = document.getElementById('imgn') as HTMLImageElement;
-          imagenEquipo.src = data;
-        });
-      }
     });
   }
 
@@ -122,11 +130,11 @@ export class PopUpComponent implements OnInit {
   }
 
   agregaColor(color) {
-     const nuevoColor = new Color();
-     nuevoColor.color = color;
-     nuevoColor.equipo_id = this.idEquipo;
-     nuevoColor.equipoRef = this.fb.doc('EQUIPO/' + this.idEquipo).ref;
-     this.fb.add('COLOR', nuevoColor);
+    const nuevoColor = new Color();
+    nuevoColor.color = color;
+    nuevoColor.equipo_id = this.idEquipo;
+    nuevoColor.equipoRef = this.fb.doc('EQUIPO/' + this.idEquipo).ref;
+    this.fb.add('COLOR', nuevoColor);
   }
 
   async alertEditarReparacion(reparacionID, valorEF, valorMP) {

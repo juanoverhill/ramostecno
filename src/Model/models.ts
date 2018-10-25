@@ -1,3 +1,4 @@
+
 export class Equipo {
     id?: string;
     descripcion?: string;
@@ -5,6 +6,7 @@ export class Equipo {
     marcaRef?: firebase.firestore.DocumentReference;
     estado?: string;
     imagen?: string;
+    imagenRef?: string;
     orden?: number;
 }
 
@@ -141,4 +143,6 @@ export class ChatRoom {
     usuario_id?: string;
     empresa?: string;
     sender?: boolean;
+    userSender?: string;
+    createdAt?: Date;
 }
