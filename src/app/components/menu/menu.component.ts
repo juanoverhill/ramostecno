@@ -1,6 +1,6 @@
 import { ChatRoomComponent } from '../chat-room/chat-room.component';
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController, MenuController } from '@ionic/angular';
+import { AlertController, ModalController, MenuController, PopoverController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnularFechasComponent } from '../anular-fechas/anular-fechas.component';
@@ -8,6 +8,7 @@ import { HorariosTrabajoComponent } from '../horarios-trabajo/horarios-trabajo.c
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { PopEditaEstadoComponent } from '../pop-edita-estado/pop-edita-estado.component';
+import { PopListaChatsComponent } from '../pop-lista-chats/pop-lista-chats.component';
 
 
 @Component({
@@ -22,7 +23,9 @@ export class MenuComponent implements OnInit {
   nombre_usuario;
 
   constructor(private auth: AuthService, private router: Router,
-    private modalController: ModalController, public alertController: AlertController, public mController: MenuController) {
+    private modalController: ModalController,
+    public alertController: AlertController, public mController: MenuController,
+    public popoverController: PopoverController) {
 
     }
 
@@ -79,4 +82,14 @@ export class MenuComponent implements OnInit {
     });
     return await modal.present();
   }
+
+  async listaChats(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopListaChatsComponent,
+      event: ev,
+      translucent: false
+    });
+    return await popover.present();
+  }
+
 }

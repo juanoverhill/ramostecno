@@ -5,8 +5,13 @@
           <ion-icon name="menu"></ion-icon>
         </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">      
-       <ion-button fill="outline" shape="round" (click)="chatRoom()">
+    <ion-buttons slot="end">    
+        <ion-button [hidden]="permisos == false" fill="outline" shape="round" (click)="listaChats($event)">
+            <ion-icon name="chatboxes"></ion-icon>
+             <ion-label>Mensajes sin leer</ion-label>
+          <ion-badge slot="end">2</ion-badge>
+          </ion-button>  
+       <ion-button [hidden]="permisos" fill="outline" shape="round" (click)="chatRoom()">
         <ion-icon name="chatboxes"></ion-icon>
          <ion-label>Mensajes</ion-label>
       <ion-badge slot="end">2</ion-badge>

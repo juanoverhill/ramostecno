@@ -26,10 +26,12 @@ import { AnularFechasComponent } from './components/anular-fechas/anular-fechas.
 import { HorariosTrabajoComponent } from './components/horarios-trabajo/horarios-trabajo.component';
 import { SharedModule } from './shared.module';
 import { PopEditaEstadoComponent } from './components/pop-edita-estado/pop-edita-estado.component';
+import { PopListaChatsComponent } from './components/pop-lista-chats/pop-lista-chats.component';
 
 @NgModule({
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent],
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent],
+  // tslint:disable-next-line:max-line-length
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent],
   exports: [],
   imports: [
     FormsModule,

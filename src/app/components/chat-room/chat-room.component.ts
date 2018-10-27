@@ -30,7 +30,7 @@ export class ChatRoomComponent implements OnInit {
       if (user) {
         this.autenticado = true;
         this.usuario = user.uid;
-        // Obtengo los mensajes
+        // Obtengo los mensajes segun permiso
         this.messages = this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('usuario_id', '==', this.usuario).orderBy('createdAt'));
         this.messages.subscribe(() => {
           setTimeout(() => {
