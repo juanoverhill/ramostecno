@@ -53,6 +53,7 @@ export class MenuComponent implements OnInit {
   getMensajesPendientes() {
     // Obtengo toda la lista de usuarios con mensajes pendientes de lectura
     this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('sender', '==', false).where('leido', '==', false)).subscribe((mens: ChatRoom[]) => {
+      this.cantidadMensajesSinLeer = 0;
       mens.forEach(ms => {
         const nwMs = new ListaChat();
         nwMs.usuario_id = ms.usuario_id;
