@@ -37,8 +37,17 @@ export class ChatRoomComponent implements OnInit {
       // Marco como leidos los mensajes
       mesgs.forEach(msg => {
         if (msg.leido === false) {
-            msg.leido = true;
-            this.fb.update('CHAT_ROOM/' + msg.id , msg);
+            if (this.sender) {
+              if (msg.sender === false) {
+                msg.leido = true;
+                this.fb.update('CHAT_ROOM/' + msg.id, msg);
+              }
+            } else {
+              if (msg.sender) {
+                msg.leido = true;
+                this.fb.update('CHAT_ROOM/' + msg.id, msg);
+              }
+          }
         }
       });
     });

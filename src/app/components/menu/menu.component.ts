@@ -115,12 +115,14 @@ export class MenuComponent implements OnInit {
   }
 
   async listaChats(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopListaChatsComponent,
-      event: ev,
-      translucent: false
-    });
-    return await popover.present();
+    if (this.cantidadMensajesSinLeer !== 0) {
+      const popover = await this.popoverController.create({
+        component: PopListaChatsComponent,
+        event: ev,
+        translucent: false
+      });
+      return await popover.present();
+    }
   }
 
 }
