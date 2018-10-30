@@ -3,15 +3,14 @@
 
       <ion-item-divider color="primary">Chatea con nosotros para lo que necesites!</ion-item-divider>      
       <div class="speech-bubble">
-          <p class="texto-burbuja">Hola, gracias por contactarte con nosotros... Decinos en que podemos ayudarte</p>
-          <ion-icon color="light" class="double-check" name="done-all"></ion-icon>
+          <p class="texto-burbuja">Hola, gracias por contactarte con nosotros... Decinos en que podemos ayudarte</p>          
         </div> 
         <div *ngFor="let message of messages | async">
           <div  [ngClass]="{'speech-bubble': message.sender, 'speech-bubbleRes': message.sender == false}">
               <p class="texto-burbuja">{{message.mensaje}}</p>
-              <ion-icon *ngIf="message.leido" color="light" class="double-check" name="done-all"></ion-icon>
+              <ion-icon *ngIf="message.leido && sender" color="light" class="double-check" name="done-all"></ion-icon>
             </div>
-            <p class="hourChat">{{message.createdAt  | firestoreDate:'dd-MM-yyyy - HH:mm'}}</p>
+            <p [ngClass]="{'hourChat': message.sender, 'hourChatRes': message.sender == false}">{{message.createdAt  | firestoreDate:'dd-MM-yyyy - HH:mm'}}</p>
         </div>
         
        
