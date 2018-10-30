@@ -24,13 +24,12 @@ export class TicketComponent implements OnInit {
 
   ngOnInit() {
     this.idTurno = this.navParams.get('idTurno');
-    console.log(this.idTurno);
     this.turno = this.fb.doc$('TURNO/' + this.idTurno);
     const existeTicket = this.fb.colWithIds$('TICKET', ref => ref.where('turno_id', '==', this.idTurno));
     existeTicket.subscribe(data => {
       // existe un ticket asociado a este turno
       const tk = data[0] as Ticket;
-      if(data.length > 0) {
+      if (data.length > 0) {
         // console.log('existe turno');
         this.ticket = this.fb.doc$('TICKET/' + tk.id);
         this.n_control = tk.n_control;
@@ -49,7 +48,7 @@ export class TicketComponent implements OnInit {
 
   getNextNumControl() {
      this.fb.col$('TICKET', ref => ref.orderBy('n_control', 'desc').limit(1)).subscribe(data => {
-       if(data.length === 0) {
+       if (data.length === 0) {
          this.n_control = 1;
        } else {
          // console.log('entre');

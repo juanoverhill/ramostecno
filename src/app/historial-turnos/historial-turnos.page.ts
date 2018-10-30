@@ -11,6 +11,7 @@ import {FormControl} from '@angular/forms';
 import { TicketComponent } from '../components/ticket/ticket.component';
 import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
 import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
+import * as Cookies from 'es-cookie';
 
 
 @Component({
@@ -153,10 +154,9 @@ export class HistorialTurnosPage implements OnInit {
     // } else if (estadoNuevo === 'Reparado') {
     //   this.sMail.sendEmail(this.email, this.nombreUsuario, hora, fechaMail, 'd-fdcd262f65df459eb2c976b335a1e033');
     // }
-    console.log(estadoNuevo);
+
     this.fb.colWithIds$('ESTADO', ref => ref.where('descripcion_estado', '==', estadoNuevo)).subscribe(est => {
       const e = est as EstadoReparacion;
-      console.log(e[0].templateID);
       if (e[0].templateID !== '' && e[0].templateID !== undefined) {
         if (e[0].descripcion === 'Reprogramar') {
           this.sMail.sendEmail(email, this.nombreUsuario, hora, fechaMail, e[0].templateID, '');

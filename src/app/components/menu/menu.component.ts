@@ -9,7 +9,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { PopEditaEstadoComponent } from '../pop-edita-estado/pop-edita-estado.component';
 import { PopListaChatsComponent } from '../pop-lista-chats/pop-lista-chats.component';
-
+import * as Cookies from 'es-cookie';
 
 @Component({
   selector: 'app-menu',
@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit {
   autenticado: boolean;
   permisos: boolean;
   nombre_usuario;
+  usuario_id;
 
   constructor(private auth: AuthService, private router: Router,
     private modalController: ModalController,
@@ -30,22 +31,25 @@ export class MenuComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.autenticado = Boolean(localStorage.getItem('autenticado'));
-    if (localStorage.getItem('permiso') === 'false') {
+    if (window.atob(Cookies.get('usuario_id')) === undefined) {
+      this.logOut();
+    }
+    this.usuario_id = window.atob(Cookies.get('usuario_id'));
+    this.autenticado = Boolean(window.atob(Cookies.get('autenticado')));
+    if (window.atob(Cookies.get('permiso')) === 'false') {
       this.permisos = false;
     } else {
       this.permisos = true;
     }
-    console.log(this.permisos);
   }
 
   logOut() {
     this.auth.signOut().then(() => {
       this.autenticado = false;
       this.permisos = false;
-      localStorage.clear();
-      // localStorage.setItem('autenticado', 'false');
-      // localStorage.setItem('permiso', 'false');
+      Cookies.remove('usuario_id');
+      Cookies.remove('autenticado');
+      Cookies.remove('permiso');
       this.router.navigateByUrl('/loguear');
     });
   }
@@ -78,7 +82,7 @@ export class MenuComponent implements OnInit {
   async chatRoom() {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
-      componentProps: {}
+      componentProps: {usuario_id : this.usuario_id, permiso: this.permisos}
     });
     return await modal.present();
   }

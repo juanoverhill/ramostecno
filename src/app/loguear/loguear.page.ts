@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../services/f-base.service';
+import * as Cookies from 'es-cookie';
+
 
 @Component({
   selector: 'app-loguear',
@@ -20,7 +22,6 @@ export class LoguearPage implements OnInit {
   signInGoogle() {
     this.logueando = true;
     this.auth.signInWithGoogle().then(res => {
-      console.log(res);
       this.getPerfilUsuario(res.user.uid);
     });
   }
@@ -33,19 +34,16 @@ export class LoguearPage implements OnInit {
   }
 
   getPerfilUsuario(usuarioID) {
-    console.log(usuarioID);
+    Cookies.set('usuario_id', window.btoa(usuarioID), { sameSite: 'strict' });
     this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuarioID)).subscribe(
       data => {
-        console.log(data);
         if (data.length > 0) {
-          localStorage.setItem('autenticado', 'true');
-          localStorage.setItem('permiso', 'true');
-          console.log(localStorage.getItem('permiso'));
+          Cookies.set('autenticado', window.btoa('true'), { sameSite: 'strict' });
+          Cookies.set('permiso', window.btoa('true'), { sameSite: 'strict' });
           this.ingresoOK();
         } else {
-          localStorage.setItem('permiso', 'false');
-          // console.log(localStorage.getItem('permiso'));
-          localStorage.setItem('autenticado', 'true');
+          Cookies.set('permiso', window.btoa('false'), { sameSite: 'strict' });
+          Cookies.set('autenticado', window.btoa('true'), { sameSite: 'strict' });
           this.ingresoOK();
         }
       }

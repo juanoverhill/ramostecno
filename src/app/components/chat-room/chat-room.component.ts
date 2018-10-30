@@ -16,8 +16,8 @@ export class ChatRoomComponent implements OnInit {
   @ViewChild(Content) contentArea: Content;
 
   messages: Observable<ChatRoom[]>;
-  autenticado = false;
   usuario;
+  sender;
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController, private auth: AuthService) {
@@ -25,28 +25,26 @@ export class ChatRoomComponent implements OnInit {
 
   ngOnInit() {
 
-    // Verifico previamente si esta logueado
-    this.auth.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.autenticado = true;
-        this.usuario = user.uid;
-        // Obtengo los mensajes segun permiso
-        this.messages = this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('usuario_id', '==', this.usuario).orderBy('createdAt'));
-        this.messages.subscribe(() => {
-          setTimeout(() => {
-            this.contentArea.scrollToBottom();
-          }, 150);
-        });
-        setTimeout(() => {
-          this.contentArea.scrollToBottom();
-        }, 150);
-      } else {
-        this.login();
-      }
-    }, () => {
-      this.login();
-    }
-    );
+    this.usuario = this.navParams.get('usuario_id');
+    this.sender = this.navParams.get('permiso');
+
+    // Obtengo los mensajes del usuario cliente
+    this.messages = this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('usuario_id', '==', this.usuario).orderBy('createdAt'));
+    this.messages.subscribe((mesgs: ChatRoom[]) => {
+      setTimeout(() => {
+        this.contentArea.scrollToBottom();
+      }, 150);
+      // Marco como leidos los mensajes
+      mesgs.forEach(msg => {
+        if (msg.leido === false) {
+            msg.leido = true;
+            this.fb.update('CHAT_ROOM', msg);
+        }
+      });
+    });
+    // setTimeout(() => {
+    //   this.contentArea.scrollToBottom();
+    // }, 150);
   }
 
 
@@ -63,7 +61,7 @@ export class ChatRoomComponent implements OnInit {
     newMess.time = new Date();
     newMess.empresa = 'RamosTecno';
     newMess.leido = false;
-    newMess.sender = false;
+    newMess.sender = this.sender;
     this.fb.add('CHAT_ROOM', newMess);
 
     textoMessage.value = '';
