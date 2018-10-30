@@ -1,4 +1,4 @@
-import { Reparacion, EstadoReparacion } from './../../Model/models';
+import { Reparacion, EstadoReparacion, ListaChat } from './../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirestoreService } from '../../services/f-base.service';
@@ -33,6 +33,7 @@ export class HistorialTurnosPage implements OnInit {
   reparacion: Reparacion;
   filtroFecha = false;
   options: any[] = [];
+  
 
   opciones: Observable<EstadoReparacion[]>;
 
@@ -70,6 +71,8 @@ export class HistorialTurnosPage implements OnInit {
   login() {
     this.router.navigateByUrl('loguear');
   }
+
+
 
   traeTurnosPrevios() {
      this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', this.usuario_id));

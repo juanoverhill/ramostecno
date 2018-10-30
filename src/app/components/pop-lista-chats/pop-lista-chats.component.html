@@ -1,6 +1,6 @@
-<ion-list lines="inset">
-  <ion-item href="/historial-turnos" (click)="chatRoom()">
-    <ion-label>Juan Arias</ion-label>
-    <ion-badge color="primary">SN000012</ion-badge>
+<ion-list lines="inset" *ngIf="cargoOK">
+  <ion-item *ngFor="let itemLista of usuariosMensSinLeer" href="/historial-turnos" (click)="chatRoom()">
+    <ion-label>{{itemLista.user}}</ion-label>
+    <ion-badge color="primary">{{itemLista.orderID}}</ion-badge>
   </ion-item>
 </ion-list>

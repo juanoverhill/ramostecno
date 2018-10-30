@@ -10,6 +10,8 @@ import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { PopEditaEstadoComponent } from '../pop-edita-estado/pop-edita-estado.component';
 import { PopListaChatsComponent } from '../pop-lista-chats/pop-lista-chats.component';
 import * as Cookies from 'es-cookie';
+import { FirestoreService } from '../../../services/f-base.service';
+import { ListaChat, ChatRoom } from '../../../Model/models';
 
 @Component({
   selector: 'app-menu',
@@ -22,25 +24,49 @@ export class MenuComponent implements OnInit {
   permisos: boolean;
   nombre_usuario;
   usuario_id;
+  usuariosMensSinLeer: ListaChat[] = [];
+  cantidadMensajesSinLeer = 0;
+  cargoOK = false;
 
   constructor(private auth: AuthService, private router: Router,
     private modalController: ModalController,
     public alertController: AlertController, public mController: MenuController,
-    public popoverController: PopoverController) {
+    public popoverController: PopoverController, private fb: FirestoreService) {
 
     }
 
   ngOnInit() {
     if (window.atob(Cookies.get('usuario_id')) === undefined) {
       this.logOut();
-    }
-    this.usuario_id = window.atob(Cookies.get('usuario_id'));
-    this.autenticado = Boolean(window.atob(Cookies.get('autenticado')));
-    if (window.atob(Cookies.get('permiso')) === 'false') {
-      this.permisos = false;
     } else {
-      this.permisos = true;
+      this.getMensajesPendientes();
+      this.usuario_id = window.atob(Cookies.get('usuario_id'));
+      this.autenticado = Boolean(window.atob(Cookies.get('autenticado')));
+      if (window.atob(Cookies.get('permiso')) === 'false') {
+        this.permisos = false;
+      } else {
+        this.permisos = true;
+      }
     }
+  }
+
+  getMensajesPendientes() {
+    // Obtengo toda la lista de usuarios con mensajes pendientes de lectura
+    this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('sender', '==', false).where('leido', '==', false)).subscribe((mens: ChatRoom[]) => {
+      mens.forEach(ms => {
+        const nwMs = new ListaChat();
+        nwMs.usuario_id = ms.usuario_id;
+        if (!this.existeUser(nwMs.usuario_id)) {
+          this.usuariosMensSinLeer.push(nwMs);
+          this.cantidadMensajesSinLeer++;
+        }
+      });
+      this.cargoOK = true;
+    });
+  }
+
+  existeUser(userID: string): boolean {
+    return this.usuariosMensSinLeer.some(u => u.usuario_id === userID);
   }
 
   logOut() {
