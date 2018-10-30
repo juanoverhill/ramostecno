@@ -38,13 +38,10 @@ export class ChatRoomComponent implements OnInit {
       mesgs.forEach(msg => {
         if (msg.leido === false) {
             msg.leido = true;
-            this.fb.update('CHAT_ROOM', msg);
+            this.fb.update('CHAT_ROOM/' + msg.id , msg);
         }
       });
     });
-    // setTimeout(() => {
-    //   this.contentArea.scrollToBottom();
-    // }, 150);
   }
 
 

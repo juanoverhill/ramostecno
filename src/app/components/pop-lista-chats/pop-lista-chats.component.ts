@@ -11,7 +11,6 @@ import { FirestoreService } from '../../../services/f-base.service';
 })
 export class PopListaChatsComponent implements OnInit {
 
-  usuario_id;
   sender;
   usuariosMensSinLeer: ListaChat[] = [];
   cargoOK = false;
@@ -40,10 +39,10 @@ export class PopListaChatsComponent implements OnInit {
     return this.usuariosMensSinLeer.some(u => u.usuario_id === userID);
   }
 
-  async chatRoom() {
+  async chatRoom(usuarioID) {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
-      componentProps: {usuario_id: this.usuario_id, permiso: this.sender}
+      componentProps: {usuario_id: usuarioID, permiso: this.sender}
     });
     return await modal.present();
   }
