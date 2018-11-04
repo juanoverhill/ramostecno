@@ -60,7 +60,11 @@
 
             <ion-button icon-only size="small" mat-raised-button matTooltip="Generar Ticket" (click)="verTicket(turno.id)" *ngIf="permisos == true">
               <ion-icon name="list-box"></ion-icon>
-              </ion-button>        
+              </ion-button>  
+              
+              <ion-button icon-only size="small" mat-raised-button matTooltip="Abrir Chat" (click)="chatRoom(turno.usuario_id)" *ngIf="permisos == true">
+                <ion-icon name="mail-unread"></ion-icon>
+                </ion-button> 
       
               <ion-button *ngIf="turno.estado_reparacion_id == 'Reprogramar'" icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="reprogramarTurno(turno.reparacion_id, turno.color_id)">
                 <ion-icon name="time"></ion-icon>

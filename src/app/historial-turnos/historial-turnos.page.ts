@@ -12,6 +12,7 @@ import { TicketComponent } from '../components/ticket/ticket.component';
 import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas.component';
 import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
 import * as Cookies from 'es-cookie';
+import { ChatRoomComponent } from '../components/chat-room/chat-room.component';
 
 
 @Component({
@@ -33,7 +34,6 @@ export class HistorialTurnosPage implements OnInit {
   reparacion: Reparacion;
   filtroFecha = false;
   options: any[] = [];
-  
 
   opciones: Observable<EstadoReparacion[]>;
 
@@ -213,6 +213,14 @@ export class HistorialTurnosPage implements OnInit {
 
   reprogramarTurno(idReparacion, color) {
     this.router.navigateByUrl('calendar/' + idReparacion + '/' + color);
+  }
+
+  async chatRoom(usuarioID) {
+    const modal = await this.modalController.create({
+      component: ChatRoomComponent,
+      componentProps: {usuario_id: usuarioID, permiso: true}
+    });
+    return await modal.present();
   }
 
 }
