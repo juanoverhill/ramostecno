@@ -25,7 +25,7 @@ export class PopListaChatsComponent implements OnInit {
       mens.forEach(ms => {
         const nwMs = new ListaChat();
         nwMs.usuario_id = ms.usuario_id;
-        nwMs.user = 'Juan Arias';
+        nwMs.user = ms.nombreUsuario;
         nwMs.orderID = 'Sin Ticket';
         if (!this.existeUser(nwMs.usuario_id)) {
           this.usuariosMensSinLeer.push(nwMs);

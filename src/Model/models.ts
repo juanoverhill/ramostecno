@@ -144,6 +144,7 @@ export class ChatRoom {
     empresa?: string;
     sender?: boolean;
     sender_id?: string;
+    nombreUsuario?: string;
 }
 
 export class ListaChat {

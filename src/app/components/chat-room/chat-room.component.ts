@@ -18,6 +18,7 @@ export class ChatRoomComponent implements OnInit {
   messages: Observable<ChatRoom[]>;
   usuario;
   sender;
+  nombreUsuario;
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController, private auth: AuthService) {
@@ -26,6 +27,7 @@ export class ChatRoomComponent implements OnInit {
   ngOnInit() {
 
     this.usuario = this.navParams.get('usuario_id');
+    this.nombreUsuario = this.navParams.get('nombreUsuario');
     this.sender = this.navParams.get('permiso');
 
     // Obtengo los mensajes del usuario cliente
@@ -68,6 +70,7 @@ export class ChatRoomComponent implements OnInit {
     newMess.empresa = 'RamosTecno';
     newMess.leido = false;
     newMess.sender = this.sender;
+    newMess.nombreUsuario = this.nombreUsuario;
     this.fb.add('CHAT_ROOM', newMess);
 
     textoMessage.value = '';
