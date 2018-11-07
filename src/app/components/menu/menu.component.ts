@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
   usuario_id;
   usuariosMensSinLeer: ListaChat[] = [];
   cantidadMensajesSinLeer = 0;
+  cantidadMensajesSinLeerUsr = 0;
   cargoOK = false;
 
   constructor(private auth: AuthService, private router: Router,
@@ -39,13 +40,15 @@ export class MenuComponent implements OnInit {
     if (window.atob(Cookies.get('usuario_id')) === undefined) {
       this.logOut();
     } else {
-      this.getMensajesPendientes();
       this.usuario_id = window.atob(Cookies.get('usuario_id'));
+      this.nombre_usuario = window.atob(Cookies.get('nombreUsuario'));
       this.autenticado = Boolean(window.atob(Cookies.get('autenticado')));
       if (window.atob(Cookies.get('permiso')) === 'false') {
         this.permisos = false;
+        this.getMensajesPendientesUsr();
       } else {
         this.permisos = true;
+        this.getMensajesPendientes();
       }
     }
   }
@@ -66,20 +69,48 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  getMensajesPendientesUsr() {
+    // Obtengo toda la lista de usuarios con mensajes pendientes de lectura
+    this.fb.colWithIds$('CHAT_ROOM', ref => ref.where('sender', '==', true)
+    .where('leido', '==', false)
+    .where('usuario_id', '==', this.usuario_id)).subscribe((mens: ChatRoom[]) => {
+      this.cantidadMensajesSinLeerUsr = 0;
+      mens.forEach(ms => {
+        const nwMs = new ListaChat();
+        nwMs.usuario_id = ms.usuario_id;
+        if (!this.existeUser(nwMs.usuario_id)) {
+          this.usuariosMensSinLeer.push(nwMs);
+          this.cantidadMensajesSinLeerUsr++;
+        }
+      });
+      this.cargoOK = true;
+    });
+  }
+
   existeUser(userID: string): boolean {
     return this.usuariosMensSinLeer.some(u => u.usuario_id === userID);
   }
 
   logOut() {
     this.auth.signOut().then(() => {
+      localStorage.clear();
       this.autenticado = false;
       this.permisos = false;
-      Cookies.remove('usuario_id');
-      Cookies.remove('autenticado');
-      Cookies.remove('permiso');
+      this.deleteAllCookies();
       this.router.navigateByUrl('/loguear');
     });
   }
+
+   deleteAllCookies() {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf('=');
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    }
+}
 
 
   async anularFechas() {
@@ -109,7 +140,7 @@ export class MenuComponent implements OnInit {
   async chatRoom() {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
-      componentProps: {usuario_id : this.usuario_id, permiso: this.permisos}
+      componentProps: {usuario_id : this.usuario_id, permiso: this.permisos, nombreUsuario: this.nombre_usuario}
     });
     return await modal.present();
   }

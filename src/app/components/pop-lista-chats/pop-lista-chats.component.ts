@@ -25,7 +25,7 @@ export class PopListaChatsComponent implements OnInit {
       mens.forEach(ms => {
         const nwMs = new ListaChat();
         nwMs.usuario_id = ms.usuario_id;
-        nwMs.user = 'Juan Arias';
+        nwMs.user = ms.nombreUsuario;
         nwMs.orderID = 'Sin Ticket';
         if (!this.existeUser(nwMs.usuario_id)) {
           this.usuariosMensSinLeer.push(nwMs);
@@ -42,7 +42,7 @@ export class PopListaChatsComponent implements OnInit {
   async chatRoom(usuarioID) {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
-      componentProps: {usuario_id: usuarioID, permiso: this.sender}
+      componentProps: {usuario_id: usuarioID, permiso: this.sender, nombreUsuario: 'RamosTecno'}
     });
     return await modal.present();
   }

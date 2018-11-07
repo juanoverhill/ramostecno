@@ -14,7 +14,7 @@
        <ion-button [hidden]="permisos" fill="outline" shape="round" (click)="chatRoom()">
         <ion-icon name="chatboxes"></ion-icon>
          <ion-label>Mensajes</ion-label>
-      <ion-badge slot="end"></ion-badge>
+      <ion-badge slot="end">{{cantidadMensajesSinLeerUsr}}</ion-badge>
       </ion-button>
       <ion-button (click)="logOut()">
         <ion-icon name="log-out"></ion-icon>

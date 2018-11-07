@@ -22,20 +22,21 @@ export class LoguearPage implements OnInit {
   signInGoogle() {
     this.logueando = true;
     this.auth.signInWithGoogle().then(res => {
-      this.getPerfilUsuario(res.user.uid);
+      this.getPerfilUsuario(res.user);
     });
   }
 
   signInFacebook() {
     this.logueando = true;
     this.auth.signInWithFacebook().then(res => {
-      this.getPerfilUsuario(res.user.uid);
+      this.getPerfilUsuario(res.user);
     });
   }
 
-  getPerfilUsuario(usuarioID) {
-    Cookies.set('usuario_id', window.btoa(usuarioID), { sameSite: 'strict' });
-    this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuarioID)).subscribe(
+  getPerfilUsuario(usuario) {
+    Cookies.set('usuario_id', window.btoa(usuario.uid), { sameSite: 'strict' });
+    Cookies.set('nombreUsuario', window.btoa(usuario.displayName), { sameSite: 'strict' });
+    this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuario.uid)).subscribe(
       data => {
         if (data.length > 0) {
           Cookies.set('autenticado', window.btoa('true'), { sameSite: 'strict' });
