@@ -6,7 +6,7 @@
           <p class="texto-burbuja">Hola, gracias por contactarte con nosotros... Decinos en que podemos ayudarte</p>          
         </div> 
         <div *ngFor="let message of messages | async">
-          <div  [ngClass]="{'speech-bubble': message.sender, 'speech-bubbleRes': message.sender == false}">
+          <div  [ngClass]="{'speech-bubble': ((message.sender && sender == false) || (message.sender == false && sender)), 'speech-bubbleRes': ((message.sender == false && sender == false) || (message.sender && sender))}">
               <p class="texto-burbuja">{{message.mensaje}}</p>
               <ion-icon *ngIf="message.leido && sender" color="light" class="double-check" name="done-all"></ion-icon>
             </div>
