@@ -145,10 +145,12 @@ export class ChatRoom {
     sender?: boolean;
     sender_id?: string;
     nombreUsuario?: string;
+    email?: string;
 }
 
 export class ListaChat {
     usuario_id?: string;
     user?: string;
     orderID?: string;
+    email?: string;
 }

@@ -215,10 +215,10 @@ export class HistorialTurnosPage implements OnInit {
     this.router.navigateByUrl('calendar/' + idReparacion + '/' + color);
   }
 
-  async chatRoom(usuarioID) {
+  async chatRoom(usuarioID, email, user) {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
-      componentProps: {usuario_id: usuarioID, permiso: true}
+      componentProps: { usuario_id: usuarioID, permiso: true, nombreUsuario: user, usuarioMail: email}
     });
     return await modal.present();
   }

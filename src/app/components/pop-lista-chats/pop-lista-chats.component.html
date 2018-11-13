@@ -1,5 +1,5 @@
 <ion-list lines="inset" *ngIf="cargoOK">
-  <ion-item *ngFor="let itemLista of usuariosMensSinLeer" href="/historial-turnos" (click)="chatRoom(itemLista.usuario_id)">
+  <ion-item *ngFor="let itemLista of usuariosMensSinLeer" href="/historial-turnos" (click)="chatRoom(itemLista.usuario_id, itemLista.email, itemLista.user)">
     <ion-label>{{itemLista.user}}</ion-label>
     <ion-badge color="primary">{{itemLista.orderID}}</ion-badge>
   </ion-item>

@@ -28,6 +28,7 @@ export class MenuComponent implements OnInit {
   cantidadMensajesSinLeer = 0;
   cantidadMensajesSinLeerUsr = 0;
   cargoOK = false;
+  usuarioMail;
 
   constructor(private auth: AuthService, private router: Router,
     private modalController: ModalController,
@@ -42,6 +43,7 @@ export class MenuComponent implements OnInit {
     } else {
       this.usuario_id = window.atob(Cookies.get('usuario_id'));
       this.nombre_usuario = window.atob(Cookies.get('nombreUsuario'));
+      this.usuarioMail = window.atob(Cookies.get('usuarioMail'));
       this.autenticado = Boolean(window.atob(Cookies.get('autenticado')));
       if (window.atob(Cookies.get('permiso')) === 'false') {
         this.permisos = false;
@@ -140,7 +142,8 @@ export class MenuComponent implements OnInit {
   async chatRoom() {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
-      componentProps: {usuario_id : this.usuario_id, permiso: this.permisos, nombreUsuario: this.nombre_usuario}
+      // tslint:disable-next-line:max-line-length
+      componentProps: {usuario_id : this.usuario_id, permiso: this.permisos, nombreUsuario: this.nombre_usuario, usuarioMail: this.usuarioMail}
     });
     return await modal.present();
   }

@@ -36,6 +36,7 @@ export class LoguearPage implements OnInit {
   getPerfilUsuario(usuario) {
     Cookies.set('usuario_id', window.btoa(usuario.uid), { sameSite: 'strict' });
     Cookies.set('nombreUsuario', window.btoa(usuario.displayName), { sameSite: 'strict' });
+    Cookies.set('usuarioMail', window.btoa(usuario.email), { sameSite: 'strict' });
     this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuario.uid)).subscribe(
       data => {
         if (data.length > 0) {

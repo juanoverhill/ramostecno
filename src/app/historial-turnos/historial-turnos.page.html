@@ -62,7 +62,7 @@
               <ion-icon name="list-box"></ion-icon>
               </ion-button>  
               
-              <ion-button icon-only size="small" mat-raised-button matTooltip="Abrir Chat" (click)="chatRoom(turno.usuario_id)" *ngIf="permisos == true">
+              <ion-button icon-only size="small" mat-raised-button matTooltip="Abrir Chat" (click)="chatRoom(turno.usuario_id, turno.email, turno.nombre_usuario)" *ngIf="permisos == true">
                 <ion-icon name="mail-unread"></ion-icon>
                 </ion-button> 
       
