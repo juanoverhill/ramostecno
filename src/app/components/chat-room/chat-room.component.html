@@ -1,8 +1,17 @@
-<ion-content>
+<ion-row color="light">
+    <ion-col size="1">
+        <ion-button size="small" color="danger" (click)="close()">X</ion-button>
+    </ion-col>
+    <ion-col>
+        <ion-item-divider color="primary">{{textoTitulo}}</ion-item-divider> 
+    </ion-col>
+</ion-row>
+
+<ion-content>  
   <ion-grid>
 
-      <ion-item-divider color="primary">{{textoTitulo}}</ion-item-divider>      
-      <div class="speech-bubble">
+         
+      <div [ngClass]="{'speech-bubble': sender == false, 'speech-bubbleRes': sender}">
           <p class="texto-burbuja">Hola, gracias por contactarte con nosotros... Decinos en que podemos ayudarte</p>          
         </div> 
         <div *ngFor="let message of messages | async">
@@ -10,7 +19,7 @@
               <p class="texto-burbuja">{{message.mensaje}}</p>
               <ion-icon *ngIf="message.leido && sender" color="light" class="double-check" name="done-all"></ion-icon>
             </div>
-            <p [ngClass]="{'hourChat': message.sender, 'hourChatRes': message.sender == false}">{{message.createdAt  | firestoreDate:'dd-MM-yyyy - HH:mm'}}</p>
+            <p [ngClass]="{'hourChat': ((message.sender && sender == false) || (message.sender == false && sender)), 'hourChatRes': ((message.sender == false && sender == false) || (message.sender && sender))}">{{message.createdAt  | firestoreDate:'dd-MM-yyyy - HH:mm'}}</p>
         </div>
         
        

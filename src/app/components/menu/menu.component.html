@@ -1,17 +1,17 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">  
-      <ion-button [hidden]="permisos == false" (click)="meniuR.open()">
+      <ion-button [hidden]="permisos == false || permisos == undefined" (click)="meniuR.open()">
           <ion-icon name="menu"></ion-icon>
         </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">    
-        <ion-button [hidden]="permisos == false" fill="outline" shape="round" (click)="listaChats($event)">
+        <ion-button [hidden]="permisos == false || permisos == undefined" fill="outline" shape="round" (click)="listaChats($event)">
             <ion-icon name="chatboxes"></ion-icon>
              <ion-label>Mensajes sin leer</ion-label>
-          <ion-badge slot="end" [hidden]="cargoOK == false">{{cantidadMensajesSinLeer}}</ion-badge>
+          <ion-badge slot="end" [hidden]="cargoOK == false || permisos == undefined" >{{cantidadMensajesSinLeer}}</ion-badge>
           </ion-button>  
-       <ion-button [hidden]="permisos" fill="outline" shape="round" (click)="chatRoom()">
+       <ion-button [hidden]="permisos || permisos == undefined" fill="outline" shape="round" (click)="chatRoom()">
         <ion-icon name="chatboxes"></ion-icon>
          <ion-label>Mensajes</ion-label>
       <ion-badge slot="end">{{cantidadMensajesSinLeerUsr}}</ion-badge>
@@ -21,8 +21,8 @@
         Salir
       </ion-button>
     </ion-buttons>
-    <ion-title [hidden]="permisos == false">Panel de administracion</ion-title>
-    <ion-title [hidden]="permisos">Historial de reparaciones</ion-title>
+    <ion-title [hidden]="permisos == false || permisos == undefined">Panel de administracion</ion-title>
+    <ion-title [hidden]="permisos || permisos == undefined">Historial de reparaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 

@@ -66,6 +66,11 @@ export class ChatRoomComponent implements OnInit {
     this.router.navigateByUrl('loguear');
   }
 
+  public async close() {
+    const modal = await this.modalCtrl.getTop();
+    modal.dismiss();
+  }
+
   newMessagge() {
     const textoMessage = document.getElementById('mens') as HTMLIonTextareaElement;
 

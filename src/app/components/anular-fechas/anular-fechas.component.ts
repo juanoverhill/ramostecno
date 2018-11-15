@@ -15,7 +15,7 @@ export class AnularFechasComponent implements OnInit {
   fechasAnuladas: Observable<any[]>;
   date = new FormControl(new Date());
 
-  constructor(private fb: FirestoreService,private modalCtrl: ModalController,
+  constructor(private fb: FirestoreService,  private modalCtrl: ModalController,
     public alertController: AlertController) { }
 
   ngOnInit() {
@@ -28,7 +28,6 @@ export class AnularFechasComponent implements OnInit {
   }
 
   anularFecha(fecha) {
-    
     const fech = new Fecha();
     fech.fecha = fecha;
     this.fb.add('FECHA_ANULADA', fech);
@@ -61,6 +60,6 @@ export class AnularFechasComponent implements OnInit {
   }
 
   cancelarAnulacion(fecha) {
-    this.fb.delete('FECHA_ANULADA/'+fecha);
+    this.fb.delete('FECHA_ANULADA/' + fecha);
   }
 }
