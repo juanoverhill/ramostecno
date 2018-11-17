@@ -36,13 +36,13 @@
 <ion-card class="animated fadeIn" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
 <ion-item-divider color="primary">
   <p class="titulo"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
-      {{turno.hora_reparacion}}hs</b></p>
+      {{turno.hora_reparacion}}hs</b>   → {{turno.estado_reparacion_id}} </p>
 </ion-item-divider>
   <ion-card-content>
         <ion-label>         
           <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p>
-          <p class="letra" style="font-size: 13px;">{{(turno.reparacionRef | doc | async)?.accion}} <b>→</b>
-            {{turno.estado_reparacion_id}}</p>
+          <p class="letra" style="font-size: 13px;">{{(turno.reparacionRef | doc | async)?.accion}} <b></b>
+            </p>
           <div class="line-separator"></div>
           <br>
           <p class="letra" style="font-size: 12px;">Valor EFT ${{turno.valor_efectivo}}</p>
@@ -65,6 +65,10 @@
               <ion-button icon-only size="small" mat-raised-button matTooltip="Abrir Chat" (click)="chatRoom(turno.usuario_id, turno.email, turno.nombre_usuario)" *ngIf="permisos == true">
                 <ion-icon name="mail-unread"></ion-icon>
                 </ion-button> 
+
+                <ion-button icon-only size="small" mat-raised-button matTooltip="Imagenes" (click)="imagenesReparacion(turno.id)" *ngIf="permisos == true">
+                  <ion-icon name="images"></ion-icon>
+                  </ion-button>
       
               <ion-button *ngIf="turno.estado_reparacion_id == 'Reprogramar'" icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="reprogramarTurno(turno.reparacion_id, turno.color_id)">
                 <ion-icon name="time"></ion-icon>

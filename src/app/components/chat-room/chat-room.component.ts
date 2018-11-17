@@ -90,7 +90,7 @@ export class ChatRoomComponent implements OnInit {
     // Envio el mail solo si el usuario es de tipo sender
     if (this.sender) {
       // tslint:disable-next-line:max-line-length
-      this.mail.sendEmail(this.emailUsuario, this.nombreUsuario, '', '', 'd-427e460dbdfc4c28afc2eebd07b79d74', 'http://www.reservas.ramostecnoreparaciones.com/historial-turnos/');
+      this.mail.sendEmail(this.emailUsuario, this.nombreUsuario, '', '', 'd-427e460dbdfc4c28afc2eebd07b79d74', 'https://www.reservas.ramostecnoreparaciones.com/historial-turnos/');
     } else {
     }
 

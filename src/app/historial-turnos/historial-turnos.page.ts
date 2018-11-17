@@ -13,6 +13,7 @@ import { AnularFechasComponent } from '../components/anular-fechas/anular-fechas
 import { HorariosTrabajoComponent } from '../components/horarios-trabajo/horarios-trabajo.component';
 import * as Cookies from 'es-cookie';
 import { ChatRoomComponent } from '../components/chat-room/chat-room.component';
+import { ImagenEquipoComponent } from '../components/imagen-equipo/imagen-equipo.component';
 
 
 @Component({
@@ -219,6 +220,14 @@ export class HistorialTurnosPage implements OnInit {
     const modal = await this.modalController.create({
       component: ChatRoomComponent,
       componentProps: { usuario_id: usuarioID, permiso: true, nombreUsuario: user, usuarioMail: email}
+    });
+    return await modal.present();
+  }
+
+  async imagenesReparacion(idReparacion) {
+    const modal = await this.modalController.create({
+      component: ImagenEquipoComponent,
+      componentProps: { idReparacion: idReparacion}
     });
     return await modal.present();
   }

@@ -27,11 +27,16 @@ import { HorariosTrabajoComponent } from './components/horarios-trabajo/horarios
 import { SharedModule } from './shared.module';
 import { PopEditaEstadoComponent } from './components/pop-edita-estado/pop-edita-estado.component';
 import { PopListaChatsComponent } from './components/pop-lista-chats/pop-lista-chats.component';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
+import { ImagenEquipoComponent } from './components/imagen-equipo/imagen-equipo.component';
+import {WebcamModule} from 'ngx-webcam';
+
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent],
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent],
+  // tslint:disable-next-line:max-line-length
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent],
   exports: [],
   imports: [
     FormsModule,
@@ -43,6 +48,8 @@ import { PopListaChatsComponent } from './components/pop-lista-chats/pop-lista-c
      IonicModule.forRoot(),
      AppRoutingModule,
     SharedModule,
+    NgxImageGalleryModule,
+    WebcamModule,
      AngularFirestoreModule.enablePersistence(),
   AngularFireModule.initializeApp(environment.fire)],
   providers: [
