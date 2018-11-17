@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
 import {  FormBuilder } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +30,7 @@ import { PopListaChatsComponent } from './components/pop-lista-chats/pop-lista-c
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { ImagenEquipoComponent } from './components/imagen-equipo/imagen-equipo.component';
 import {WebcamModule} from 'ngx-webcam';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 
 @NgModule({
@@ -50,8 +51,9 @@ import {WebcamModule} from 'ngx-webcam';
     SharedModule,
     NgxImageGalleryModule,
     WebcamModule,
-     AngularFirestoreModule.enablePersistence(),
-  AngularFireModule.initializeApp(environment.fire)],
+    AngularFirestoreModule.enablePersistence(),
+  AngularFireModule.initializeApp(environment.fire),
+  AngularFireStorageModule],
   providers: [
     StatusBar,
     SplashScreen,
