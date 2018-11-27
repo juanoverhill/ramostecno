@@ -154,3 +154,8 @@ export class ListaChat {
     orderID?: string;
     email?: string;
 }
+
+export class ImagenReparacion {
+    reparacion_id?: string;
+    imagen_URL?: string;
+}

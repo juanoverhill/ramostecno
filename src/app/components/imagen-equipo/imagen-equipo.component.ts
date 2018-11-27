@@ -1,3 +1,4 @@
+import { ImagenReparacion } from './../../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
 import { NavParams, ModalController } from '@ionic/angular';
@@ -36,11 +37,22 @@ export class ImagenEquipoComponent implements OnInit {
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
 
+  verImagenes = false;
+  reparacionID;
+
+  imagenes: Observable<ImagenReparacion[]>;
+  cantidadImagenes;
+
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController, private auth: AuthService,
     private storage: AngularFireStorage) { }
 
   ngOnInit() {
+    this.reparacionID = this.navParams.get('idReparacion');
+    this.imagenes = this.fb.colWithIds$('IMAGEN_REPARACION', ref => ref.where('reparacion_id', '==', this.reparacionID));
+    this.imagenes.subscribe(data => {
+      this.cantidadImagenes = data.length;
+    });
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
@@ -49,7 +61,12 @@ export class ImagenEquipoComponent implements OnInit {
 
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
-    const filePath = 'webcam.jpg';
+    let nombreImagen = 'image.jpg';
+    if (this.cantidadImagenes !== 0) {
+      nombreImagen = 'image_' + (this.cantidadImagenes + 1) + '.jpg';
+    }
+
+    const filePath = '/RID_' + this.reparacionID + '/' + nombreImagen;
     const fileRef = this.storage.ref(filePath);
     const image = 'data:image/jpg;base64,' + webcamImage.imageAsBase64;
     const task = fileRef.putString(image, 'data_url');
@@ -60,13 +77,18 @@ export class ImagenEquipoComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() => {
         this.downloadURL = fileRef.getDownloadURL();
+        const _imagenReparacion = new ImagenReparacion();
+          _imagenReparacion.reparacion_id = this.reparacionID;
+          this.downloadURL.subscribe(img => {
+              _imagenReparacion.imagen_URL = img;
+              this.fb.add('IMAGEN_REPARACION', _imagenReparacion);
+          });
         })
-    ).subscribe(() => {
-        console.log('Imagen cargada OK');
-    });
+    ).subscribe(() => {});
   }
 
   public triggerSnapshot(): void {
+    this.verImagenes = true;
     this.trigger.next();
   }
 
@@ -96,6 +118,10 @@ export class ImagenEquipoComponent implements OnInit {
 
   public get nextWebcamObservable(): Observable<boolean|string> {
     return this.nextWebcam.asObservable();
+  }
+
+  muestraImagenes() {
+    this.verImagenes = false;
   }
 
 }

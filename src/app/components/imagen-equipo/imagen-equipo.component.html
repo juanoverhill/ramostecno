@@ -1,14 +1,22 @@
 <ion-content>
   <ion-grid fixed>
     <ion-row>
-      <ion-col>
-        <webcam [trigger]="triggerObservable" [allowCameraSwitch]="allowCameraSwitch" 
+      <ion-col *ngIf="verImagenes">
+        <webcam  [trigger]="triggerObservable" [allowCameraSwitch]="allowCameraSwitch" 
         [switchCamera]="nextWebcamObservable" (imageCapture)="handleImage($event)"
         (cameraSwitched)="cameraWasSwitched($event)"
         (initError)="handleInitError($event)"></webcam>
       </ion-col>
+      <ion-col [hidden]="verImagenes" *ngFor="let imgn of imagenes | async">
+          <img src="{{imgn.imagen_URL}}">
+      </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="muestraImagenes()">
+      <ion-icon name="image"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="triggerSnapshot();">
     <ion-icon name="camera"></ion-icon>
