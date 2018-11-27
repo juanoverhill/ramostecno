@@ -158,4 +158,5 @@ export class ListaChat {
 export class ImagenReparacion {
     reparacion_id?: string;
     imagen_URL?: string;
+    nombreImagen?: string;
 }

@@ -1,3 +1,4 @@
+
 import { ChatRoomComponent } from './components/chat-room/chat-room.component';
 import { FormsModule } from '@angular/forms';
 import { EquipoService } from '../services/equipo.service';
@@ -31,13 +32,14 @@ import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { ImagenEquipoComponent } from './components/imagen-equipo/imagen-equipo.component';
 import {WebcamModule} from 'ngx-webcam';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { VisorImagenComponent } from './components/visor-imagen/visor-imagen.component';
 
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent],
   // tslint:disable-next-line:max-line-length
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent],
   exports: [],
   imports: [
     FormsModule,

@@ -8,7 +8,7 @@
         (initError)="handleInitError($event)"></webcam>
       </ion-col>
       <ion-col [hidden]="verImagenes" *ngFor="let imgn of imagenes | async">
-          <img src="{{imgn.imagen_URL}}">
+          <img src="{{imgn.imagen_URL}}" (click)="imagenReparacion(imgn)">
       </ion-col>
     </ion-row>
   </ion-grid>

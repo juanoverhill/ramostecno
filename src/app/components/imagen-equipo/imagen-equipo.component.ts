@@ -1,3 +1,4 @@
+
 import { ImagenReparacion } from './../../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
@@ -8,6 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { VisorImagenComponent } from '../visor-imagen/visor-imagen.component';
 
 @Component({
   selector: 'app-imagen-equipo',
@@ -79,9 +81,11 @@ export class ImagenEquipoComponent implements OnInit {
         this.downloadURL = fileRef.getDownloadURL();
         const _imagenReparacion = new ImagenReparacion();
           _imagenReparacion.reparacion_id = this.reparacionID;
+          _imagenReparacion.nombreImagen = nombreImagen;
           this.downloadURL.subscribe(img => {
               _imagenReparacion.imagen_URL = img;
               this.fb.add('IMAGEN_REPARACION', _imagenReparacion);
+              this.muestraImagenes();
           });
         })
     ).subscribe(() => {});
@@ -122,6 +126,14 @@ export class ImagenEquipoComponent implements OnInit {
 
   muestraImagenes() {
     this.verImagenes = false;
+  }
+
+  async imagenReparacion(imagenURL) {
+    const modal = await this.modalCtrl.create({
+      component: VisorImagenComponent,
+      componentProps: { imagen: imagenURL }
+    });
+    return await modal.present();
   }
 
 }
