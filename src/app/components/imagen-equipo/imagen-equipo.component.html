@@ -1,5 +1,8 @@
 <ion-content>
   <ion-grid fixed>
+<p *ngIf="cantidadImagenes == 0 && verImagenes == false" style="text-align: center; color: gray">
+  No hay imagenes cargadas, hace click en la camarita para
+  agregar nuevas</p>
     <ion-row>
       <ion-col *ngIf="verImagenes">
         <webcam  [trigger]="triggerObservable" [allowCameraSwitch]="allowCameraSwitch" 
