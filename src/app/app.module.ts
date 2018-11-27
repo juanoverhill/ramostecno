@@ -28,7 +28,6 @@ import { HorariosTrabajoComponent } from './components/horarios-trabajo/horarios
 import { SharedModule } from './shared.module';
 import { PopEditaEstadoComponent } from './components/pop-edita-estado/pop-edita-estado.component';
 import { PopListaChatsComponent } from './components/pop-lista-chats/pop-lista-chats.component';
-import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { ImagenEquipoComponent } from './components/imagen-equipo/imagen-equipo.component';
 import {WebcamModule} from 'ngx-webcam';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -51,7 +50,6 @@ import { VisorImagenComponent } from './components/visor-imagen/visor-imagen.com
      IonicModule.forRoot(),
      AppRoutingModule,
     SharedModule,
-    NgxImageGalleryModule,
     WebcamModule,
     AngularFirestoreModule.enablePersistence(),
   AngularFireModule.initializeApp(environment.fire),
