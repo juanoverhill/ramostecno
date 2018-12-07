@@ -59,6 +59,7 @@
     "moment": "^2.22.2",
     "ng": "0.0.0",
     "ngx": "^2.4.0",
+    "ngx-filter-pipe": "^2.1.2",
     "ngx-webcam": "^0.2.0",
     "rxjs": "6.3.3",
     "rxjs-compat": "^6.2.2",

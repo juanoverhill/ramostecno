@@ -7626,6 +7626,13 @@ ng@0.0.0:
   resolved "https://registry.yarnpkg.com/ng/-/ng-0.0.0.tgz#1ab91a42699d5fcc8d3b674006027fd3006ec551"
   integrity sha512-HwR40IBJa1ZU+CIGyuy7vSCN3xFYlSRfw5eIwwKOdOMNNNIl8KhT6PXKmHuFEFYpfrbOMaCYtr4QOJ3gkkubcg==
 
+ngx-filter-pipe@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/ngx-filter-pipe/-/ngx-filter-pipe-2.1.2.tgz#d3368f22bf45c74d5fcdae3701501db15fb90399"
+  integrity sha512-YEXvjEw+Mpg5jL+yqSnFWKiY0P9XtRAJ2Dk3n9sC4stnsuhPzPRwIkF58aBvqYfoi3vrb7KQFImgbmfFAQqnFw==
+  dependencies:
+    tslib "^1.7.1"
+
 ngx-webcam@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/ngx-webcam/-/ngx-webcam-0.2.0.tgz#cc0b34096adea22d90b74ebc702eaabf5559f623"

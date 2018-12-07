@@ -35,6 +35,7 @@ export class HistorialTurnosPage implements OnInit {
   reparacion: Reparacion;
   filtroFecha = false;
   options: any[] = [];
+  userFilter: any = { email: ''};
 
   opciones: Observable<EstadoReparacion[]>;
 

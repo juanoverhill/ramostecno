@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TicketComponent } from '../components/ticket/ticket.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
     MatCheckboxModule,
     MatDialogModule,
     ComponentsModule,
+    FilterPipeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HistorialTurnosPage, TicketComponent],

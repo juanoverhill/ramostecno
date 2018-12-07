@@ -26,14 +26,14 @@
         </ion-col>
         <ion-col size="2">
         <mat-form-field>
-          <input matInput placeholder="Buscar">
+          <input [(ngModel)]="userFilter.email" matInput placeholder="Buscar">
         </mat-form-field>
         </ion-col>
       </ion-row>
     </ion-item>
 
   
-<ion-card class="animated fadeIn" *ngFor="let turno of turnosPrevios | async" lines="inset" color="light">
+<ion-card class="animated fadeIn" *ngFor="let turno of turnosPrevios | async | filterBy: userFilter" lines="inset" color="light">
 <ion-item-divider color="primary">
   <p class="titulo"><b>Fecha: {{turno.fecha_reparacion | date: 'dd/MM/yyyy'}} -
       {{turno.hora_reparacion}}hs</b>   → {{turno.estado_reparacion_id}} </p>
@@ -66,7 +66,7 @@
                 <ion-icon name="mail-unread"></ion-icon>
                 </ion-button> 
 
-                <ion-button icon-only size="small" mat-raised-button matTooltip="Imagenes" (click)="imagenesReparacion(turno.id)" *ngIf="permisos == true">
+                <ion-button icon-only size="small" mat-raised-button matTooltip="Imagenes" (click)="imagenesReparacion(turno.id)">
                   <ion-icon name="images"></ion-icon>
                   </ion-button>
       

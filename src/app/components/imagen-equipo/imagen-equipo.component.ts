@@ -10,6 +10,7 @@ import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { VisorImagenComponent } from '../visor-imagen/visor-imagen.component';
+import * as Cookies from 'es-cookie';
 
 @Component({
   selector: 'app-imagen-equipo',
@@ -45,11 +46,14 @@ export class ImagenEquipoComponent implements OnInit {
   imagenes: Observable<ImagenReparacion[]>;
   cantidadImagenes;
 
+  permiso;
+
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController, private auth: AuthService,
     private storage: AngularFireStorage) { }
 
   ngOnInit() {
+    this.permiso = window.atob(Cookies.get('permiso'));
     this.reparacionID = this.navParams.get('idReparacion');
     this.imagenes = this.fb.colWithIds$('IMAGEN_REPARACION', ref => ref.where('reparacion_id', '==', this.reparacionID));
     this.imagenes.subscribe(data => {

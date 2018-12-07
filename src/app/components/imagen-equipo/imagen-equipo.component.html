@@ -15,12 +15,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <ion-fab *ngIf="permiso" vertical="bottom" horizontal="start" slot="fixed">
     <ion-fab-button (click)="muestraImagenes()">
       <ion-icon name="image"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="permiso" vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="triggerSnapshot();">
     <ion-icon name="camera"></ion-icon>
   </ion-fab-button>
