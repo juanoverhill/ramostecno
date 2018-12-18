@@ -68,6 +68,10 @@
 
                 <ion-button icon-only size="small" mat-raised-button matTooltip="Imagenes" (click)="imagenesReparacion(turno.id)">
                   <ion-icon name="images"></ion-icon>
+                  </ion-button> 
+                  
+                  <ion-button color="danger" icon-only size="small" mat-raised-button matTooltip="Retirar equipo">
+                    <ion-icon name="swap"></ion-icon>
                   </ion-button>
       
               <ion-button *ngIf="turno.estado_reparacion_id == 'Reprogramar'" icon-only size="small" mat-raised-button matTooltip="Reprogramar turno" (click)="reprogramarTurno(turno.reparacion_id, turno.color_id)">

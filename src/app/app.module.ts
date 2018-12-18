@@ -32,13 +32,14 @@ import { ImagenEquipoComponent } from './components/imagen-equipo/imagen-equipo.
 import {WebcamModule} from 'ngx-webcam';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { VisorImagenComponent } from './components/visor-imagen/visor-imagen.component';
+import { NuevoTurnoComponent } from './components/nuevo-turno/nuevo-turno.component';
 
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent, NuevoTurnoComponent],
   // tslint:disable-next-line:max-line-length
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent, NuevoTurnoComponent],
   exports: [],
   imports: [
     FormsModule,

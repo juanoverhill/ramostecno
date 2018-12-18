@@ -12,6 +12,7 @@ import { PopListaChatsComponent } from '../pop-lista-chats/pop-lista-chats.compo
 import * as Cookies from 'es-cookie';
 import { FirestoreService } from '../../../services/f-base.service';
 import { ListaChat, ChatRoom } from '../../../Model/models';
+import { NuevoTurnoComponent } from '../nuevo-turno/nuevo-turno.component';
 
 @Component({
   selector: 'app-menu',
@@ -157,6 +158,14 @@ export class MenuComponent implements OnInit {
       });
       return await popover.present();
     }
+  }
+
+  async nuevoTurno() {
+    const modal = await this.modalController.create({
+      component: NuevoTurnoComponent,
+      componentProps: {}
+    });
+    return await modal.present();
   }
 
 }

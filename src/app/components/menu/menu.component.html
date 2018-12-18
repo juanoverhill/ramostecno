@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">  
       <ion-button [hidden]="permisos == false || permisos == undefined" (click)="meniuR.open()">
-          <ion-icon name="menu"></ion-icon>
+          <ion-icon name="funnel"></ion-icon>
         </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">    
@@ -35,30 +35,34 @@
   <ion-content> 
     <ion-list>      
           <ion-button color="primary" expand="block" [href]="'/historial-turnos'">
-                <ion-icon slot="start" name="laptop"></ion-icon>
+                <ion-icon slot="start" name="attach"></ion-icon>
                 <ion-label>
                    Administrar Turnos
                 </ion-label>
               </ion-button>
               <ion-button color="primary" expand="block" (click)="anularFechas()">
-                <ion-icon slot="start" name="calendar"></ion-icon>
+                <ion-icon slot="start" name="airplane"></ion-icon>
                 <ion-label>Anular fechas</ion-label>
               </ion-button>
               <ion-button color="primary" expand="block" (click)="horariosTrabajo()">
-                <ion-icon slot="start" name="code-working"></ion-icon>
+                <ion-icon slot="start" name="briefcase"></ion-icon>
                 <ion-label>Horarios de trabajo</ion-label>
               </ion-button>
               <ion-button color="primary" expand="block" [href]="'/admnistrar-equipos'">
-                <ion-icon slot="start" name="phone-portrait"></ion-icon>
+                <ion-icon slot="start" name="tablet-portrait"></ion-icon>
                 <ion-label>Administrar Equipos</ion-label>
               </ion-button>
               <ion-button color="primary" expand="block" [href]="'/administrar-reparaciones'">
-                <ion-icon slot="start" name="construct"></ion-icon>
+                <ion-icon slot="start" name="code"></ion-icon>
                 <ion-label>Administrar Reparaciones</ion-label>
             </ion-button>
             <ion-button color="primary" expand="block" (click)="estadosReparacion()">
-              <ion-icon slot="start" name="list"></ion-icon>
+              <ion-icon slot="start" name="clock"></ion-icon>
               <ion-label>Administrar Estados</ion-label>
+          </ion-button>
+          <ion-button color="primary" expand="block">
+              <ion-icon slot="start" name="color-wand"></ion-icon>
+              <ion-label>Nuevo Turno</ion-label>
           </ion-button>
     </ion-list>
   </ion-content>
