@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from '../../../services/f-base.service';
+import { Turno, Equipo } from '../../../Model/models';
 
 @Component({
   selector: 'app-nuevo-turno',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NuevoTurnoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FirestoreService) { }
 
   ngOnInit() {
+  }
+
+  generaTurno() {
+
+
+
+    // const _newEquipo = new Equipo();
+    // _newEquipo.descripcion = document.getElementById('equipo')
+
+    // const _newTurno = new Turno();
+
   }
 
 }
