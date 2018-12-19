@@ -13,13 +13,13 @@ import { AuthService } from '../../services/auth.service';
 export class SeleccionMarcaPage implements OnInit {
 
   _marcas: Observable<Marca[]>;
-  nombreUsuario;
-  foto;
+  nombreUsuario: string;
+  foto: string;
   textoBoton = '';
   constructor(private fb: FirestoreService, private route: ActivatedRoute, private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
-    this._marcas = this.fb.colWithIds$('MARCA');
+    this._marcas = this.fb.colWithIds$('MARCA', ref => ref.where('inactivo', '==', false));
     // Verifico previamente si esta logueado
     this.auth.afAuth.authState.subscribe(user => {
       if (user) {

@@ -13,6 +13,7 @@ export class Equipo {
 export class Marca {
     id?: string;
     descripcion?: string;
+    inactivo?: boolean;
 }
 
 
