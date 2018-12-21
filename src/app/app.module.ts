@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -33,13 +35,14 @@ import {WebcamModule} from 'ngx-webcam';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { VisorImagenComponent } from './components/visor-imagen/visor-imagen.component';
 import { NuevoTurnoComponent } from './components/nuevo-turno/nuevo-turno.component';
+import { SelectorMarcaComponent } from './components/selector-marca/selector-marca.component';
 
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent, NuevoTurnoComponent],
+  declarations: [AppComponent, AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent, NuevoTurnoComponent, SelectorMarcaComponent],
   // tslint:disable-next-line:max-line-length
-  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent, NuevoTurnoComponent],
+  entryComponents: [AnularFechasComponent, HorariosTrabajoComponent, PopEditaEstadoComponent, ChatRoomComponent, PopListaChatsComponent, ImagenEquipoComponent, VisorImagenComponent, NuevoTurnoComponent, SelectorMarcaComponent],
   exports: [],
   imports: [
     FormsModule,
@@ -48,6 +51,7 @@ import { NuevoTurnoComponent } from './components/nuevo-turno/nuevo-turno.compon
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatInputModule,
+    MatDialogModule,
      IonicModule.forRoot(),
      AppRoutingModule,
     SharedModule,

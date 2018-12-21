@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
-import { Turno, Equipo, Marca } from '../../../Model/models';
+import {Turno, Equipo, Marca, CategoriaReparacion, Reparacion} from '../../../Model/models';
+import { Observable } from 'rxjs/Observable';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { SelectorMarcaComponent } from '../selector-marca/selector-marca.component';
 
 @Component({
   selector: 'app-nuevo-turno',
@@ -10,8 +13,12 @@ import { Turno, Equipo, Marca } from '../../../Model/models';
 export class NuevoTurnoComponent implements OnInit {
 
   marcaSinEspecificar: string;
+  _equipoReference: firebase.firestore.DocumentReference;
+  categoriasReparacion: Observable<CategoriaReparacion[]>;
+  reparacionesDisponibles: Observable<Reparacion[]>;
 
-  constructor(private fb: FirestoreService) { }
+
+  constructor(private fb: FirestoreService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.fb.colWithIds$('MARCA', ref => ref.where('descripcion', '==', 'Equipos sin definir')).subscribe((data: Marca[]) => {
@@ -19,6 +26,8 @@ export class NuevoTurnoComponent implements OnInit {
           this.marcaSinEspecificar = itemMarca.id;
       });
     });
+
+    this.categoriasReparacion = this.fb.colWithIds$('CATEGORIA_REPARACION');
   }
 
   generaTurno() {
@@ -43,7 +52,7 @@ export class NuevoTurnoComponent implements OnInit {
     _newEquipo.marcaRef = this.fb.doc('MARCA/' + this.marcaSinEspecificar).ref;
 
     this.fb.add('EQUIPO', _newEquipo).then(docRef => {
-      const _equipoReference = docRef;
+      this._equipoReference = docRef;
        _ultimoIDEquipo = docRef.id;
     });
 
@@ -54,7 +63,21 @@ export class NuevoTurnoComponent implements OnInit {
     _newTurno.telefono = _telefonoCliente.value;
     _newTurno.valor = _precioMP.value;
     _newTurno.valor_efectivo = _precioEF.value;
+    _newTurno.equipoRef = this._equipoReference;
+    _newTurno.equipo_id = _ultimoIDEquipo;
+    _newTurno.hora_reparacion = 0;
+    _newTurno.usuario_id = '';
 
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SelectorMarcaComponent, {
+      width: '500px',
+      data: { }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
