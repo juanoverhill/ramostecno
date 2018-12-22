@@ -36,6 +36,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { VisorImagenComponent } from './components/visor-imagen/visor-imagen.component';
 import { NuevoTurnoComponent } from './components/nuevo-turno/nuevo-turno.component';
 import { SelectorMarcaComponent } from './components/selector-marca/selector-marca.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { SelectorMarcaComponent } from './components/selector-marca/selector-mar
     MatDatepickerModule,
     MatInputModule,
     MatDialogModule,
+    MatListModule,
      IonicModule.forRoot(),
      AppRoutingModule,
     SharedModule,

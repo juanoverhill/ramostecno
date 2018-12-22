@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { MenuComponent } from './menu/menu.component';
+import {MatListModule} from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -15,7 +17,7 @@ import { MenuComponent } from './menu/menu.component';
     ],
 
     imports: [
-        IonicModule
+        IonicModule, MatListModule, MatDialogModule
     ]
 })
 

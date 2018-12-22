@@ -43,7 +43,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-button color="light" expand="full" (click)="openDialog()">Seleccionar reparacion</ion-button>
+        <ion-button color="light" expand="full" (click)="openDialog()">{{textoBoton}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -64,7 +64,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button expand="full" shape="round" color="primary">Generar turno</ion-button>
+        <ion-button expand="full" shape="round" color="primary" (click)="generaTurno()">Generar turno</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

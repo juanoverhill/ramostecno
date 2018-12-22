@@ -1,3 +1,7 @@
-<p>
-  selector-marca works!
-</p>
+<mat-action-list [hidden]="showSubCategorias" *ngFor="let categoria of categorias | async">
+  <button mat-list-item (click)="mostrarReparaciones(categoria.id)"> {{categoria.descripcion}} </button>
+</mat-action-list>
+
+<mat-action-list [hidden]="showSubCategorias == false" *ngFor="let subCategoria of subCategorias | async">
+  <button mat-list-item [mat-dialog-close]="subCategoria"> {{subCategoria.descripcion}} </button>
+</mat-action-list>
