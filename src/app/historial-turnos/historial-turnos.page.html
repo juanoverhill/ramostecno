@@ -70,7 +70,7 @@
                   <ion-icon name="images"></ion-icon>
                   </ion-button> 
                   
-                  <ion-button color="danger" icon-only size="small" mat-raised-button matTooltip="Retirar equipo">
+                  <ion-button *ngIf="turno.estado_reparacion_id == 'Reparado'" color="danger" icon-only size="small" mat-raised-button matTooltip="Retirar equipo" (click)="retirarEquipo(turno.id)">
                     <ion-icon name="swap"></ion-icon>
                   </ion-button>
       

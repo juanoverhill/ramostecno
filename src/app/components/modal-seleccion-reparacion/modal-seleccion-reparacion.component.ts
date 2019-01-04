@@ -37,7 +37,7 @@ export class ModalSeleccionReparacionComponent implements OnInit {
   }
 
   nextPage() {
-    this.router.navigateByUrl('/calendar/' + this._reparacionID + '/' + this.colorID);
+    this.router.navigateByUrl('/calendar/' + this._reparacionID + '/' + this.colorID + '/' + '');
     this.close();
   }
 

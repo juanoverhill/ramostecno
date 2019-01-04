@@ -30,6 +30,7 @@ export class CalendarPage implements OnInit {
 
   reparacionID: string;
   colorID: string;
+  turnoID: string;
 
   daysConfig: DayConfig[] = [];
   diasAnulados: any;
@@ -56,6 +57,7 @@ export class CalendarPage implements OnInit {
   ngOnInit() {
     this.reparacionID = this.route.snapshot.paramMap.get('idReparacion');
     this.colorID = this.route.snapshot.paramMap.get('idColor');
+    this.turnoID = this.route.snapshot.paramMap.get('turnoID');
     this.getNDiasAnulados();
   }
 
@@ -96,8 +98,7 @@ export class CalendarPage implements OnInit {
             subTitle: '..',
             disable: true
           });
-       }
-        else if (arrayLaborables.includes(dia_actual) === false) {
+       } else if (arrayLaborables.includes(dia_actual) === false) {
         this.daysConfig.push({
           date: fechaActual,
           subTitle: '',
@@ -147,10 +148,14 @@ export class CalendarPage implements OnInit {
     });
   }
 
-  async presentModal(fecha) {
+  muestraHorariosDisponibles(fecha) {
+      this.nuevoTurno(fecha);
+  }
+
+  async nuevoTurno(fecha) {
     const modal = await this.modalController.create({
       component: ModalHorariosComponent,
-      componentProps: {idColor: this.colorID, idReparacion: this.reparacionID, fecha: fecha._d}
+      componentProps: {idColor: this.colorID, idReparacion: this.reparacionID, fecha: fecha._d, turnoID: this.turnoID}
     });
     return await modal.present();
   }

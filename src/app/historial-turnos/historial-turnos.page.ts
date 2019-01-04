@@ -77,7 +77,11 @@ export class HistorialTurnosPage implements OnInit {
 
 
   traeTurnosPrevios() {
-     this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', this.usuario_id));
+    if (this.email == null || this.email === undefined) {
+      this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('usuario_id', '==', this.usuario_id));
+    } else {
+      this.turnosPrevios = this.fb.colWithIds$('TURNO', ref => ref.where('email', '==', this.email));
+    }
   }
 
   getPerfilUsuario(usuarioID) {
@@ -231,6 +235,10 @@ export class HistorialTurnosPage implements OnInit {
       componentProps: { idReparacion: idReparacion}
     });
     return await modal.present();
+  }
+
+  retirarEquipo(turnoID) {
+    this.router.navigateByUrl('calendar/R' +  '/x' + '/' + turnoID);
   }
 
 }

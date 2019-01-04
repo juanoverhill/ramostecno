@@ -37,6 +37,7 @@ import { VisorImagenComponent } from './components/visor-imagen/visor-imagen.com
 import { NuevoTurnoComponent } from './components/nuevo-turno/nuevo-turno.component';
 import { SelectorMarcaComponent } from './components/selector-marca/selector-marca.component';
 import {MatListModule} from '@angular/material/list';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import {MatListModule} from '@angular/material/list';
     AngularFireAuth,
     FormBuilder,
     EquipoService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent],
   schemas: [

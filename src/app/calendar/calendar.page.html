@@ -23,7 +23,7 @@
       </ion-col>
         
       <ion-col class="animated bounceInDown centered-Top" size-lg="8" size-xs="12">
-        <ion-calendar *ngIf="cargoOK" [(ngModel)]="date" [options]="options" [type]="type" [format]="'DD-MM-YYYY'" (onChange)="presentModal($event)"></ion-calendar>
+<ion-calendar *ngIf="cargoOK" [(ngModel)]="date" [options]="options" [type]="type" [format]="'DD-MM-YYYY'" (onChange)="muestraHorariosDisponibles($event)"></ion-calendar>
       </ion-col>
     </ion-row>
   </ion-grid>

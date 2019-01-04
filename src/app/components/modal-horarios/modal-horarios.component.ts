@@ -12,6 +12,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 interface hora_disponible {
   empresa: any;
   horas_trabajo: any;
+  horarios_retiro: any;
 }
 
 @Component({
@@ -26,8 +27,10 @@ export class ModalHorariosComponent implements OnInit {
   colorID: any;
   fecha: any;
   _horarios: any[] = [];
+  _horariosRetiro: any[] = [];
   cargoOK = false;
   _horariosTomados: any [] = [];
+  turnoID: string;
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController) { }
@@ -36,10 +39,14 @@ export class ModalHorariosComponent implements OnInit {
       this.reparacionID = this.navParams.get('idReparacion');
       this.colorID = this.navParams.get('idColor');
       this.fecha = this.navParams.get('fecha');
+      this.turnoID = this.navParams.get('turnoID');
+
       this.fb.col$('HORA_DISPONIBLE', ref => ref.where('empresa', '==', 'ramosTecno')).subscribe(data => {
       const datos = data[0] as hora_disponible;
       const array = datos.horas_trabajo.split(',').map(Number);
       this._horarios = array;
+      const arrayRetiro = datos.horarios_retiro.split(',').map(Number);
+      this._horariosRetiro = arrayRetiro;
       this.getHorariosTomados();
     });
   }
@@ -51,13 +58,43 @@ export class ModalHorariosComponent implements OnInit {
 
   getHorariosTomados() {
     this.fecha = this.fecha.toISOString().slice(0, 10);
-    this.fb.colWithIds$('TURNO', ref => ref.where('fecha_reparacion', '==', this.fecha)).subscribe(data => {
+    // Verifico que no tenga turno previo
+    if (this.turnoID === '') {
+      this.fb.colWithIds$('TURNO', ref => ref.where('fecha_reparacion', '==', this.fecha)).subscribe(data => {
         data.forEach(element => {
-        const datos = element as Turno;
-        this._horariosTomados.push(datos.hora_reparacion);
+          const datos = element as Turno;
+          this._horariosTomados.push(datos.hora_reparacion);
+        });
+        this.cargoOK = true;
       });
-      this.cargoOK = true;
-    });
+    } else {
+      this.fb.colWithIds$('TURNO', ref => ref.where('fecha_retiro', '==', this.fecha)).subscribe(data => {
+        data.forEach(element => {
+          const datos = element as Turno;
+          this._horariosTomados.push(datos.hora_retiro);
+        });
+        this._horarios = this._horariosRetiro;
+        this.cargoOK = true;
+      });
+    }
+  }
+
+  sacaTurno(hora) {
+    if (this.turnoID !== '') {
+      this.confirmaReserva(hora);
+    } else {
+      this.confirmaTurno(hora);
+    }
+  }
+
+  confirmaReserva(hora) {
+    let _turnoRetira = new Turno();
+     this.fb.doc$('TURNO/' + this.turnoID).subscribe((data: Turno) => {
+        _turnoRetira = data;
+        _turnoRetira.fecha_retiro = this.fecha;
+        _turnoRetira.hora_retiro = hora;
+        this.fb.update('TURNO', _turnoRetira);
+     });
   }
 
   confirmaTurno(hora) {

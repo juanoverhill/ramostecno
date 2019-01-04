@@ -54,7 +54,9 @@ export class Turno {
     color_id?: string;
     estado_reparacion_id?: string;
     fecha_reparacion?: string;
+    fecha_retiro?: string;
     hora_reparacion?: number;
+    hora_retiro?: number;
     observacion?: string;
     reparacion_id?: string;
     reparacionRef?: firebase.firestore.DocumentReference;
@@ -116,6 +118,7 @@ export class HoraDisponible {
     id?: string;
     empresa?; string;
     horas_trabajo?: string;
+    horarios_retiro?: string;
 }
 
 export class CategoriaReparacion {
