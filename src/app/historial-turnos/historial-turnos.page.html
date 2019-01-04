@@ -40,9 +40,9 @@
 </ion-item-divider>
   <ion-card-content>
         <ion-label>         
-          <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p>
-          <p class="letra" style="font-size: 13px;">{{(turno.reparacionRef | doc | async)?.accion}} <b></b>
-            </p>
+          <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p> 
+          <p *ngIf="turno.estado_reparacion_id != 'Confirmado' && turno.estado_reparacion_id != 'Recepcionado'" style="color: red"><b>Retira: {{turno.fecha_retiro | date: 'dd/MM/yyyy'}} - {{turno.hora_retiro}}</b></p>
+          <p class="letra" style="font-size: 13px;">{{(turno.reparacionRef | doc | async)?.accion}} <b></b></p>
           <div class="line-separator"></div>
           <br>
           <p class="letra" style="font-size: 12px;">Valor EFT ${{turno.valor_efectivo}}</p>
