@@ -2,7 +2,7 @@ import { Turno } from './../../../Model/models';
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
 import { Observable } from 'rxjs';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, ToastController } from '@ionic/angular';
 import { DocPipe } from '../../doc.pipe';
 import { Router } from '@angular/router';
 import { PrecioReparacion } from '../../../Model/models';
@@ -33,7 +33,7 @@ export class ModalHorariosComponent implements OnInit {
   turnoID: string;
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
-    private router: Router, private modalCtrl: ModalController) { }
+    private router: Router, private modalCtrl: ModalController, public toastController: ToastController) { }
 
   ngOnInit() {
       this.reparacionID = this.navParams.get('idReparacion');
@@ -88,13 +88,10 @@ export class ModalHorariosComponent implements OnInit {
   }
 
   confirmaReserva(hora) {
-    let _turnoRetira = new Turno();
-     this.fb.doc$('TURNO/' + this.turnoID).subscribe((data: Turno) => {
-        _turnoRetira = data;
-        _turnoRetira.fecha_retiro = this.fecha;
-        _turnoRetira.hora_retiro = hora;
-        this.fb.update('TURNO', _turnoRetira);
-     });
+        this.fb.update('TURNO/' + this.turnoID, {'fecha_retiro' : this.fecha, 'hora_retiro' : hora});
+        this.retiroConfirmado();
+        this.router.navigateByUrl('/historial-turnos/');
+        this.close();
   }
 
   confirmaTurno(hora) {
@@ -104,6 +101,14 @@ export class ModalHorariosComponent implements OnInit {
     this.fecha + '/' + hora;
     this.router.navigateByUrl(url);
     this.close();
+  }
+
+  async retiroConfirmado() {
+    const toast = await this.toastController.create({
+      message: 'Se genero correctamente el retiro',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

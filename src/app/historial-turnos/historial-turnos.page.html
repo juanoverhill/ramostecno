@@ -41,7 +41,7 @@
   <ion-card-content>
         <ion-label>         
           <p style="font-size: 14px;"><b>{{(turno.equipoRef | doc | async)?.descripcion}} {{turno.color}}</b></p> 
-          <p *ngIf="turno.estado_reparacion_id != 'Confirmado' && turno.estado_reparacion_id != 'Recepcionado'" style="color: red"><b>Retira: {{turno.fecha_retiro | date: 'dd/MM/yyyy'}} - {{turno.hora_retiro}}</b></p>
+          <p *ngIf="turno.estado_reparacion_id != 'Confirmado' && turno.estado_reparacion_id != 'Recepcionado'" style="color: red"><b>Retira: {{turno.fecha_retiro | date: 'dd/MM/yyyy'}} - {{turno.hora_retiro | number :'2.2'}}</b></p>
           <p class="letra" style="font-size: 13px;">{{(turno.reparacionRef | doc | async)?.accion}} <b></b></p>
           <div class="line-separator"></div>
           <br>
@@ -70,7 +70,7 @@
                   <ion-icon name="images"></ion-icon>
                   </ion-button> 
                   
-                  <ion-button *ngIf="turno.estado_reparacion_id == 'Reparado'" color="danger" icon-only size="small" mat-raised-button matTooltip="Retirar equipo" (click)="retirarEquipo(turno.id)">
+                  <ion-button *ngIf="turno.estado_reparacion_id == 'Reparado' && turno.hora_retiro == undefined" color="danger" icon-only size="small" mat-raised-button matTooltip="Retirar equipo" (click)="retirarEquipo(turno.id)">
                     <ion-icon name="swap"></ion-icon>
                   </ion-button>
       
