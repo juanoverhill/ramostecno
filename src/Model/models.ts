@@ -150,6 +150,7 @@ export class ChatRoom {
     sender_id?: string;
     nombreUsuario?: string;
     email?: string;
+    createdAt?: firebase.firestore.Timestamp;
 }
 
 export class ListaChat {

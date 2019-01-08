@@ -109,11 +109,18 @@
 //   white-space: pre-line;
 // }
 
+$URL: url("/../../../../../assets/img/back.jpg");
+
+@mixin background($position:0 0, $repeat: no-repeat) {
+  background: {
+    image: $URL;
+    position: $position;
+    repeat: $repeat;
+  }
+}
+
 ion-content {
-  background: url("assets/img/back.svg");
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
+  @include background();
 }
 
 .line-separator {

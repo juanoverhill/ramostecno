@@ -1,7 +1,7 @@
 import { ChatRoom } from './../../../Model/models';
-import { Component, OnInit, ViewChild, SimpleChanges, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, forwardRef} from '@angular/core';
 import { FirestoreService } from '../../../services/f-base.service';
-import { NavParams, ModalController, Content } from '@ionic/angular';
+import { NavParams, ModalController, IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -14,7 +14,7 @@ import { SendMailService } from '../../../services/send-mail.service';
 })
 export class ChatRoomComponent implements OnInit {
 
-  @ViewChild(Content) contentArea: Content;
+  @ViewChild(forwardRef(() => IonContent)) contentArea: IonContent;
 
   messages: Observable<ChatRoom[]>;
   usuario;
@@ -24,7 +24,7 @@ export class ChatRoomComponent implements OnInit {
   emailUsuario;
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
-    private router: Router, private modalCtrl: ModalController, private auth: AuthService, private mail: SendMailService) {
+    private router: Router, private modalCtrl: ModalController, private mail: SendMailService) {
      }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class ChatRoomComponent implements OnInit {
     this.messages.subscribe((mesgs: ChatRoom[]) => {
       setTimeout(() => {
         this.contentArea.scrollToBottom();
-      }, 150);
+      }, 300);
       // Marco como leidos los mensajes
       mesgs.forEach(msg => {
         if (msg.leido === false) {
