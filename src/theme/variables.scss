@@ -1,6 +1,7 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -109,19 +110,6 @@
 //   white-space: pre-line;
 // }
 
-$URL: url("/../../../../../assets/img/back.jpg");
-
-@mixin background($position:0 0, $repeat: no-repeat) {
-  background: {
-    image: $URL;
-    position: $position;
-    repeat: $repeat;
-  }
-}
-
-ion-content {
-  @include background();
-}
 
 .line-separator {
   height: 1px;
