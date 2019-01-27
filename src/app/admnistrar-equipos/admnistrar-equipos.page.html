@@ -12,11 +12,11 @@
             </mat-select>
           </mat-form-field>
           <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="alertEditarMarca(mar.value, mar.selected?.viewValue)">
-            <ion-icon name="create"></ion-icon>
+            <ion-icon name="color-wand"></ion-icon>
           </ion-button>
           <ion-button slot="end" icon-only color="secondary" size="small" mat-raised-button matTooltip="Agregar"
             (click)="alertNuevaMarca()">
-            <ion-icon name="add"></ion-icon>
+            <ion-icon name="checkmark"></ion-icon>
           </ion-button>
           <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Eliminar" (click)="alertEliminaMarca(mar.value)">
             <ion-icon name="close"></ion-icon>
@@ -40,7 +40,7 @@
 
             <ion-button slot="end" icon-only color="primary" size="small" mat-raised-button matTooltip="Editar" (click)="popUpEquipo(equipo.id, equipo.marca_id)"
               [hidden]="equipo.estado === 'INACTIVO'">
-              <ion-icon name="create"></ion-icon>
+              <ion-icon name="color-wand"></ion-icon>
             </ion-button>
 
             <ion-button slot="end" icon-only color="danger" size="small" mat-raised-button matTooltip="Desactivar"
