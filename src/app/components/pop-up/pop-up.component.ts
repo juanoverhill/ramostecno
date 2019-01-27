@@ -7,6 +7,8 @@ import { DocPipe } from '../../doc.pipe';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { SelectorMarcaComponent } from '../selector-marca/selector-marca.component';
 
 @Component({
   selector: 'app-pop-up',
@@ -30,11 +32,13 @@ export class PopUpComponent implements OnInit {
   colores_disponibles: Observable<Colores[]>;
   reparaciones_disponibles: Observable<Reparacion[]>;
   imagenEquipo: string;
+  reparacionSeleccionada: Reparacion;
+  textoBoton = 'Seleccione una reparacion';
 
 
   constructor(private fb: FirestoreService, public navParams: NavParams,
     private router: Router, private modalCtrl: ModalController, private storage: AngularFireStorage,
-    public alertController: AlertController) { }
+    public alertController: AlertController, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.idEquipo = this.navParams.get('idEquipo');
@@ -176,7 +180,7 @@ export class PopUpComponent implements OnInit {
     await alert.present();
   }
 
-  async alertAddReparacion(reparacionID, categoriaID) {
+  async alertAddReparacion(reparacionID) {
     const alert = await this.alertController.create({
       header: 'Agregar Reparacion',
       inputs: [
@@ -223,6 +227,19 @@ export class PopUpComponent implements OnInit {
 
   deleteReparacion(PrecioreparacionID) {
     this.fb.delete('PRECIO_REPARACION/' + PrecioreparacionID);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SelectorMarcaComponent, {
+      width: '500px',
+      data: { reparacionID: this.reparacionSeleccionada }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.reparacionSeleccionada = result;
+      this.textoBoton = this.reparacionSeleccionada.descripcion + ' (' + this.reparacionSeleccionada.accion + ')';
+      this.alertAddReparacion(this.reparacionSeleccionada.id);
+    });
   }
 
 }
