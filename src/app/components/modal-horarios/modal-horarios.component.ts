@@ -109,6 +109,7 @@ export class ModalHorariosComponent implements OnInit {
       duration: 2000
     });
     toast.present();
+    this.router.navigateByUrl('/historial-turnos/');
   }
 
 }

@@ -34,18 +34,23 @@ export class LoguearPage implements OnInit {
   }
 
   getPerfilUsuario(usuario) {
-    Cookies.set('usuario_id', window.btoa(usuario.uid), { sameSite: 'strict' });
-    Cookies.set('nombreUsuario', window.btoa(usuario.displayName), { sameSite: 'strict' });
-    Cookies.set('usuarioMail', window.btoa(usuario.email), { sameSite: 'strict' });
+    localStorage.setItem('usuario_id', window.btoa(usuario.uid));
+    localStorage.setItem('nombreUsuario', window.btoa(usuario.displayName));
+    localStorage.setItem('usuarioMail', window.btoa(usuario.email));
+
+  // Cookies.set('usuario_id', window.btoa(usuario.uid), { sameSite: 'strict' });
+  // Cookies.set('nombreUsuario', window.btoa(usuario.displayName), { sameSite: 'strict' });
+  //  Cookies.set('usuarioMail', window.btoa(usuario.email), { sameSite: 'strict' });
+
     this.fb.colWithIds$('USUARIO', ref => ref.where('usuario_id', '==', usuario.uid)).subscribe(
       data => {
         if (data.length > 0) {
-          Cookies.set('autenticado', window.btoa('true'), { sameSite: 'strict' });
-          Cookies.set('permiso', window.btoa('true'), { sameSite: 'strict' });
+          localStorage.setItem('autenticado', window.btoa('true'));
+          localStorage.setItem('permiso', window.btoa('true'));
           this.ingresoOK();
         } else {
-          Cookies.set('permiso', window.btoa('false'), { sameSite: 'strict' });
-          Cookies.set('autenticado', window.btoa('true'), { sameSite: 'strict' });
+          localStorage.setItem('autenticado', window.btoa('true'));
+          localStorage.setItem('permiso', window.btoa('false'));
           this.ingresoOK();
         }
       }

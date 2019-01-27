@@ -24,7 +24,7 @@
     <ion-card-content>
             <ion-spinner name="lines" [hidden]="_cargoOK"></ion-spinner>
             <ion-list class="animated bounceInRight">
-                <ion-item text-wrap *ngFor="let categoria of _categorias | async" lines="inset" (click)="cargarOpciones(categoria.id)" [href]="'/'">
+                <ion-item text-wrap *ngFor="let categoria of _categorias | async" lines="inset" (click)="cargarOpciones(categoria.id)">
                     <ion-label class="texto">
                         <p style="font-size: medium">{{categoria.descripcion}}</p>   
                     </ion-label>
@@ -38,7 +38,7 @@
             </div>
             <br>
             <ion-list class="animated bounceInRight" [hidden]="_categoriaSeleccionada == false">
-                <ion-item text-wrap *ngFor="let reparacion of _reparaciones | async" lines="inset" (click)="cargarDatosReparacion(reparacion.id)" [href]="'/'">
+                <ion-item text-wrap *ngFor="let reparacion of _reparaciones | async" lines="inset" (click)="cargarDatosReparacion(reparacion.id)">
                     <ion-label class="texto">
                         <p style="font-size: medium">{{(reparacion.reparacionRef | doc | async)?.descripcion}}</p>
                     </ion-label>

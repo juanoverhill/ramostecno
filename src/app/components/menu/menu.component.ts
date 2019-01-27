@@ -39,14 +39,14 @@ export class MenuComponent implements OnInit {
     }
 
   ngOnInit() {
-    if (window.atob(Cookies.get('usuario_id')) === undefined) {
+    if (window.atob(localStorage.getItem('usuario_id')) === undefined) {
       this.logOut();
     } else {
-      this.usuario_id = window.atob(Cookies.get('usuario_id'));
-      this.nombre_usuario = window.atob(Cookies.get('nombreUsuario'));
-      this.usuarioMail = window.atob(Cookies.get('usuarioMail'));
-      this.autenticado = Boolean(window.atob(Cookies.get('autenticado')));
-      if (window.atob(Cookies.get('permiso')) === 'false') {
+      this.usuario_id = window.atob(localStorage.getItem('usuario_id'));
+      this.nombre_usuario = window.atob(localStorage.getItem('nombreUsuario'));
+      this.usuarioMail = window.atob(localStorage.getItem('usuarioMail'));
+      this.autenticado = Boolean(window.atob(localStorage.getItem('autenticado')));
+      if (window.atob(localStorage.getItem('permiso')) === 'false') {
         this.permisos = false;
         this.getMensajesPendientesUsr();
       } else {
